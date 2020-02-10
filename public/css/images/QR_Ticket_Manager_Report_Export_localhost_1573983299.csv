@@ -1,0 +1,3 @@
+<br />
+<b>Notice</b>:  Undefined index: ticket_id in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>98</b><br />
+﻿"Order ID","QR codes","Ticket Type","Billing Name","Billing Email","Billing Address","Billing Phone","Purchase Date","Total Amount Purchase","Order Status"

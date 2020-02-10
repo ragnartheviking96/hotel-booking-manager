@@ -1,0 +1,3 @@
+<br />
+<b>Notice</b>:  Undefined index: ticket_id in <b>C:\xampp\htdocs\wordpress\wp-content\plugins\woocommerce-ticket-manager\admin\class\class-export-report.php</b> on line <b>99</b><br />
+﻿"Order ID","QR codes","Ticket Name","Ticket Type","Billing Name","Billing Email","Billing Address","Billing Phone","Purchase Date","Total Amount Purchase","Order Status"

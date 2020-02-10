@@ -1,0 +1,9 @@
+﻿<br />
+<b>Notice</b>:  Undefined variable: header_row in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>286</b><br />
+<br />
+<b>Warning</b>:  fputcsv() expects parameter 2 to be array, null given in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>286</b><br />
+95,"#95-Jessore Hotel",azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 14, 2019",,processing
+90,"#90-Jessore Hotel",azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 14, 2019",,completed
+76,#76-DhakaWestin,azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 13, 2019",,completed
+72,#72-DhakaWestin,azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 13, 2019",,completed
+67,#67-DhakaWestin,azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 13, 2019",,completed

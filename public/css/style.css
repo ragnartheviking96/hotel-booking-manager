@@ -1,0 +1,513 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+.hotel-container {
+    background: #fff !important;
+    overflow: hidden;
+    padding: 0 50px;
+    display: block;
+}
+
+.hotel-name {
+    margin: 0;
+    padding: 0;
+}
+
+.hotel-name h1 {
+
+}
+
+.room-list {
+    margin-left: -10px;
+    padding-top: 10px;
+}
+
+.hotel-description {
+    padding-top: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+.room-details {
+    border: 1px solid #cecece;
+    padding: 10px;
+    margin: 10px;
+}
+
+.room-details p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.room-details h5 {
+
+}
+
+.pricing_table {
+
+}
+
+.pricing-table-main {
+    border: 1px solid #f29911;
+}
+
+.room-capacity-value {
+    width: 150px;
+}
+
+.room-capacity-value span {
+    padding-right: 3px;
+}
+
+.room-capacity-value i {
+    padding-right: 1px;
+    padding-top: 5px;
+}
+
+.room-price-value {
+    width: 150px;
+    text-align: center;
+}
+
+.room-quantity-value {
+    width: 150px;
+    text-align: center;
+}
+
+.room-quantity-value p input {
+    width: 120px;
+}
+
+.room-data {
+    border: 1px solid #f29911;;
+    /*height: 80px;*/
+    padding-top: 10px;
+}
+
+.room-data div {
+    float: left;
+}
+
+.room-value {
+    width: 480px;
+    height: 100%;
+}
+
+.room-list-header {
+    padding-left: 130px;
+    display: inline-block;
+}
+
+.room-list-header div {
+    float: left;
+    margin: 0 -60px 0 50px !important;
+    padding-left: 80px;
+}
+
+.room-image-gallery {
+    display: inline-block;
+    width: 260px;
+    margin: -2px 2px 0px -2px;
+    padding-right: 1px;
+    /*width: unset !important;*/
+}
+
+.room_image_single img {
+    margin: 2px;
+}
+
+.accordion_details {
+
+}
+
+#accordion_details h4 {
+    background-color: lightgreen;
+    color: white;
+    font-weight: bold;
+}
+
+.hotel-rules h3 {
+    border-bottom: 1px solid #0f0f0f;
+    padding-top: 3px;
+    line-height: 30px;
+}
+
+.hotel-rules p {
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+.extra-facilities {
+
+}
+
+.extra-facilities h3 {
+    border-bottom: 1px solid #0f0f0f;
+}
+
+.extra-facilities span {
+    padding-right: 10px;
+}
+
+.facilities {
+    padding-left: 160px;
+}
+.hotel-location{
+    padding-left: 160px;
+}
+.service-icon {
+    padding-right: 6px;
+}
+
+.container-left {
+    float: left;
+    width: 800px;
+}
+
+.container-right {
+    float: right;
+    margin-top: -1140px;
+}
+
+.feature-icon {
+    padding-left: 10px;
+}
+
+.facilities p {
+    margin: 0 0 3px;
+    font-size: 14px;
+}
+
+.facilities span {
+    font-size: 15px;
+}
+.hotel-type{
+    padding-left: 160px;
+}
+.hotel-type p {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.booking-details-section {
+    margin-top: 20px;
+    padding-left: 159px;
+}
+
+.booking-details-section h5 {
+    margin-bottom: 10px;
+}
+
+.booking-details-section .total-room {
+    display: block;
+    padding: 5px;
+}
+
+.booking-details-section span input {
+    width: 140px;
+}
+
+.booking-details-section button {
+    display: block;
+    margin-left: 80px;
+    margin-top: 10px;
+    padding: 10px 17px;
+    background-color: #03c4eb;
+    border: none;
+    color: white;
+    border-radius: 2px;
+    font-size: 14px;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+}
+
+.booking-details-section button:hover {
+    opacity: 0.8;
+    background: #03c4eb;
+    border: none;
+}
+
+#booked-room {
+    width: 290px;
+}
+
+.total-text {
+    display: inline-block;
+    padding: 5px;
+}
+
+#total_price {
+    display: inline-block;
+}
+
+.substrate {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.substrate-bg {
+    background: rgba(0, 0, 0, .9);
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.hotel-list {
+    width: 770px;
+}
+
+#hotel-title {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.single-hotel {
+    margin: 5px 5px 15px 5px;
+    text-decoration: none;
+    height: 230px;
+    border: 1px solid #c6c6c6;
+    padding: 9px;
+    width: 800px;
+}
+
+.single-hotel:hover {
+    background: #e9f0fa;;
+}
+
+.info-list {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-left: -90px !important;
+    display: inline-block;
+}
+
+.single-hotel img {
+    height: 180px;
+    width: 220px;
+}
+
+.hotel-info {
+    float: right;
+    width: 60%;
+    margin-left: 45px;
+    margin-top: -5px;
+}
+
+.hotel-q-type {
+    display: inline-block;
+}
+
+.hotel-address {
+    display: inline-block;
+    float: left;
+    width: 190px;
+}
+
+.hotel-facilities-list {
+    display: inline-block;
+}
+
+.hotel-facilities-list ul {
+    list-style: none;
+}
+
+.hotel-facilities-list ul li {
+
+}
+
+.whbm-hotel-search-form-sec {
+    margin-left: 166px !important;
+    margin-bottom: 50px !important;
+    width: 880px !important;
+}
+
+.whbm-search-section {
+    color: #383838;
+    display: table;
+    background-color: #ddd;
+    border-radius: 4px;
+    margin: -30px 16px 20px;
+}
+
+.input-field {
+    float: left;
+    padding: 5px;
+}
+
+.search-fields {
+    list-style: none;
+}
+
+.search-fields li {
+    float: right;
+}
+
+.submit-search {
+
+}
+
+.search-now {
+    margin-top: -0.5px !important;
+}
+
+.date-ranger {
+}
+
+.date-ranger .dest-search {
+    width: 230px;
+}
+
+.submit-search label {
+    margin-left: 5px;
+}
+
+#qty-section {
+    width: 200px;
+    height: 35px;
+}
+
+#qty-section span {
+    width: 100px;
+}
+
+.adult-section {
+    display: inline-block;
+    width: 80px;
+}
+
+.child-section {
+    display: inline-block;
+    width: 80px;
+}
+
+.child-adult-qty {
+    border: 1px solid;
+    margin-top: 5px;
+    height: 42px;
+    width: 230px;
+}
+
+.adult-child-input {
+    margin-top: 5px;
+    /* margin: 0; */
+    padding: 0;
+    margin-left: -6px;
+}
+
+.adult-child-input input {
+    width: 103px;
+}
+
+.search-hotel {
+    background-color: #0693cd;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    /*line-height: 1.4;*/
+    padding: 8px;
+    width: 150px;
+    margin-top: 4px;
+}
+
+.check-in-out-date {
+    margin: 25px;
+    margin-left: 260px !important;
+}
+
+.single-room {
+    width: 300px;
+    background-color: #e3e3e3;
+}
+
+.person-cap {
+    display: inline;
+}
+
+.room-value-single{
+    text-align: center;
+    width: unset !important;
+    padding-left: 130px;
+}
+
+.room-capacity-value-single p {
+    display: inline;
+}
+.single-price{
+    font-weight: bold;
+}
+#daterange{
+
+}
+.date-picker-wrapper .month-wrapper{
+    width: 430px !important;
+}
+.date-picker-wrapper .month-wrapper table .day.real-today {
+    background-color: unset;
+}
+#user-data input{
+    /*display: inline-block;*/
+}
+.date-picker-wrapper .drp_top-bar.normal .normal-top ,span, b{
+    color: white !important;
+}
+.date-picker-wrapper {
+    background-color: #0fa958;;
+}
+.default-top, .error-top {
+    color: white;
+}
+.search-form-shortcode #dest-name{
+    transition: unset;
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+    color: #777;
+    padding-left: 20px;
+    font-size: 14px;
+    height: 60px;
+    padding-right: 0;
+    border: none;
+    position: relative;
+}
+.whbm_search_form{
+    padding-top: unset;
+}
+.whbm_search_form_heading h1 {
+    background: linear-gradient(125deg, #00FF57 0%, #010033 40%, #460043 70%, #F0FFC5 100%), linear-gradient(55deg, #0014C9 0%, #410060 100%), linear-gradient(300deg, #FFC700 0%, #001AFF 100%), radial-gradient(135% 215% at 115% 40%, #393939 0%, #393939 40%, #849561 calc(40% + 1px), #849561 60%, #EED690 calc(60% + 1px), #EED690 80%, #ECEFD8 calc(80% + 1px), #ECEFD8 100%), linear-gradient(125deg, #282D4F 0%, #282D4F 40%, #23103A calc(40% + 1px), #23103A 70%, #A0204C calc(70% + 1px), #A0204C 88%, #FF6C00 calc(88% + 1px), #FF6C00 100%);
+    background-blend-mode: overlay, screen, overlay, overlay, normal;
+}
+input[type="number"] {
+    width: 50px;
+    margin: 0 auto;
+    display: block;
+}
+.whbmt-room-title{
+    width: 192%;
+}
+.whbmt_room_order_add_to_cart{
+    float: right;
+}
+.whbmt_room_order_add_to_cart span{
+    color: unset!important;
+}
+
+/*
+loader css file
+*/
+

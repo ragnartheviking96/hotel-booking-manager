@@ -1,0 +1,1022 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Hotel Booking Manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-26 06:20+0000\n"
+"PO-Revision-Date: 2019-09-26 06:20+0000\n"
+"Last-Translator: admin <ove.saiful@gmail.com>\n"
+"Language-Team: \n"
+"Language: bn_BD\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.0; wp-5.2.3"
+
+#: admin/class/class-menu-page.php:821 admin/class/class-setting-page.php:480
+msgid "<i class=\"far fa-bell\"></i> Nav Title 3"
+msgstr ""
+
+#: admin/class/class-menu-page.php:15 admin/class/class-setting-page.php:18
+#: admin/class/class-whbm-meta-box.php:39
+#: admin/class/class-whbm-meta-box.php:204
+msgid "<i class=\"far fa-dot-circle\"></i> Nav Title 1"
+msgstr ""
+
+#: admin/class/class-menu-page.php:461 admin/class/class-setting-page.php:190
+msgid "<i class=\"fas fa-align-center\"></i>"
+msgstr ""
+
+#: admin/class/class-menu-page.php:460 admin/class/class-setting-page.php:189
+msgid "<i class=\"fas fa-align-left\"></i>"
+msgstr ""
+
+#: admin/class/class-menu-page.php:462 admin/class/class-setting-page.php:191
+msgid "<i class=\"fas fa-align-right\"></i>"
+msgstr ""
+
+#: admin/class/class-menu-page.php:944 admin/class/class-setting-page.php:587
+msgid "<i class=\"fas fa-bomb\"></i> Nav Title 4"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1163 admin/class/class-setting-page.php:806
+msgid "<i class=\"fas fa-bomb\"></i> Tools"
+msgstr ""
+
+#: admin/class/class-menu-page.php:681 admin/class/class-setting-page.php:340
+msgid "<i class=\"fas fa-cog\"></i> Nav Title 2"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:20 admin/class/class-create-cpt.php:39
+msgid "Add New"
+msgstr ""
+
+#: admin/class/class-create-tax.php:12 admin/class/class-create-tax.php:13
+msgid "Add New Features"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:17 admin/class/class-create-cpt.php:18
+msgid "Add New Hotel"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:36 admin/class/class-create-cpt.php:37
+msgid "Add New Room And Pricing"
+msgstr ""
+
+#: admin/class/class-create-tax.php:30 admin/class/class-create-tax.php:31
+msgid "Add New Type"
+msgstr ""
+
+#: admin/class/class-menu-page.php:981 admin/class/class-setting-page.php:624
+#: admin/class/class-whbm-meta-box.php:72
+msgid "API key"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1054 admin/class/class-menu-page.php:1083
+#: admin/class/class-setting-page.php:697
+#: admin/class/class-setting-page.php:726
+msgid "Bottom"
+msgstr ""
+
+#: admin/class/class-menu-page.php:333 admin/class/class-setting-page.php:96
+msgid "Checkbox  Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:317 admin/class/class-setting-page.php:80
+msgid "Checkbox Multi Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:835 admin/class/class-setting-page.php:512
+msgid "Color palette Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:847 admin/class/class-setting-page.php:524
+msgid "Color palette multi Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:606 admin/class/class-setting-page.php:279
+msgid "Color picker field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:861 admin/class/class-setting-page.php:492
+msgid "Color sets Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:999 admin/class/class-setting-page.php:642
+msgid "Comment Count"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1175 admin/class/class-setting-page.php:818
+msgid "Create Menu"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1291 admin/class/class-menu-page.php:1292
+#: admin/class/class-menu-page.php:1293 admin/class/class-menu-page.php:1294
+msgid "Custom Settings"
+msgstr ""
+
+#: admin/class/class-menu-page.php:575 admin/class/class-setting-page.php:259
+msgid "Date format Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:585
+msgid "Date format Field 2"
+msgstr ""
+
+#: admin/class/class-menu-page.php:595 admin/class/class-setting-page.php:268
+msgid "Date picker field"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:268
+msgid "DateWise Price"
+msgstr ""
+
+#: admin/class/class-menu-page.php:310 admin/class/class-setting-page.php:73
+#: admin/class/class-whbm-meta-box.php:123
+msgid "Default Text Value"
+msgstr ""
+
+#: admin/class/class-menu-page.php:334 admin/class/class-setting-page.php:97
+msgid "Description of checkbox field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:318 admin/class/class-setting-page.php:81
+msgid "Description of checkbox multi field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:836 admin/class/class-setting-page.php:513
+msgid "Description of color palette field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:848 admin/class/class-setting-page.php:525
+msgid "Description of color palette multi field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:862 admin/class/class-setting-page.php:493
+msgid "Description of color sets field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:607 admin/class/class-setting-page.php:280
+msgid "Description of colorpicker field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:576 admin/class/class-menu-page.php:586
+#: admin/class/class-setting-page.php:260
+msgid "Description of date format field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:596 admin/class/class-setting-page.php:269
+msgid "Description of date picker field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1008 admin/class/class-setting-page.php:651
+msgid "Description of dimensions field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1128 admin/class/class-setting-page.php:771
+msgid "Description of faq field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:957 admin/class/class-setting-page.php:600
+msgid "Description of google map field"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:49
+msgid "Description of google map for hotel"
+msgstr ""
+
+#: admin/class/class-menu-page.php:634 admin/class/class-menu-page.php:644
+#: admin/class/class-setting-page.php:305 admin/class/class-tax-meta.php:20
+msgid "Description of icon field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:882
+msgid "Description of image link field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:627 admin/class/class-setting-page.php:298
+msgid "Description of Link Color field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1033 admin/class/class-setting-page.php:676
+msgid "Description of margin field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:732 admin/class/class-setting-page.php:391
+msgid "Description of menu select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:617 admin/class/class-setting-page.php:290
+msgid "Description of multi colorpicker field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:653 admin/class/class-setting-page.php:313
+msgid "Description of multi icon field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:47 admin/class/class-menu-page.php:88
+#: admin/class/class-menu-page.php:118 admin/class/class-menu-page.php:160
+#: admin/class/class-menu-page.php:199 admin/class/class-menu-page.php:231
+#: admin/class/class-menu-page.php:297 admin/class/class-menu-page.php:704
+#: admin/class/class-setting-page.php:31 admin/class/class-setting-page.php:60
+#: admin/class/class-setting-page.php:363
+msgid "Description of multi text field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:28
+msgid "Description of Option group  field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:66
+msgid "Description of Option group accordion field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:138
+msgid "Description of Option group tabs field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1062 admin/class/class-setting-page.php:705
+msgid "Description of padding field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:748 admin/class/class-setting-page.php:407
+msgid "Description of page ids field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:547 admin/class/class-setting-page.php:242
+msgid "Description of password"
+msgstr ""
+
+#: admin/class/class-menu-page.php:756 admin/class/class-setting-page.php:415
+msgid "Description of post ids field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:987 admin/class/class-setting-page.php:630
+msgid "Description of Post Objects field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:764 admin/class/class-setting-page.php:423
+msgid "Description of Post types select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:348 admin/class/class-setting-page.php:111
+msgid "Description of radio field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:395 admin/class/class-menu-page.php:404
+#: admin/class/class-menu-page.php:414 admin/class/class-setting-page.php:154
+#: admin/class/class-setting-page.php:163
+msgid "Description of Range field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:363 admin/class/class-menu-page.php:378
+#: admin/class/class-setting-page.php:126
+#: admin/class/class-setting-page.php:140
+msgid "Description of select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1114 admin/class/class-setting-page.php:757
+msgid "Description of select2 multiple field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1100 admin/class/class-setting-page.php:743
+msgid "Description of select2 single field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:788 admin/class/class-setting-page.php:447
+msgid "Description of select2 user field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:724 admin/class/class-setting-page.php:383
+msgid "Description of sidebars select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:468 admin/class/class-setting-page.php:197
+msgid "Description of switch field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:456 admin/class/class-setting-page.php:185
+msgid "Description of switch icon field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:515 admin/class/class-menu-page.php:530
+#: admin/class/class-setting-page.php:227
+msgid "Description of switch image field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:483 admin/class/class-menu-page.php:498
+#: admin/class/class-setting-page.php:212
+msgid "Description of switch multi field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:425 admin/class/class-menu-page.php:439
+#: admin/class/class-setting-page.php:172
+msgid "Description of switcher field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:780 admin/class/class-setting-page.php:439
+msgid "Description of terms select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:37 admin/class/class-menu-page.php:78
+#: admin/class/class-menu-page.php:108 admin/class/class-menu-page.php:150
+#: admin/class/class-menu-page.php:180 admin/class/class-menu-page.php:189
+#: admin/class/class-menu-page.php:222
+msgid "Description of text field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:308 admin/class/class-setting-page.php:71
+msgid "Description of textarea field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:772 admin/class/class-setting-page.php:431
+msgid "Description of thumb size select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:557 admin/class/class-menu-page.php:565
+#: admin/class/class-setting-page.php:252
+msgid "Description of time format field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:797 admin/class/class-setting-page.php:456
+msgid "Description of user field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:740 admin/class/class-setting-page.php:399
+msgid "Description of user roles select field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1091 admin/class/class-setting-page.php:734
+msgid ""
+"Description of wp_editor field, please see detail here https://codex."
+"wordpress.org/Function_Reference/wp_editor"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1007 admin/class/class-setting-page.php:650
+msgid "Dimensions Field"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:19
+msgid "Edit Hotel"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:38
+msgid "Edit Room And Pricing"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:129
+msgid "Extra Features"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:130
+msgid ""
+"Extra features like Morning breakfast + tour guide + whole day car service + "
+"security service"
+msgstr ""
+
+#: public/templates/single-hotel.php:51
+msgid "Extra Service"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1127 admin/class/class-setting-page.php:770
+msgid "FAQ field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:895 admin/class/class-setting-page.php:538
+msgid "Field media description"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:337
+msgid "Friday"
+msgstr ""
+
+#: admin/class/class-menu-page.php:956 admin/class/class-setting-page.php:599
+msgid "Google Map Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1025 admin/class/class-setting-page.php:668
+msgid "Height"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:15 admin/class/class-create-cpt.php:16
+msgid "Hotel"
+msgstr ""
+
+#: public/templates/single-hotel.php:284
+msgid "Hotel Facilities"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:48
+msgid "Hotel Google Map"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:113
+msgid "Hotel Images"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:43
+#: admin/class/class-whbm-meta-box.php:158
+msgid "Hotel Information"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:354
+#: admin/class/class-whbm-meta-box.php:360
+msgid "Hotel List"
+msgstr ""
+
+#: public/templates/single-hotel.php:311
+msgid "Hotel Location"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:34
+msgid "Hotel Room And Prcing"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:208
+#: admin/class/class-whbm-meta-box.php:387
+msgid "Hotel Room And Pricing Details"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:375
+msgid "Hotel Room Image Gallery"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:120
+msgid "Hotel Rules"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:121
+#: public/templates/single-hotel.php:271
+msgid "Hotel Rules And Regulation"
+msgstr ""
+
+#: public/templates/single-hotel.php:305
+msgid "Hotel Type"
+msgstr ""
+
+#: admin/class/class-menu-page.php:633 admin/class/class-setting-page.php:304
+msgid "Icon Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:643
+msgid "Icon Field 2"
+msgstr ""
+
+#: admin/class/class-menu-page.php:652 admin/class/class-setting-page.php:312
+msgid "Icon multi Field"
+msgstr ""
+
+#: admin/class/class-tax-meta.php:19
+msgid "Icon Of Features Services"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:370
+msgid "Image Gallery Of Hotel Room"
+msgstr ""
+
+#: admin/class/class-menu-page.php:881
+msgid "Image link Field"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:114
+#: admin/class/class-whbm-meta-box.php:376
+msgid "Images of hotel"
+msgstr ""
+
+#: admin/class/class-menu-page.php:977 admin/class/class-setting-page.php:620
+#: admin/class/class-whbm-meta-box.php:68
+msgid "Latitude"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1055 admin/class/class-menu-page.php:1084
+#: admin/class/class-setting-page.php:698
+#: admin/class/class-setting-page.php:727
+msgid "Left"
+msgstr ""
+
+#: admin/class/class-menu-page.php:626 admin/class/class-setting-page.php:297
+msgid "Link Color picker field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:978 admin/class/class-setting-page.php:621
+#: admin/class/class-whbm-meta-box.php:69
+msgid "Longitude"
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "mage-people.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "magePeople team"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1032 admin/class/class-setting-page.php:675
+msgid "Margin Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:894 admin/class/class-setting-page.php:537
+msgid "Media "
+msgstr ""
+
+#: admin/class/class-menu-page.php:901 admin/class/class-setting-page.php:544
+msgid "Media multi"
+msgstr ""
+
+#: admin/class/class-menu-page.php:902 admin/class/class-setting-page.php:545
+msgid "Media multi field description."
+msgstr ""
+
+#: admin/class/class-menu-page.php:1000 admin/class/class-setting-page.php:643
+msgid "Menu Order"
+msgstr ""
+
+#: admin/class/class-menu-page.php:731 admin/class/class-setting-page.php:390
+msgid "Menu select Field"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:305
+msgid "Monday"
+msgstr ""
+
+#: admin/class/class-menu-page.php:616 admin/class/class-setting-page.php:289
+msgid "Multi colorpicker Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:46 admin/class/class-menu-page.php:87
+#: admin/class/class-menu-page.php:117 admin/class/class-menu-page.php:159
+#: admin/class/class-menu-page.php:198 admin/class/class-menu-page.php:230
+#: admin/class/class-menu-page.php:296 admin/class/class-menu-page.php:703
+#: admin/class/class-setting-page.php:30 admin/class/class-setting-page.php:59
+#: admin/class/class-setting-page.php:362
+msgid "Multi Text Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:431 admin/class/class-menu-page.php:445
+#: admin/class/class-setting-page.php:178
+msgid "Off"
+msgstr ""
+
+#: admin/class/class-menu-page.php:430 admin/class/class-menu-page.php:444
+#: admin/class/class-setting-page.php:177
+msgid "On"
+msgstr ""
+
+#: admin/class/class-menu-page.php:323 admin/class/class-menu-page.php:339
+#: admin/class/class-menu-page.php:353 admin/class/class-menu-page.php:369
+#: admin/class/class-menu-page.php:385 admin/class/class-menu-page.php:474
+#: admin/class/class-menu-page.php:488 admin/class/class-menu-page.php:503
+#: admin/class/class-menu-page.php:1105 admin/class/class-menu-page.php:1119
+#: admin/class/class-setting-page.php:86 admin/class/class-setting-page.php:102
+#: admin/class/class-setting-page.php:116
+#: admin/class/class-setting-page.php:131
+#: admin/class/class-setting-page.php:146
+#: admin/class/class-setting-page.php:203
+#: admin/class/class-setting-page.php:217
+#: admin/class/class-setting-page.php:748
+#: admin/class/class-setting-page.php:762
+msgid "Option 1"
+msgstr ""
+
+#: admin/class/class-menu-page.php:324 admin/class/class-menu-page.php:354
+#: admin/class/class-menu-page.php:370 admin/class/class-menu-page.php:386
+#: admin/class/class-menu-page.php:475 admin/class/class-menu-page.php:489
+#: admin/class/class-menu-page.php:504 admin/class/class-menu-page.php:1106
+#: admin/class/class-menu-page.php:1120 admin/class/class-setting-page.php:87
+#: admin/class/class-setting-page.php:117
+#: admin/class/class-setting-page.php:132
+#: admin/class/class-setting-page.php:147
+#: admin/class/class-setting-page.php:204
+#: admin/class/class-setting-page.php:218
+#: admin/class/class-setting-page.php:749
+#: admin/class/class-setting-page.php:763
+msgid "Option 2"
+msgstr ""
+
+#: admin/class/class-menu-page.php:325 admin/class/class-menu-page.php:355
+#: admin/class/class-menu-page.php:371 admin/class/class-menu-page.php:387
+#: admin/class/class-menu-page.php:476 admin/class/class-menu-page.php:490
+#: admin/class/class-menu-page.php:505 admin/class/class-menu-page.php:1107
+#: admin/class/class-menu-page.php:1121 admin/class/class-setting-page.php:88
+#: admin/class/class-setting-page.php:118
+#: admin/class/class-setting-page.php:133
+#: admin/class/class-setting-page.php:148
+#: admin/class/class-setting-page.php:205
+#: admin/class/class-setting-page.php:219
+#: admin/class/class-setting-page.php:750
+#: admin/class/class-setting-page.php:764
+msgid "Option 3"
+msgstr ""
+
+#: admin/class/class-menu-page.php:326 admin/class/class-menu-page.php:356
+#: admin/class/class-menu-page.php:388 admin/class/class-menu-page.php:477
+#: admin/class/class-menu-page.php:491 admin/class/class-menu-page.php:506
+#: admin/class/class-menu-page.php:1108 admin/class/class-menu-page.php:1122
+#: admin/class/class-setting-page.php:89 admin/class/class-setting-page.php:119
+#: admin/class/class-setting-page.php:206
+#: admin/class/class-setting-page.php:220
+#: admin/class/class-setting-page.php:751
+#: admin/class/class-setting-page.php:765
+msgid "Option 4"
+msgstr ""
+
+#: admin/class/class-menu-page.php:389
+msgid "Option 5"
+msgstr ""
+
+#: admin/class/class-menu-page.php:27
+msgid "Option group"
+msgstr ""
+
+#: admin/class/class-menu-page.php:65
+msgid "Option group accordion"
+msgstr ""
+
+#: admin/class/class-menu-page.php:137
+msgid "Option group tabs"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1061 admin/class/class-setting-page.php:704
+msgid "Padding Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:747 admin/class/class-setting-page.php:406
+msgid "Page ids Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:546 admin/class/class-menu-page.php:552
+#: admin/class/class-setting-page.php:241
+#: admin/class/class-setting-page.php:247
+msgid "Password"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:226
+msgid "Person Number"
+msgstr ""
+
+#: admin/class/class-menu-page.php:997 admin/class/class-setting-page.php:640
+msgid "Post Author"
+msgstr ""
+
+#: admin/class/class-menu-page.php:995 admin/class/class-setting-page.php:638
+msgid "Post Content"
+msgstr ""
+
+#: admin/class/class-menu-page.php:998 admin/class/class-setting-page.php:641
+msgid "Post Date"
+msgstr ""
+
+#: admin/class/class-menu-page.php:996 admin/class/class-setting-page.php:639
+msgid "Post Excerpt"
+msgstr ""
+
+#: admin/class/class-menu-page.php:755 admin/class/class-setting-page.php:414
+msgid "Post ids select Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:986 admin/class/class-setting-page.php:629
+msgid "Post Objects Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:993 admin/class/class-setting-page.php:636
+msgid "Post Thumbnail"
+msgstr ""
+
+#: admin/class/class-menu-page.php:994 admin/class/class-setting-page.php:637
+msgid "Post Title"
+msgstr ""
+
+#: admin/class/class-menu-page.php:763 admin/class/class-setting-page.php:422
+msgid "Post types Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:347 admin/class/class-setting-page.php:110
+msgid "Radio Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:394 admin/class/class-menu-page.php:403
+#: admin/class/class-setting-page.php:153
+#: admin/class/class-setting-page.php:162
+msgid "Range field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:413
+msgid "Range field 2"
+msgstr ""
+
+#: admin/class/class-menu-page.php:242 admin/class/class-menu-page.php:908
+#: admin/class/class-setting-page.php:551
+msgid "Repeatable Description"
+msgstr ""
+
+#: admin/class/class-menu-page.php:241 admin/class/class-menu-page.php:907
+#: admin/class/class-setting-page.php:550
+msgid "Repeatable Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1053 admin/class/class-menu-page.php:1082
+#: admin/class/class-setting-page.php:696
+#: admin/class/class-setting-page.php:725
+msgid "Right"
+msgstr ""
+
+#: admin/class/class-create-cpt.php:35
+msgid "Room And Pricing"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:221
+msgid "Room Capacity"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:222
+msgid "Room Capacity / Total Number Of People Can live in one individual room"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:231
+msgid "Room Global Price"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:232
+msgid "Room Price For All Time"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:213
+msgid "Room Quantity"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:214
+msgid "Room Quantity / Total Number Of Room"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:345
+msgid "Saturday"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:239
+msgid "Seasonal Price"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:240
+msgid "Seasonal Price list"
+msgstr ""
+
+#: admin/class/class-menu-page.php:362 admin/class/class-menu-page.php:377
+#: admin/class/class-setting-page.php:125
+#: admin/class/class-setting-page.php:139
+msgid "Select Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1113 admin/class/class-setting-page.php:756
+msgid "Select2 multiple Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1099 admin/class/class-setting-page.php:742
+msgid "Select2 Single Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:787 admin/class/class-setting-page.php:446
+msgid "Select2 User Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:723 admin/class/class-setting-page.php:382
+msgid "Sidebar select Field"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:269
+msgid "Specific date wise price list"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:297
+msgid "Sunday"
+msgstr ""
+
+#: admin/class/class-menu-page.php:467 admin/class/class-setting-page.php:196
+msgid "Switch Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:455 admin/class/class-setting-page.php:184
+msgid "Switch icon Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:514 admin/class/class-setting-page.php:226
+msgid "Switch image Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:529
+msgid "Switch image Field 1"
+msgstr ""
+
+#: admin/class/class-menu-page.php:482 admin/class/class-setting-page.php:211
+msgid "Switch multi Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:497
+msgid "Switch multi Field 9"
+msgstr ""
+
+#: admin/class/class-menu-page.php:424 admin/class/class-setting-page.php:171
+msgid "Switcher Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:438
+msgid "Switcher Field 2"
+msgstr ""
+
+#: admin/class/class-menu-page.php:779 admin/class/class-setting-page.php:438
+msgid "Terms select Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:36 admin/class/class-menu-page.php:77
+#: admin/class/class-menu-page.php:107 admin/class/class-menu-page.php:149
+#: admin/class/class-menu-page.php:179 admin/class/class-menu-page.php:188
+#: admin/class/class-menu-page.php:221
+msgid "Text Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:50 admin/class/class-menu-page.php:91
+#: admin/class/class-menu-page.php:121 admin/class/class-menu-page.php:163
+#: admin/class/class-menu-page.php:202 admin/class/class-menu-page.php:225
+#: admin/class/class-menu-page.php:234 admin/class/class-menu-page.php:300
+#: admin/class/class-menu-page.php:707 admin/class/class-menu-page.php:958
+#: admin/class/class-setting-page.php:34 admin/class/class-setting-page.php:63
+#: admin/class/class-setting-page.php:366
+#: admin/class/class-setting-page.php:601
+#: admin/class/class-whbm-meta-box.php:50
+#: admin/class/class-whbm-meta-box.php:217
+#: admin/class/class-whbm-meta-box.php:235
+#: admin/class/class-whbm-meta-box.php:301
+#: admin/class/class-whbm-meta-box.php:309
+#: admin/class/class-whbm-meta-box.php:317
+#: admin/class/class-whbm-meta-box.php:325
+#: admin/class/class-whbm-meta-box.php:333
+#: admin/class/class-whbm-meta-box.php:341
+#: admin/class/class-whbm-meta-box.php:349
+msgid "Text value"
+msgstr ""
+
+#: admin/class/class-menu-page.php:40 admin/class/class-menu-page.php:81
+#: admin/class/class-menu-page.php:111 admin/class/class-menu-page.php:153
+#: admin/class/class-menu-page.php:183 admin/class/class-menu-page.php:192
+msgid "Text value 1"
+msgstr ""
+
+#: admin/class/class-menu-page.php:307 admin/class/class-setting-page.php:70
+msgid "Textarea Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:312 admin/class/class-setting-page.php:75
+#: admin/class/class-whbm-meta-box.php:125
+msgid "Textarea placeholder"
+msgstr ""
+
+#: admin/class/class-menu-page.php:309 admin/class/class-setting-page.php:72
+#: admin/class/class-whbm-meta-box.php:122
+msgid "Textarea value"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"This is a short description of what the plugin does. It's displayed in the "
+"WordPress admin area."
+msgstr ""
+
+#: admin/class/class-menu-page.php:280 admin/class/class-setting-page.php:43
+msgid "This is nav Title 01"
+msgstr ""
+
+#: admin/class/class-menu-page.php:687 admin/class/class-setting-page.php:346
+msgid "This is nav Title 10"
+msgstr ""
+
+#: admin/class/class-menu-page.php:717 admin/class/class-setting-page.php:376
+msgid "This is nav Title 12"
+msgstr ""
+
+#: admin/class/class-menu-page.php:827 admin/class/class-setting-page.php:486
+msgid "This is nav Title 20"
+msgstr ""
+
+#: admin/class/class-menu-page.php:950 admin/class/class-setting-page.php:593
+msgid "This is nav Title 30"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1169 admin/class/class-setting-page.php:812
+msgid "This is nav Title 40"
+msgstr ""
+
+#: admin/class/class-menu-page.php:22 admin/class/class-menu-page.php:281
+#: admin/class/class-menu-page.php:688 admin/class/class-menu-page.php:718
+#: admin/class/class-menu-page.php:828 admin/class/class-menu-page.php:951
+#: admin/class/class-menu-page.php:1170 admin/class/class-setting-page.php:25
+#: admin/class/class-setting-page.php:44 admin/class/class-setting-page.php:347
+#: admin/class/class-setting-page.php:377
+#: admin/class/class-setting-page.php:487
+#: admin/class/class-setting-page.php:594
+#: admin/class/class-setting-page.php:813
+msgid "This is section details"
+msgstr ""
+
+#: admin/class/class-menu-page.php:20 admin/class/class-setting-page.php:23
+msgid "This is Section Title 0"
+msgstr ""
+
+#: admin/class/class-menu-page.php:279 admin/class/class-setting-page.php:42
+msgid "This is Section Title 1"
+msgstr ""
+
+#: admin/class/class-menu-page.php:686 admin/class/class-setting-page.php:345
+msgid "This is Section Title 10"
+msgstr ""
+
+#: admin/class/class-menu-page.php:716 admin/class/class-setting-page.php:375
+msgid "This is Section Title 12"
+msgstr ""
+
+#: admin/class/class-menu-page.php:826 admin/class/class-setting-page.php:485
+msgid "This is Section Title 20"
+msgstr ""
+
+#: admin/class/class-menu-page.php:949 admin/class/class-setting-page.php:592
+msgid "This is Section Title 30"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1168 admin/class/class-setting-page.php:811
+msgid "This is Section Title 40"
+msgstr ""
+
+#: admin/class/class-menu-page.php:771 admin/class/class-setting-page.php:430
+msgid "Thumb sizes Field"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:329
+msgid "Thursday"
+msgstr ""
+
+#: admin/class/class-menu-page.php:556 admin/class/class-setting-page.php:251
+msgid "Time format Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:564
+msgid "Time format Field 1"
+msgstr ""
+
+#: admin/class/class-menu-page.php:980 admin/class/class-setting-page.php:623
+#: admin/class/class-whbm-meta-box.php:71
+msgid "Title"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1052 admin/class/class-menu-page.php:1081
+#: admin/class/class-setting-page.php:695
+#: admin/class/class-setting-page.php:724
+msgid "Top"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:313
+msgid "Tuesday"
+msgstr ""
+
+#: admin/class/class-menu-page.php:796 admin/class/class-setting-page.php:455
+msgid "User Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:739 admin/class/class-setting-page.php:398
+msgid "User roles select Field"
+msgstr ""
+
+#: admin/class/class-setting-page.php:934
+#: admin/class/class-setting-page.php:935
+#: admin/class/class-setting-page.php:936
+#: admin/class/class-setting-page.php:937
+msgid "Video Settings"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:321
+msgid "Wednesday"
+msgstr ""
+
+#: admin/class/class-whbm-meta-box.php:292
+msgid "Weekly Price list"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1024 admin/class/class-setting-page.php:667
+msgid "Width"
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce Hotel Booking Manager"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1090 admin/class/class-setting-page.php:733
+msgid "WP editor Field"
+msgstr ""
+
+#: admin/class/class-menu-page.php:1093 admin/class/class-setting-page.php:736
+msgid "wp_editor value"
+msgstr ""
+
+#: admin/class/class-menu-page.php:979 admin/class/class-setting-page.php:622
+#: admin/class/class-whbm-meta-box.php:70
+msgid "Zoom"
+msgstr ""

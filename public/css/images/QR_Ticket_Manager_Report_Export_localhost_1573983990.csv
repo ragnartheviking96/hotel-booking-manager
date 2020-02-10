@@ -1,0 +1,18 @@
+<br />
+<b>Notice</b>:  Undefined index: ticket_id in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>98</b><br />
+<br />
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>77</b><br />
+<br />
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>77</b><br />
+<br />
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>77</b><br />
+<br />
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>77</b><br />
+<br />
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>77</b><br />
+﻿"Order ID","QR codes","Ticket Type","Billing Name","Billing Email","Billing Address","Billing Phone","Purchase Date","Total Amount Purchase","Order Status"
+95,"#95-Jessore Hotel",azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 14, 2019",,processing
+90,"#90-Jessore Hotel",azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 14, 2019",,completed
+76,#76-DhakaWestin,azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 13, 2019",,completed
+72,#72-DhakaWestin,azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 13, 2019",,completed
+67,#67-DhakaWestin,azizVai,ove.saiful@gmail.com,fgfgdg,42342,"November 13, 2019",,completed

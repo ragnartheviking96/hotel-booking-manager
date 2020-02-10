@@ -1,0 +1,6 @@
+<br />
+<b>Notice</b>:  Undefined variable: args in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>267</b><br />
+﻿<br />
+<b>Notice</b>:  Undefined variable: data_rows in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>287</b><br />
+<br />
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>C:\xampp\htdocs\justforn\wp-content\plugins\mage-hotel-booking-manager-pro-addon\admin\class\class-export-hotel-report.php</b> on line <b>287</b><br />
