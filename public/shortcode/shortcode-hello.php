@@ -13,7 +13,7 @@ class Hotel_Shortcode_Hello {
 	public function shortcode_initialize() {
 		add_shortcode( 'hotel-list', array( $this, 'whbm_hotel_list' ) );
 		add_shortcode( 'whbm-hotel-search', array( $this, 'whbm_hotel_search_shortcode' ) );
-		add_shortcode( 'whbm_single_hotel', array( $this, 'whbm_single_hotel' ) );
+		add_shortcode( 'whbm-single-hotel', array( $this, 'whbm_single_hotel' ) );
 		add_shortcode( 'whbm-hotel-search-form', array( $this, 'whbm_hotel_search_form' ) );
 		add_action( 'wp_ajax_ajax_whbm_hotel_list', array( $this, 'ajax_whbm_hotel_list' ) );
 		add_action( 'wp_ajax_nopriv_ajax_whbm_hotel_list', array( $this, 'ajax_whbm_hotel_list' ) );
@@ -24,19 +24,22 @@ class Hotel_Shortcode_Hello {
 
 		$hotel_facilities = $_GET['hotel_facilities'];
 		$hotel_type       = $_GET['hotel_type'];
+		$paged            = get_query_var( "paged" ) ? get_query_var( "paged" ) : 1;
 
 		if ( ! isset( $hotel_facilities ) && ! isset( $hotel_type ) ) {
 			$args = array(
 				'post_type'      => 'mage_hotel',
 				'post_status'    => 'publish',
-				'posts_per_page' => - 1,
+				'posts_per_page' => 2,
+                'paged' => $paged
 			);
 		} else {
 
 			$args = array(
 				'post_type'      => 'mage_hotel',
 				'post_status'    => 'publish',
-				'posts_per_page' => - 1,
+				'posts_per_page' => 2,
+				'paged' => $paged,
 				'tax_query'      => array(
 					'relation' => 'OR',
 					array(
@@ -126,6 +129,7 @@ class Hotel_Shortcode_Hello {
 										$price_array[] = $global_price;
 									}
 								}
+								wp_reset_postdata();
 								?>
                                 <h3>
 									<?php
@@ -138,8 +142,8 @@ class Hotel_Shortcode_Hello {
 								<?php
 								?>
                                 <span class="room-qty">1 night, 2 adults</span>
-                                <a href="<?php the_permalink() ?>" class="btn btn-default
-                                                            details_btn">View Details</a>
+                                <a href="<?php echo get_the_permalink($hotel_id) ?>" class="btn btn-default
+                                details_btn">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -163,16 +167,20 @@ class Hotel_Shortcode_Hello {
 	 * This method creates shortcode all functionality
 	 */
 	public function whbm_hotel_list( $atts, $content = null ) {
+	    global $wchbm;
 		$atts = shortcode_atts( array(
 			'view'     => 'list',
 			'location' => '',
 			'type'     => ''
 		), $atts, 'hotel-list' );
 		ob_start();
-		$destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
+		$destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : array();
 		$check_in_out       = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
+		$paged            = get_query_var( "paged" ) ? get_query_var( "paged" ) : 1;
 		$args               = array(
 			'post_type' => 'mage_hotel',
+			'paged'          => $paged,
+            'posts_per_page' => 2
 		);
 		$loop               = new WP_Query( $args );
 
@@ -184,22 +192,30 @@ class Hotel_Shortcode_Hello {
                     <div class="col-12 col-md-3">
                         <div class="whbmt_wrapper_off_left">
 
-                            <form id="whbmt_off_left_form1" action="<?php echo get_site_url() . '/hotel-search-list/'
-							?>">
+                            <form id="whbmt_off_left_form1" action="<?php echo get_site_url() . '/hotel-search-list/' ?>">
                                 <h4>Search</h4>
                                 <div class="whbmt_form_off_left form_item_select_off_left">
                                     <div class="whbmt_custom_select_off_left">
-                                        <input type="text" name="dest_name" class="dest-name" id="dest-name"
-                                               value="<?php echo $destination_search ?>"
-                                               placeholder="<?php esc_html_e( 'Type Your Destinations', 'whbm' ) ?>"
-                                               autocomplete="off">
+                                       <!-- <input type="text" name="dest_name" class="dest-name" id="dest-name"
+                                               value="<?php /*echo $destination_search */?>"
+                                               placeholder="<?php /*esc_html_e( 'Type Your Destinations', 'whbm' ) */?>"
+                                               autocomplete="off">-->
+                                        <select class="dest-name destination_search" id="dest-name" name="dest_name">
+                                            <option value="" selected>Search</option>
+                                            <?php
+                                            $wchbm->whbm_get_location_meta();
+                                            foreach ($wchbm->whbm_get_location_meta() as $value){?>
+	                                            <option value="<?php echo $value?>"><?php echo $value?></option>
+                                        <?php    }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="whbmt_form__item_off_left">
                                     <div class="whbmt_form__item_datepicker_off_left">
                                         <input type="text" name="daterange" class="whbmt_datepicker"
                                                placeholder="<?php esc_html_e( 'Checkin - Checkout', 'whbm' ) ?>"
-                                               id="daterange" value="" autocomplete="off">
+                                               id="daterange" value="<?php echo $check_in_out?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -316,7 +332,7 @@ class Hotel_Shortcode_Hello {
 
                     <div class="col-12 col-md-9">
                         <div class="package_listing">
-                            <h4>United States: 49 propertice found</h4>
+                            <h4><?php echo $loop->post_count ?> properties found</h4>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab1" role="tab">Top
@@ -429,7 +445,7 @@ class Hotel_Shortcode_Hello {
 														<?php
 														?>
                                                         <span class="room-qty">1 night, 2 adults</span>
-                                                        <a href="<?php the_permalink() ?>" class="btn btn-default
+                                                        <a href="<?php echo get_the_permalink($hotel_id) ?>" class="btn btn-default
                                                             details_btn">View Details</a>
                                                     </div>
                                                 </div>
@@ -1233,17 +1249,16 @@ class Hotel_Shortcode_Hello {
                             </div>
                             <!-- End Tab-content -->
                         </div>
-
+                        <?php
+                        wp_reset_postdata();
+                        $pargs = array(
+	                        "current" => $paged,
+	                        "total"   => $loop->max_num_pages
+                        );
+                        ?>
                         <div class="pagination_nav">
                             <a href="#" class="pagination_btn"><i class="fa fa-angle-left"></i></a>
-                            <a href="#" class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">7</a>
-                            <a href="#">9</a>
-                            <a href="#">...</a>
+                            <?php echo paginate_links( $pargs ); ?>
                             <a href="#" class="pagination_btn"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -1319,7 +1334,6 @@ class Hotel_Shortcode_Hello {
 				}
 				$html .= '</ul></div>';
 				$html .= '</div></div></div>';
-
 			}
 		}
 		$html .= '</div>';
@@ -1331,6 +1345,7 @@ class Hotel_Shortcode_Hello {
 	 * @return string
 	 */
 	public function whbm_hotel_search_form( $atts ) {
+	    global $wchbm;
 		$defaults = array();
 		$params   = shortcode_atts( $defaults, $atts );
 		ob_start();
@@ -1353,7 +1368,7 @@ class Hotel_Shortcode_Hello {
 				),
 			);
 			$loop = new WP_Query( $args );*/
-			$destination_search   = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
+			$destination_search   = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : array();
 			$check_in_out         = isset( $_GET['daterange'] ) ? $_GET['daterange'] : date( 'Y/m/d' );
 			$adult_qty            = isset( $_GET['adult_qty'] ) ? strip_tags( $_GET['adult_qty'] ) : '';
 			$child_qty            = isset( $_GET['child_qty'] ) ? strip_tags( $_GET['child_qty'] ) : '';
@@ -1406,17 +1421,27 @@ class Hotel_Shortcode_Hello {
                                     <h4>Search</h4>
                                     <div class="whbmt_form_off_left form_item_select_off_left">
                                         <div class="whbmt_custom_select_off_left">
-                                            <input type="text" name="dest_name" class="dest-name" id="dest-name"
-                                                   value="<?php echo $destination_search ?>"
-                                                   placeholder="<?php esc_html_e( 'Type Your Destinations', 'whbm' ) ?>"
-                                                   autocomplete="off">
+                                            <!--<input type="text" name="dest_name" class="dest-name" id="dest-name"
+                                                   value="<?php /*echo $destination_search */?>"
+                                                   placeholder="<?php /*esc_html_e( 'Type Your Destinations', 'whbm' ) */?>"
+                                                   autocomplete="off">-->
+
+                                            <select class="dest-name destination_search" id="dest-name" name="dest_name">
+                                                <option value="" selected>Search</option>
+		                                        <?php
+		                                        $wchbm->whbm_get_location_meta();
+		                                        foreach ($wchbm->whbm_get_location_meta() as $value){?>
+                                                    <option value="<?php echo $value?>"><?php echo $value?></option>
+		                                        <?php    }
+		                                        ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="whbmt_form__item_off_left">
                                         <div class="whbmt_form__item_datepicker_off_left">
                                             <input type="text" name="daterange" class="whbmt_datepicker"
                                                    placeholder="<?php esc_html_e( 'Checkin - Checkout', 'whbm' ) ?>"
-                                                   id="daterange" value="" autocomplete="off">
+                                                   id="daterange" value="<?php echo $check_in_out?>" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1536,33 +1561,25 @@ class Hotel_Shortcode_Hello {
 
                         <div class="col-12 col-md-9">
                             <div class="package_listing">
-                                <h4>United States: 49 propertice found</h4>
+                                <h4><?php echo $loop->post_count;?><?php esc_html_e(' propertice found', 'whbm'); ?></h4>
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab1"
-                                           role="tab">Top
-                                            Hotel First</a>
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab1" role="tab">Top Hotel First</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab2" role="tab">Low
-                                            Price First</a>
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab2" role="tab">Low Price First</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab3" role="tab">Top
-                                            Star
-                                            Rating</a>
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab3" role="tab">Top Star Rating</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab4" role="tab">Review
-                                            Score</a>
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab4" role="tab">Review Score</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab5" role="tab">Distance
-                                            From City</a>
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab5" role="tab">Distance From City</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab6" role="tab">Top
-                                            Reviewer</a>
+                                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab6" role="tab">Top Reviewer</a>
                                     </li>
                                 </ul>
 
@@ -1579,7 +1596,7 @@ class Hotel_Shortcode_Hello {
                                                 <div class="row">
                                                     <div class="col-md-4 col-sm-6">
                                                         <div class="package_content">
-                                                            <a href="<?php echo get_the_permalink( $_hotels ); ?>"><?php echo get_the_post_thumbnail( $_hotels );; ?></a>
+                                                            <a href="<?php echo get_the_permalink($_hotels) ?>?dest_name=<?php echo $destination_search?>&daterange=<?php echo  $check_in_out?>"><?php echo get_the_post_thumbnail( $_hotels );; ?></a>
                                                             <div class="single_package_content">
                                                                 <h5>Top Rated</h5>
                                                                 <span>5.0</span>
@@ -1590,8 +1607,7 @@ class Hotel_Shortcode_Hello {
                                                     <div class="col-md-6">
                                                         <div class="whbmt_single_package_details">
                                                             <div class="whbmt_package_content_right">
-                                                                <h4><a href="<?php echo get_the_permalink( $_hotels );
-																	?>"><?php echo get_the_title( $_hotels ); ?></a>
+                                                                <h4><a href="<?php echo get_the_permalink( $_hotels );?>?dest_name=<?php echo $destination_search?>&daterange=<?php echo $check_in_out?>"><?php echo get_the_title( $_hotels ); ?></a>
                                                                 </h4>
                                                                 <span class="package_date">2 km from centre</span>
                                                                 <p><?php echo get_the_excerpt( $_hotels ) ?></p>
@@ -1603,16 +1619,15 @@ class Hotel_Shortcode_Hello {
                                                                 <div class="row border_top">
                                                                     <div class="col-md-7">
                                                                         <div class="whbmt_package_benefits">
-                                                                            <h4><i class="fa
-                                                                            fa-map-marker"></i><?php echo get_post_meta
+                                                                            <h4><i class="fa fa-map-marker"></i><?php
+                                                                                echo get_post_meta
 																				( $_hotels, 'address', true ) ?></h4>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-5">
                                                                         <div class="whbmt_package_benefits">
-                                                                            <h4><i class="fa fa-comments-o "></i>1275
-                                                                                Reviews</h4>
+                                                                            <h4><i class="fa fa-comments-o "></i>1275 Reviews</h4>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1639,6 +1654,7 @@ class Hotel_Shortcode_Hello {
 																	$price_array[] = $global_price;
 																}
 															}
+															wp_reset_postdata();
 															?>
                                                             <h3>
 																<?php
@@ -1650,9 +1666,8 @@ class Hotel_Shortcode_Hello {
 																?></h3>
 															<?php
 															?>
-                                                            <span class="room-qty">1 night, 2 adults</span>
-                                                            <a href="<?php the_permalink() ?>" class="btn btn-default
-                                                            details_btn">View Details</a>
+                                                            <span class="room-qty">1 night, 2 adults<?php echo $check_in_out?></span>
+                                                            <a href="<?php echo get_the_permalink($_hotels) ?>?dest_name=<?php echo $destination_search?>&daterange=<?php echo $check_in_out?>" class="btn btn-default details_btn">View Details</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2278,24 +2293,25 @@ class Hotel_Shortcode_Hello {
                     <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
                         <div class="whbmt_form_area">
                             <div class="whbmt_banner_title text-center whbm_search_form_heading">
-                                <h1 class="banner_heading ">Find the best deals from all the major
-                                    hotel in popular
-                                    city</h1>
+                                <h1 class="banner_heading ">Find the best deals from all the major hotel in popular city</h1>
                             </div>
                             <form id="whbmt_wanderlust_form1" class="search-form-shortcode" action="" method="get">
                                 <div class="whbmt_form__item form__item_select">
                                     <div class="whbmt_custom_select form_destination">
-                                        <input type="text" name="dest_name" class="dest-name" id="dest-name"
-                                               value="<?php echo $destination_search ?>"
-                                               placeholder="<?php esc_html_e( 'Type Your Destinations', 'whbm' ) ?>"
-                                               autocomplete="off">
+                                        <select class="dest-name destination_search" id="dest-name" name="dest_name">
+                                            <option value="" selected>Search</option>
+		                                    <?php
+		                                    $wchbm->whbm_get_location_meta();
+		                                    foreach ($wchbm->whbm_get_location_meta() as $value){?>
+                                                <option value="<?php echo $value?>"><?php echo $value?></option>
+		                                    <?php    }
+		                                    ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="whbmt_form__item">
                                     <div class="whbmt_form__item_datepicker form__item_select">
-                                        <input type="text" name="daterange" class="whbmt_datepicker"
-                                               placeholder="<?php esc_html_e( 'Checkin - Checkout', 'whbm' ) ?>"
-                                               id="daterange" value="" autocomplete="off">
+                                        <input type="text" name="daterange" class="whbmt_datepicker" placeholder="<?php esc_html_e( 'Checkin - Checkout', 'whbm' ) ?>" id="daterange" value="" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="whbmt_form__item">
@@ -2340,9 +2356,7 @@ class Hotel_Shortcode_Hello {
 			<?php
 		}
 		$content = ob_get_clean();
-
 		return $content;
-
 		//return ob_get_clean();
 	}// end of whbm_hotel_search_form method
 
@@ -3126,137 +3140,13 @@ class Hotel_Shortcode_Hello {
 			$loop->the_post();
 			?>
             <section class="whbmt_packege_wrapper_area">
+				<?php do_action( 'woocommerce_before_single_product' ); ?>
                 <div class="container">
                     <div class="row">
                         <!-- Start Left-Side-Bar -->
                         <div class="col-12 col-md-3">
                             <div class="whbmt_wrapper_off_left">
 
-                                <form id="whbmt_off_left_form1"
-                                      action="<?php echo get_site_url() . '/hotel-search-list/'
-								      ?>">
-                                    <h4>Search</h4>
-                                    <div class="whbmt_form_off_left form_item_select_off_left">
-                                        <div class="whbmt_custom_select_off_left">
-                                            <input type="text" name="dest_name" class="dest-name" id="dest-name"
-                                                   value=""
-                                                   placeholder="<?php esc_html_e( 'Type Your Destinations', 'whbm' ) ?>"
-                                                   autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="whbmt_form__item_off_left">
-                                        <div class="whbmt_form__item_datepicker_off_left">
-                                            <input type="text" name="daterange" class="whbmt_datepicker"
-                                                   placeholder="<?php esc_html_e( 'Checkin - Checkout', 'whbm' ) ?>"
-                                                   id="daterange" value="" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 pad_right">
-                                            <div class="whbmt_custom_select_off_left">
-                                                <select name="">
-                                                    <option value="0">Days</option>
-                                                    <option value="Barishal">0</option>
-                                                    <option value="Barishal">1</option>
-                                                    <option value="Barishal">2</option>
-                                                    <option value="Barishal">3</option>
-                                                    <option value="Barishal">4</option>
-                                                    <option value="Barishal">5</option>
-                                                    <option value="Barishal">6</option>
-                                                    <option value="Barishal">7</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="whbmt_custom_select_off_left">
-                                                <select name="">
-                                                    <option value="0">1 Room</option>
-                                                    <option value="Barishal">2 Room</option>
-                                                    <option value="Barishal">4 Room</option>
-                                                    <option value="Barishal">5 Room</option>
-                                                    <option value="Barishal">7 Room</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 pad_right">
-                                            <div class="whbmt_custom_select_off_left">
-                                                <select name="child_qty">
-                                                    <option selected="selected">No Childern</option>
-                                                    <option value="1">1 Children</option>
-                                                    <option value="2">2 Childern</option>
-                                                    <option value="3">3 Childern</option>
-                                                    <option value="4">4 Childern</option>
-                                                    <option value="5">5 Childern</option>
-                                                    <option value="6">6 Childern</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="whbmt_custom_select_off_left">
-                                                <select name="adult_qty" class="adult_qty" id="adult_qty">
-                                                    <option selected="selected">2 adult</option>
-                                                    <option value="0">2 adult</option>
-                                                    <option value="1">3 adult</option>
-                                                    <option value="2">4 adult</option>
-                                                    <option value="4">5 adult</option>
-                                                    <option value="5">6 adult</option>
-                                                    <option value="5">7 adult</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="whbmt_form__item_off_left form__item_submit_off_left">
-                                                <input type="submit" value="Search Now">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </form>
-                                <div class="whbmt_catagory_area_title">
-                                    <h4>Select All Filter</h4>
-                                </div>
-                                <div class="whbmt_package_catagory">
-                                    <div class="whbmt_catagory border_top">
-                                        <h4>Tour Package Budget</h4>
-                                        <div class="package_catagory_content">
-                                            <div class="checkbox"><label><input type="checkbox" checked> $200 to
-                                                    $500</label></div>
-                                            <div class="checkbox"><label><input type="checkbox"> $500 to $800</label>
-                                            </div>
-                                            <div class="checkbox"><label><input type="checkbox"> $800 to $1000</label>
-                                            </div>
-                                            <div class="checkbox"><label><input type="checkbox"> Above $1000</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="whbmt_catagory border_top">
-                                        <h4>Hotel Star Rating</h4>
-                                        <div class="package_catagory_content">
-                                            <div class="checkbox"><label><input type="checkbox" checked> 3 Star</label>
-                                            </div>
-                                            <div class="checkbox"><label><input type="checkbox"> 4 Star</label></div>
-                                            <div class="checkbox"><label><input type="checkbox"> 5 Star</label></div>
-                                        </div>
-                                    </div>
-                                    <div class="whbmt_catagory border_top">
-                                        <h4>Room facilities</h4>
-                                        <div class="package_catagory_content">
-                                            <div class="checkbox"><label><input type="checkbox" checked>
-                                                    Kitchen/kitchenette</label>
-                                            </div>
-                                            <div class="checkbox"><label><input type="checkbox"> Private
-                                                    bathroom</label>
-                                            </div>
-                                            <div class="checkbox"><label><input type="checkbox"> Air
-                                                    conditioning</label>
-                                            </div>
-                                            <div class="checkbox"><label><input type="checkbox"> Balcony</label></div>
-                                            <div class="checkbox"><label><input type="checkbox"> Flat-screen TV</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="whbmt_map_area ">
                                 <iframe id="gmap_canvas"
@@ -3273,291 +3163,404 @@ class Hotel_Shortcode_Hello {
                                         <div class="tab-content">
 											<?php
 											$image_meta = get_post_meta( $post_id, 'hotel_gallery' );
+											$thumb      = 1;
 											foreach ( $image_meta as $key => $value ) {
 												$value = maybe_unserialize( $value );
-												if ( is_array( $value ) || is_object( $value ) ) {
-													foreach ( $value as $image_key => $attachment_id ) {
-														$image     = wp_get_attachment_image( $attachment_id, 'full' );
-														$image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-														?>
-                                                        <div id="thumb2" class="tab-pane fade show">
-                                                            <a data-fancybox="img"
-                                                               href="<?php echo $image_url ?>"><?php echo
-																$image ?></a>
-                                                        </div>
-													<?php }
+												foreach ( $value as $image_key => $attachment_id ) {
+													$image          = wp_get_attachment_image( $attachment_id, 'full' );
+													$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+													?>
+                                                    <div id="thumb<?php echo $thumb ?>" class="tab-pane fade show">
+                                                        <a data-fancybox="img" href="<?php echo $room_image_url ?>"><?php
+															echo $image ?></a>
+                                                    </div>
+													<?php
+													$thumb ++;
 												}
-											}
-											//write_log(maybe_unserialize($image_meta));
-											?>
 
+											}
+											?>
 
                                         </div>
                                         <!-- Thumbnail Large Image End -->
 
                                         <!-- Thumbnail Image End -->
                                         <div class="product-thumbnail mt-15">
-                                            <div class="thumb_menu bor_0 owl-carousel nav tabs-area" role="tablist">
+                                            <div class="thumb_menu bor_0 owl-carousel nav tabs-area owl-loaded" role="tablist">
 
-												<?php
-												foreach ( $image_meta as $key => $value ) {
-													$value = maybe_unserialize( $value );
-													if ( is_array( $value ) || is_object( $value ) ) {
-														foreach ( $value as $image_key => $attachment_id ) {
-															$image     = wp_get_attachment_image( $attachment_id, 'full' );
-															$image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+
+                                                <div class="owl-stage-outer">
+                                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 835px;">
+														<?php
+														$image_meta = maybe_unserialize( get_post_meta( $post_id, 'hotel_gallery', true ) );
+														$i          = 1;
+														foreach ( $image_meta as $key => $value ) {
+															$image          = wp_get_attachment_image( $value, 'full' );
+															$room_image_url = wp_get_attachment_image_url( $value, 'full' );
 															?>
-                                                            <a class="active" data-toggle="tab"
-                                                               href="#thumb1"><?php echo
-																$image ?></a>
-														<?php }
-													}
-												}
-
-												?>
+                                                            <div class="owl-item"
+                                                                 style="width: 65.909px; margin-right: 10px;"><a
+                                                                        class="show" data-toggle="tab"
+                                                                        href="#thumb<?php echo $i; ?>"><?php echo $image; ?></a>
+                                                            </div>
+															<?php
+															$i ++;
+														}
+														?>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-nav disabled">
+                                                    <div class="owl-prev">prev</div>
+                                                    <div class="owl-next">next</div>
+                                                </div>
+                                                <div class="owl-dots disabled"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="whbmt_package_listing_content">
-                                    <h4><?php the_title() ?></h4>
+                                    <h4><?php the_title();?></h4>
                                     <ul class="listing_details_location">
-                                        <li>2 km from centre</li>
-                                        <li>
-                                            <i class="fa fa-map-marker"></i> <?php echo get_post_meta( get_the_ID(), 'address',
+                                        <li><?php  ?>2 km from centre</li>
+                                        <li><i class="fa fa-map-marker"></i> <?php echo get_post_meta( get_the_ID(), 'address',
 												true ); ?></li>
                                         <li><i class="fa fa-comments-o"></i> 1275 Reviews</li>
                                     </ul>
                                     <p><?php echo get_post_field( 'post_content', get_the_ID() ); ?></p>
                                 </div>
-                                <div class="row" id="listing_sub_content">
-                                    <div class="col-md-2">
-                                        <div class="single_listing_sub_content">
-                                            <span>Check-in date</span>
-                                            <h5>Sat 1 Jan 2020</h5>
+								<?php
+								$check_in_out         = isset( $_GET['daterange'] ) ? $_GET['daterange'] : 'Please Select Date';
+								$check_in_out_explode = explode( 'to', $check_in_out );
+								//$check_in_out_explode = isset( $check_in_out_explode[1] ) ? $check_in_out_explode[1] : null;
+								$check_in = date_i18n( $date_format, strtotime( $check_in_out_explode[0] ) );
+								if ( ! isset( $check_in_out_explode[1] ) ) {
+									$check_in_out_explode[1] = date_i18n( $date_format );
+								}
+
+								$check_out = date_i18n( $date_format, strtotime( $check_in_out_explode[1] ) );
+								$now       = strtotime( $check_in ); // or your date as well
+								$your_date = strtotime( $check_out );
+								$datediff  = $your_date - $now;
+
+								$total_stay = round( $datediff / ( 60 * 60 * 24 ) );
+								?>
+                                <form action="" method="get">
+                                    <div class="row" id="listing_sub_content">
+
+                                        <div class="col-md-4">
+                                            <div class="single_listing_sub_content">
+                                                <span>Check in-out date</span>
+                                                <input type="text" name="daterange" class="form-control whbmt_datepicker
+                                        custom_whbm" id="daterange" placeholder="<?php esc_html_e( 'Checkin & Checkout Date' ); ?>"
+                                                       value="<?php echo $check_in_out ?>"
+                                                       autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="single_listing_sub_content">
+                                                <span>Guests</span>
+                                                <h5>2 adults</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <button type="submit" class=" btn btn-default main_btn change_btn">Change Search
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="single_listing_sub_content">
-                                            <span>Check-out date</span>
-                                            <h5>Sat 3 Jan 2020</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="single_listing_sub_content">
-                                            <span>Guests</span>
-                                            <h5>2 adults</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="single_listing_sub_content">
-                                            <span class="active_color">USD 190.00</span>
-                                            <h6>2 night</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class=" btn btn-default main_btn change_btn">Change Search</button>
-                                    </div>
-                                </div>
+                                </form>
 
                                 <div class="whbmt_room_order_summury_box">
-                                    <table class="table table-bordered">
-                                        <thead class="room_heading">
-                                        <tr>
-                                            <th>Room Type</th>
-                                            <th>Person</th>
-                                            <th>Price</th>
-                                            <th>Select Rooms</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-										<?php
-										$args       = array(
-											'post_type' => 'mage-room-pricing',
-											'meta_key'  => 'hotel_list'
-										);
-										$hotel_room = new WP_Query( $args );
-										while ( $hotel_room->have_posts() ) {
-											$hotel_room->the_post();
-											$hotel_list = get_post_meta( get_the_ID(), 'hotel_list', true );
-											if ( $hotel_list == $post_id ) {
-
-												?>
-                                                <tr class="whbmt_single_room_preview">
-                                                    <td class="whbmt_room_title">
-                                                        <div class="row">
-                                                            <div class="col-md-7">
-                                                                <div class="tab-content">
-																	<?php
-																	$room_img = get_post_meta( get_the_ID(), 'room_gallery' );
-																	foreach ( $room_img as $un_key => $un_value ) {
-																		$unserialize_image = maybe_unserialize( $un_value );
-																		if ( is_array( $unserialize_image ) ) {
-																			foreach ( $unserialize_image as $arr_key => $img_value ) {
-																				$gallery_arr    = $img_value;
-																				$room_image     = wp_get_attachment_image( $gallery_arr, array(
-																					'50',
-																					'50'
-																				) );
-																				$room_image_url = wp_get_attachment_image_url( $gallery_arr, array(
-																					'450',
-																					'450'
-																				) );
+									<?php
+									//print_r($total_stay);
+									?>
+                                    <form action="" method="post">
+                                        <div>
+											<?php
+											$hotel_type = get_the_terms( get_the_ID(), 'mage_hotel_type', true );
+											if ( $hotel_type ) {
+												foreach ( $hotel_type as $arr_key => $term_value ) {?>
+                                                    <input type="hidden" class="hotel_q_type" id="hotel_q_type" name="hotel_q_type" value="<?php echo $term_value->name ?>">
+												<?php }
+											}
+											?>
+                                        </div>
+                                        <table class="table table-bordered">
+                                            <thead class="room_heading" id="">
+                                            <tr>
+                                                <th>Room Type</th>
+                                                <th>Person</th>
+                                                <th>Price</th>
+                                                <th>Select Rooms</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+											<?php
+											$args          = array(
+												'post_type' => 'mage-room-pricing',
+												'meta_key'  => 'hotel_list'
+											);
+											$hotel_room    = new WP_Query( $args );
+											$data_count    = $hotel_room->post_count;
+											$data_count_in = 1;
+											while ( $hotel_room->have_posts() ) {
+												$hotel_room->the_post();
+												$hotel_list = get_post_meta( get_the_ID(), 'hotel_list', true );
+												if ( $hotel_list == $post_id ) {
+													$f = get_post_meta( get_the_ID(), 'room_quantity', true ) -
+													     $magemain->get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() );
+													?>
+                                                    <tr class="whbmt_single_room_preview">
+                                                        <td class="whbmt_room_title">
+                                                            <div class="row">
+                                                                <div class="room_type_name_sec">
+                                                                    <h5 class="room-heading"><?php the_title() ?></h5>
+                                                                    <input type="hidden" value="<?php echo get_the_ID() ?>"
+                                                                           name="room_id[]">
+                                                                    <input type="hidden" value="<?php echo the_title() ?>"
+                                                                           name="room_name[]">
+                                                                </div>
+                                                                <div class="col-md-7">
+                                                                    <div class="tab-content">
+																		<?php
+																		$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
+																		$i          = 1;
+																		foreach ( $image_meta as $key => $value ) {
+																			$value = maybe_unserialize( $value );
+																			foreach ( $value as $image_key => $attachment_id ) {
+																				$image          = wp_get_attachment_image( $attachment_id, 'full' );
+																				$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
 																				?>
-                                                                                <div id="room2" class="tab-pane fade">
-                                                                                    <a data-fancybox="img"
-                                                                                       href="<?php echo
-																					   $room_image_url; ?>"><?php echo $room_image; ?></a>
+                                                                                <div id="room<?php echo $i; ?>"
+                                                                                     class="tab-pane fade show"><a
+                                                                                            data-fancybox="img" href="<?php echo
+																					$room_image_url ?>"><?php echo $image ?></a>
                                                                                 </div>
-																			<?php }
-																		}
-																	}
-
-																	$global_price      = get_post_meta( get_the_ID(), 'global_price' );
-																	$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
-																	$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
-																	$sunday_price      = get_post_meta( get_the_ID(), 'sunday' );
-																	$monday_price      = get_post_meta( get_the_ID(), 'monday' );
-																	$tuesday_price     = get_post_meta( get_the_ID(), 'tuesday' );
-																	$wednesday_price   = get_post_meta( get_the_ID(), 'wednesday' );
-																	$thursday_price    = get_post_meta( get_the_ID(), 'thursday' );
-																	$friday_price      = get_post_meta( get_the_ID(), 'friday' );
-																	$saturday_price    = get_post_meta( get_the_ID(), 'saturday' );
-
-																	$sunday_has_price    = current( $sunday_price );
-																	$monday_has_price    = current( $monday_price );
-																	$tuesday_has_price   = current( $tuesday_price );
-																	$wednesday_has_price = current( $wednesday_price );
-																	$thursday_has_price  = current( $thursday_price );
-																	$friday_has_price    = current( $friday_price );
-																	$saturday_has_price  = current( $saturday_price );
-																	$by_week             = array_merge( $sunday_price, $monday_price,
-																		$tuesday_price,
-																		$wednesday_price, $thursday_price, $friday_price, $saturday_price );
-
-
-																	$dateWise_price_serialized = array();
-
-																	foreach ( $global_price as $price_arr_key => $price_value ) {
-																		$ar                 = $dateWise_price_un;
-																		$cur                = current( $ar );
-																		$has_seasonal_price = current( $seasonal_price_un );
-																		if ( is_array( $dateWise_price_un ) && ! empty( $cur ) ) {
-																			foreach ( $dateWise_price_un as $key => $dateWise_value ) {
-																				$dateWise_price_serialized = maybe_unserialize( $dateWise_value );
-																				if ( is_array( $dateWise_price_serialized ) ) {
-																					foreach ( $dateWise_price_serialized as $single_arr_key => $single_arr_value ) {
-																						$day_name = date( 'l', strtotime( $single_arr_value['date_field'] ) );
-																						$today    = date( 'l' );
-																						if ( isset( $single_arr_value['date_field'] ) && $day_name == $today ) {
-																							$price_value = $single_arr_value['number_field'];
-																						}
-																					}
-
-																				}
-																			}
-																		} elseif ( is_array( $seasonal_price_un ) && ! empty( $has_seasonal_price ) ) {
-																			foreach ( $seasonal_price_un as $seasonal_price_key => $seasonal_price_value ) {
-																				$seasonal_price_serialized = maybe_unserialize( $seasonal_price_value );
-																				if ( is_array( $seasonal_price_serialized ) ) {
-																					foreach ( $seasonal_price_serialized as $date_arr_key => $date_arr_value ) {
-																						$date_range = seasonal_date_range( $date_arr_value['start_date'],
-																							$date_arr_value['end_date'] );
-																						$start_date = $date_arr_value['start_date'];
-																						$end_date   = $date_arr_value['end_date'];
-																						$today      = date( 'Y-m-d' );
-																						if ( ! empty( $start_date ) && ! empty( $end_date ) &&
-																						     $start_date <= $today &&
-																						     $end_date >= $today ) {
-																							$price_value =
-																								$date_arr_value['number_field'];
-																						}
-																					}
-																				}
-																			}
-																		} elseif ( is_array( $sunday_price ) || is_array( $monday_price ) || is_array( $tuesday_price )
-																		           || is_array( $wednesday_price ) || is_array( $thursday_price ) || is_array
-																		           ( $friday_price ) || is_array( $saturday_price ) ) {
-																			$today = date( 'l' );
-																			if ( ! empty( $sunday_has_price ) && $today == "Sunday" ) {
-																				$price_value = $sunday_has_price;
-																			} elseif ( ! empty( $monday_has_price && $today == "Monday" ) ) {
-																				$price_value = $monday_has_price;
-																			} elseif ( ! empty( $tuesday_has_price && $today == "Tuesday" ) ) {
-																				$price_value = $tuesday_has_price;
-																			} elseif ( ! empty( $wednesday_has_price ) && $today == "Wednesday" ) {
-																				$price_value = $wednesday_has_price;
-																			} elseif ( ! empty( $thursday_has_price ) && $today == "Thursday" ) {
-																				$price_value = $thursday_has_price;
-																			} elseif ( ! empty( $friday_has_price ) && $today == "Friday" ) {
-																				$price_value = $friday_has_price;
-																			} elseif ( ! empty( $saturday_has_price ) && $today == "Saturday" ) {
-																				$price_value = $saturday_has_price;
+																				<?php
+																				$i ++;
 																			}
 																		}
-																	}
-																	?>
-                                                                </div>
-                                                                <div class="whbmt-room-title">
-                                                                    <h5><?php the_title() ?></h5>
-                                                                </div>
-                                                                <!-- Thumbnail Large Image End -->
+																		?>
 
-                                                                <!-- Thumbnail Image End -->
-                                                                <div class="product-thumbnail mt-15">
-                                                                    <div class="whbmt_room_thumb_menu owl-carousel nav tabs-area"
-                                                                         role="tablist">
-                                                                        <a class="active" data-toggle="tab"
-                                                                           href="#room1"><img
-                                                                                    src="assets/img/room/1.jpg"
-                                                                                    alt="product-thumbnail"></a>
-                                                                        <a data-toggle="tab" href="#room2"><img
-                                                                                    src="assets/img/room/2.jpg"
-                                                                                    alt="product-thumbnail"></a>
+                                                                    </div>
+                                                                    <!-- Thumbnail Large Image End -->
+
+                                                                    <!-- Thumbnail Image End -->
+                                                                    <div class="product-thumbnail mt-15">
+                                                                        <div class="whbmt_room_thumb_menu owl-carousel nav tabs-area owl-loaded"
+                                                                             role="tablist">
+
+                                                                            <div class="owl-stage-outer">
+                                                                                <div class="owl-stage"
+                                                                                     style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 177px;">
+																					<?php
+																					$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
+																					$i          = 1;
+																					foreach ( $image_meta as $key => $value ) {
+																						$value = maybe_unserialize( $value );
+																						foreach ( $value as $image_key => $attachment_id ) {
+																							$image          = wp_get_attachment_image( $attachment_id, 'full' );
+																							$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+																							?>
+                                                                                            <div class="owl-item active"
+                                                                                                 style="width: 78.192px; margin-right: 10px;">
+                                                                                                <a data-toggle="tab"
+                                                                                                   href="#room<?php echo
+																								   $i ?>"><?php echo
+																									$image;
+																									?></a>
+                                                                                            </div>
+																							<?php
+																							$i ++;
+																						}
+																					}
+																					?>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="owl-nav disabled">
+                                                                                <div class="owl-prev">prev</div>
+                                                                                <div class="owl-next">next</div>
+                                                                            </div>
+                                                                            <div class="owl-dots disabled"></div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="whbmt_room_person">
-                                                        <ul>
+                                                        </td>
+                                                        <td class="whbmt_room_person">
+                                                            <ul>
+																<?php
+																$room_capacity = get_post_meta( get_the_ID(), 'room_capacity', true ); ?>
+                                                                <input type="hidden" name="room_cap[]" class="room_cap"
+                                                                       id="room_cap" value="<?php echo $room_capacity; ?>">
+																<?php for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
+                                                                    <li>
+                                                                        <img src="<?php echo plugin_dir_url( __FILE__ ) ?>../css/images/icon.png">
+                                                                    </li>
+																<?php }
+
+																$global_price      = get_post_meta( get_the_ID(), 'global_price' );
+																$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
+																$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
+																$sunday_price      = get_post_meta( get_the_ID(), 'sunday' );
+																$monday_price      = get_post_meta( get_the_ID(), 'monday' );
+																$tuesday_price     = get_post_meta( get_the_ID(), 'tuesday' );
+																$wednesday_price   = get_post_meta( get_the_ID(), 'wednesday' );
+																$thursday_price    = get_post_meta( get_the_ID(), 'thursday' );
+																$friday_price      = get_post_meta( get_the_ID(), 'friday' );
+																$saturday_price    = get_post_meta( get_the_ID(), 'saturday' );
+
+																$sunday_has_price    = current( $sunday_price );
+																$monday_has_price    = current( $monday_price );
+																$tuesday_has_price   = current( $tuesday_price );
+																$wednesday_has_price = current( $wednesday_price );
+																$thursday_has_price  = current( $thursday_price );
+																$friday_has_price    = current( $friday_price );
+																$saturday_has_price  = current( $saturday_price );
+																$by_week = array_merge( $sunday_price, $monday_price,
+																	$tuesday_price,
+																	$wednesday_price, $thursday_price, $friday_price, $saturday_price );
+
+
+																$dateWise_price_serialized = array();
+
+																foreach ( $global_price as $price_arr_key => $price_value ) {
+																	$ar                 = $dateWise_price_un;
+																	$cur                = current( $ar );
+																	$has_seasonal_price = current( $seasonal_price_un );
+																	if ( is_array( $dateWise_price_un ) && ! empty( $cur ) ) {
+																		foreach ( $dateWise_price_un as $key => $dateWise_value ) {
+																			$dateWise_price_serialized = maybe_unserialize( $dateWise_value );
+																			if ( is_array( $dateWise_price_serialized ) ) {
+																				foreach ( $dateWise_price_serialized as $single_arr_key => $single_arr_value ) {
+																					$day_name = date( 'l', strtotime( $single_arr_value['date_field'] ) );
+																					$today    = date( 'l' );
+																					if ( isset( $single_arr_value['date_field'] ) && $day_name == $today ) {
+																						$price_value = $single_arr_value['number_field'];
+																					}
+																				}
+
+																			}
+																		}
+																	} elseif ( is_array( $seasonal_price_un ) && ! empty( $has_seasonal_price ) ) {
+																		foreach ( $seasonal_price_un as $seasonal_price_key => $seasonal_price_value ) {
+																			$seasonal_price_serialized = maybe_unserialize( $seasonal_price_value );
+																			if ( is_array( $seasonal_price_serialized ) ) {
+																				foreach ( $seasonal_price_serialized as $date_arr_key => $date_arr_value ) {
+																					$date_range = seasonal_date_range( $date_arr_value['start_date'],
+																						$date_arr_value['end_date'] );
+																					$start_date = $date_arr_value['start_date'];
+																					$end_date   = $date_arr_value['end_date'];
+																					$today      = date( 'Y-m-d' );
+																					if ( ! empty( $start_date ) && ! empty( $end_date ) &&
+																					     $start_date <= $today &&
+																					     $end_date >= $today ) {
+																						$price_value =
+																							$date_arr_value['number_field'];
+																					}
+																				}
+																			}
+																		}
+																	} elseif ( is_array( $sunday_price ) || is_array( $monday_price ) || is_array( $tuesday_price )
+																	           || is_array( $wednesday_price ) || is_array( $thursday_price ) || is_array
+																	           ( $friday_price ) || is_array( $saturday_price ) ) {
+																		$today = date( 'l' );
+																		if ( ! empty( $sunday_has_price ) && $today == "Sunday" ) {
+																			$price_value = $sunday_has_price;
+																		} elseif ( ! empty( $monday_has_price && $today == "Monday" ) ) {
+																			$price_value = $monday_has_price;
+																		} elseif ( ! empty( $tuesday_has_price && $today == "Tuesday" ) ) {
+																			$price_value = $tuesday_has_price;
+																		} elseif ( ! empty( $wednesday_has_price ) && $today == "Wednesday" ) {
+																			$price_value = $wednesday_has_price;
+																		} elseif ( ! empty( $thursday_has_price ) && $today == "Thursday" ) {
+																			$price_value = $thursday_has_price;
+																		} elseif ( ! empty( $friday_has_price ) && $today == "Friday" ) {
+																			$price_value = $friday_has_price;
+																		} elseif ( ! empty( $saturday_has_price ) && $today == "Saturday" ) {
+																			$price_value = $saturday_has_price;
+																		}
+																	}
+																}
+
+																?>
+                                                            </ul>
+                                                        </td>
+                                                        <td class="whbmt_price_room">
 															<?php
-															$room_capacity = get_post_meta( get_the_ID(), 'room_capacity', true );
-															for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
-                                                                <li>
-                                                                    <img src="<?php echo plugin_dir_url( __FILE__ ) ?>../css/images/icon.png">
-                                                                </li>
+															$curr_args = array(
+																'ex_tax_label' => false,
+																'currency'     => ''
+															);
+															?>
+                                                            <span class="active_color"><?php echo wc_price( $price_value, $curr_args );; ?></span>
+                                                            <input type="hidden" name="hotel_room_price[]"
+                                                                   value="<?php echo $price_value; ?>">
+                                                            <p class="room-price" hidden><?php echo $price_value; ?></p>
+                                                            <h6>Per night</h6>
+                                                        </td>
+                                                        <td class="whbmt_select_room_quantity">
+															<?php
+															if ( $f != 0 ) {
+																?>
+                                                                <p>
+                                                                    <input class="room-quantity-number" type="number"
+                                                                           min="0" max="<?php echo get_post_meta( get_the_ID(), 'room_quantity', true ) - $magemain->get_booked_room_count
+                                                                        ( $check_in, $check_out, $post_id, get_the_ID() ); ?>" value="" name="room_qty[]">
+                                                                </p>
+															<?php } else { ?>
+                                                                <p>
+																	<?php echo '<span style="color: red">' . esc_html__( 'Sorry no room is available with this date', 'whbm' ) . '</span>' ?>
+                                                                    <input class="room-quantity-number"
+                                                                           type="number" min="0" max=""
+                                                                           value="" name="room_qty[]"
+                                                                           disabled="disabled">
+                                                                </p>
 															<?php }
 															?>
-                                                        </ul>
-                                                    </td>
-                                                    <td class="whbmt_price_room">
-                                                        <span class="active_color"><?php echo $price_value; ?></span>
-                                                        <h6>2 night</h6>
-                                                    </td>
-                                                    <td class="whbmt_select_room_quantity">
-                                                        <input type="number" value="1">
-                                                    </td>
-                                                    <td class="whbmt_room_cart_value">
-                                                        <h5 class="mb-0">8 room for</h5>
-                                                        <h2 class="mb-0">USD 525.00</h2>
-                                                        <span>Including tax & vat</span>
-                                                        <button class=" btn btn-default main_btn mt-2">Change Search
-                                                        </button>
-                                                        <ul class="mt-2">
-                                                            <li>Free Cancelation</li>
-                                                            <li>Best Rate</li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-											<?php }
-										}
-										?>
+                                                        </td>
+														<?php if ( $data_count_in == 1 ) { ?>
+                                                            <td rowspan="<?php echo $data_count; ?>">
+                                                                <input type="hidden" name="daterange" class="daterange"
+                                                                       id="" placeholder="Type Your Date"
+                                                                       autocomplete="off" required
+                                                                       value="<?php echo $check_in_out; ?>">
+                                                                <input type="hidden" name="final_price" id="final_price"
+                                                                       value="0">
+                                                                <input type="hidden" name="total_day_stay" id="total_day_stay"
+                                                                       value="<?php echo $total_stay ?>">
+                                                                <div class="whbmt_room_order_add_to_cart">
+                                                                    <h5 class="mb-0"><span id="total-room"></span> room for</h5>
+                                                                    <h2 class="mb-0"><span id="total_price"></span></h2>
+                                                                    <span>Including tax & vat</span>
+                                                                    <button type="submit" name="add-to-cart" class="submit-to-cart
+                                                    btn btn-default main_btn mt-2" value="<?php echo $post_id; ?>"><?php
+																		esc_html_e( 'Book Now', 'whbm' ); ?></button>
+                                                                    <ul class="mt-2">
+                                                                        <li>Free Cancelation</li>
+                                                                        <li>Best Rate</li>
+                                                                    </ul>
+																	<?php
+																	do_action( 'hotel_user_registration_form', $post_id );
+																	?>
+                                                                </div>
+                                                            </td>
+															<?php $data_count_in ++;
+														} ?>
+                                                    </tr>
+												<?php }
+											}
+											?>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </form>
                                 </div>
+								<?php
+
+								?>
+
                                 <div class="whbmt_travelling_package">
                                     <h2>Le Pavillon Luxury Hotel Facilities</h2>
                                     <div class="row">
@@ -3595,43 +3598,45 @@ class Hotel_Shortcode_Hello {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="whbmt_faq_tab_wrapper">
-                                    <h4>Some of FAQ about hotel</h4>
-                                    <div class="panel-group whbmt_accor_padding_top" id="accordion" role="tablist"
-                                         aria-multiselectable="true">
-										<?php
-										$faq_un    = maybe_unserialize( get_post_meta( $post_id, 'hotel_faq', true ) );
-										$row_count = 1;
-										foreach ( $faq_un as $key => $value ) {
-											?>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading" role="tab"
-                                                     id="heading<?php echo $row_count; ?>">
-                                                    <h4 class="panel-title">
-                                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                                           href="#collapse<?php echo $row_count; ?>"
-                                                           aria-expanded="false"
-                                                           aria-controls="collapse<?php echo $row_count; ?>">
-															<?php echo $value['text_field'] ?>
-                                                        </a>
-                                                    </h4>
-                                                </div>
+								<?php
+								$faq_un    = maybe_unserialize( get_post_meta( $post_id, 'hotel_faq', true ) );
+								$row_count = 1;
+								if (is_array($faq_un) || is_object($faq_un))
+								{
+									?>
+                                    <div class="whbmt_faq_tab_wrapper">
+                                        <h4>Some of FAQ about hotel</h4>
+                                        <div class="panel-group whbmt_accor_padding_top" id="accordion" role="tablist"
+                                             aria-multiselectable="true">
+											<?php
+											foreach ( $faq_un as $key => $value ) {
+												?>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="heading<?php echo $row_count; ?>">
+                                                        <h4 class="panel-title">
+                                                            <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                               href="#collapse<?php echo $row_count; ?>" aria-expanded="false"
+                                                               aria-controls="collapse<?php echo $row_count; ?>">
+																<?php echo $value['text_field'] ?>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
 
-                                                <div id="collapse<?php echo $row_count; ?>"
-                                                     class="panel-collapse collapse" role="tabpanel"
-                                                     aria-labelledby="heading<?php echo $row_count; ?>">
-                                                    <div class="panel-body">
-                                                        <p>
-															<?php echo $value['number_field'] ?>
-                                                        </p>
+                                                    <div id="collapse<?php echo $row_count; ?>" class="panel-collapse collapse"
+                                                         role="tabpanel" aria-labelledby="heading<?php echo $row_count; ?>">
+                                                        <div class="panel-body">
+                                                            <p>
+																<?php echo $value['number_field'] ?>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-											<?php $row_count ++;
-										} ?>
+												<?php $row_count ++;
+											} ?>
 
+                                        </div>
                                     </div>
-                                </div>
+								<?php } ?>
                             </div>
                         </div>
                     </div>

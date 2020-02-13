@@ -454,6 +454,10 @@
 #daterange{
 
 }
+
+.hotel-user-registration-form input[type="number"] {
+    width: unset !important;
+}
 .date-picker-wrapper .month-wrapper{
     width: 430px !important;
 }
@@ -464,7 +468,7 @@
     /*display: inline-block;*/
 }
 .date-picker-wrapper .drp_top-bar.normal .normal-top ,span, b{
-    color: white !important;
+
 }
 .date-picker-wrapper {
     background-color: #0fa958;;

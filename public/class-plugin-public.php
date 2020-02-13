@@ -31,7 +31,7 @@ class Mage_Plugin_Public {
 		wp_enqueue_style( 'bootstrap', plugin_dir_url( __FILE__ ) . 'css/bootstrap.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'fotorama', plugin_dir_url( __FILE__ ) . 'css/fotorama.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style( 'select2-min', plugin_dir_url( __FILE__ ) . 'css/select2.min.css' );
 		wp_enqueue_style( 'daterangepicker', plugin_dir_url( __FILE__ ) . 'css/daterangepicker.min.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'whbm-public-css', plugin_dir_url( __FILE__ ) . 'css/style.css', array(), $this->version, 'all' );
 	}
@@ -46,8 +46,8 @@ class Mage_Plugin_Public {
 			'whbm-public-js'
 		),
 			$this->version, true );
-		wp_enqueue_script( 'jquery-ui-js', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.js', array( 'jquery' ),
-			$this->version, true );
+		wp_enqueue_script( 'select2-min',plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'jquery-ui-js', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ),
 			$this->version, true );
 
@@ -60,13 +60,10 @@ class Mage_Plugin_Public {
 		), $this->version, true );
 		$results_array = $this->whbm_get_location_meta();
 		//$autocomplete_array
-		wp_enqueue_script( 'whbm-public-js', plugin_dir_url( __FILE__ ) . 'js/mage-plugin-public.js', array(
-			'jquery'
-		), $this->version, true );
+		wp_enqueue_script( 'whbm-public-js', plugin_dir_url( __FILE__ ) . 'js/mage-plugin-public.js', array( 'jquery' ), $this->version, true );
 		//write_log($results_array);
 		wp_localize_script( 'whbm-public-js', 'whbm_autocomplete', $results_array );
 		wp_localize_script('whbm-public-js', 'whbm_ajax_object', (array) admin_url( 'admin-ajax.php' ) );
-
 	}
 
 	/**

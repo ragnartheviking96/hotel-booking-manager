@@ -42,7 +42,7 @@
             });
             $('.booked-room-quantity').html(rooms);
             //console.log(rooms);
-            if (rooms != 0) {
+            if (rooms !== 0 && total_stays !=0) {
                 $(".submit-to-cart").attr("disabled", false);
             } else {
                 $(".submit-to-cart").attr("disabled", true);
@@ -78,37 +78,15 @@
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
         today = yyyy + '/' + mm + '/' + dd;
-        /*$('input[name="daterange"]').daterangepicker({
-            autoUpdateInput: false,
-            minDate: today,
-            locale: {
-                cancelLabel: 'Clear'
-            }
-        });
-        $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-        });
 
-        $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
-            $(this).val('');
-        });*/
-        //end of daterange
-
-        $("#daterange").dateRangePicker({
+        $(".custom_whbm, #daterange").dateRangePicker({
             language: 'en',
             monthSelect: true,
             yearSelect: true,
             startDate: today,
             minDays: 1,
         });
-       /* $('#single_daterange').dateRangePicker({
-            language: 'en',
-            monthSelect: true,
-            yearSelect: true,
-            startDate: today,
-            minDays: 1,
-        });
-*/
+
         $('#qty-section').click(function () {
             $('.adult-child-input').toggle();
         });
@@ -126,18 +104,8 @@
 
         // $(".col-md-7 .tab-content .tab-pane").first().addClass("active");
         $(".col-md-12 .tab-content .tab-pane").first().addClass("active");
-        $(".onclick_btn").click(function () {
-            // $(".tab").addClass("active"); // instead of this do the below
-            $(this).addClass("active");
-        });
+
         //    sticky menu
-        $(window).scroll(function () {
-            if ($(window).scrollTop() > 20) {
-                $("#sticky_jquery").addClass('sticky');
-            } else {
-                $("#sticky_jquery").removeClass('sticky');
-            }
-        });
 
         $('.mage_hotel_type, .mage_hotel_cat, .room-price-range').change(function (e) {
             e.preventDefault();
@@ -155,7 +123,7 @@
            $('.room-price-range:checked').each(function (i) {
                hotel_room_price_range[i] = $(this).val().split('to');
            });
-            console.log(hotel_room_price_range);
+
             var hotel_data = {
                 action: "ajax_whbm_hotel_list",
                 hotel_type: mage_hotel_type,
@@ -176,6 +144,7 @@
             })
         });
 
+        $('.destination_search').select2();
     });
 
 })(jQuery);

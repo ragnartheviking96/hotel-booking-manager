@@ -80,156 +80,18 @@ function get_booked_room_count( $checkin_date, $checkout_date, $hotel_id, $room_
 
 $date_format = get_option( 'date_format' );
 $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
+$destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 
 ?>
 
     <section class="whbmt_packege_wrapper_area">
+	    <?php do_action( 'woocommerce_before_single_product' ); ?>
         <div class="container">
             <div class="row">
                 <!-- Start Left-Side-Bar -->
                 <div class="col-12 col-md-3">
                     <div class="whbmt_wrapper_off_left">
 
-                        <form id="whbmt_off_left_form1" action="" method="get">
-							<?php //print_r($check_out); ?>
-                            <h4>Search</h4>
-                            <div class="whbmt_form_off_left form_item_select_off_left">
-                                <div class="whbmt_custom_select_off_left">
-                                    <input type="text" name="dest_name" class="dest-name" id="dest-name"
-                                           value=""
-                                           placeholder="<?php esc_html_e( 'Type Your Destinations', 'whbm' ) ?>"
-                                           autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="whbmt_form__item_off_left">
-                                <div class="whbmt_form__item_datepicker_off_left">
-                                    <input type="text" name="daterange" class="whbmt_datepicker"
-                                           placeholder="<?php esc_html_e( 'Checkin - Checkout', 'whbm' ) ?>"
-                                           id="daterange" value="" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 pad_right">
-                                    <div class="whbmt_custom_select_off_left">
-                                        <select name="">
-                                            <option value="0">Days</option>
-                                            <option value="Barishal">0</option>
-                                            <option value="Barishal">1</option>
-                                            <option value="Barishal">2</option>
-                                            <option value="Barishal">3</option>
-                                            <option value="Barishal">4</option>
-                                            <option value="Barishal">5</option>
-                                            <option value="Barishal">6</option>
-                                            <option value="Barishal">7</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="whbmt_custom_select_off_left">
-                                        <select name="">
-                                            <option value="0">1 Room</option>
-                                            <option value="Barishal">2 Room</option>
-                                            <option value="Barishal">4 Room</option>
-                                            <option value="Barishal">5 Room</option>
-                                            <option value="Barishal">7 Room</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 pad_right">
-                                    <div class="whbmt_custom_select_off_left">
-                                        <select name="child_qty">
-                                            <option selected="selected">No Childern</option>
-                                            <option value="1">1 Children</option>
-                                            <option value="2">2 Childern</option>
-                                            <option value="3">3 Childern</option>
-                                            <option value="4">4 Childern</option>
-                                            <option value="5">5 Childern</option>
-                                            <option value="6">6 Childern</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="whbmt_custom_select_off_left">
-                                        <select name="adult_qty" class="adult_qty" id="adult_qty">
-                                            <option selected="selected">2 adult</option>
-                                            <option value="0">2 adult</option>
-                                            <option value="1">3 adult</option>
-                                            <option value="2">4 adult</option>
-                                            <option value="4">5 adult</option>
-                                            <option value="5">6 adult</option>
-                                            <option value="5">7 adult</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="whbmt_form__item_off_left form__item_submit_off_left">
-                                        <input type="submit" value="Search Now">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </form>
-                        <div class="whbmt_catagory_area_title">
-                            <h4>Select All Filter</h4>
-                        </div>
-                        <div class="whbmt_package_catagory">
-                            <div class="whbmt_catagory border_top">
-                                <h4>Tour Package Budget</h4>
-                                <div class="package_catagory_content">
-                                    <div class="checkbox"><label><input type="checkbox" checked> $200 to $500</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> $500 to $800</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> $800 to $1000</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> Above $1000</label></div>
-                                </div>
-                            </div>
-                            <div class="whbmt_catagory border_top">
-                                <h4>Duration ( in Days )</h4>
-                                <div class="package_catagory_content">
-                                    <div class="checkbox"><label><input type="checkbox" checked> 1 to 3 Days</label>
-                                    </div>
-                                    <div class="checkbox"><label><input type="checkbox"> 4 to 6 Days</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> 7 to 9 Days</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> 10 to 12 Days</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> 13 or more Days</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="whbmt_catagory border_top">
-                                <h4>Hotel Star Rating</h4>
-                                <div class="package_catagory_content">
-                                    <div class="checkbox"><label><input type="checkbox" > 3 Star</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> 4 Star</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> 5 Star</label></div>
-                                </div>
-                            </div>
-                            <div class="whbmt_catagory border_top">
-                                <h4>Room facilities</h4>
-                                <div class="package_catagory_content">
-                                    <div class="checkbox"><label><input type="checkbox" checked>
-                                            Kitchen/kitchenette</label>
-                                    </div>
-                                    <div class="checkbox"><label><input type="checkbox"> Private bathroom</label>
-                                    </div>
-                                    <div class="checkbox"><label><input type="checkbox"> Air conditioning</label>
-                                    </div>
-                                    <div class="checkbox"><label><input type="checkbox"> Balcony</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> Flat-screen TV</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="whbmt_catagory border_top">
-                                <h4>Other Benifits</h4>
-                                <div class="package_catagory_content">
-                                    <div class="checkbox"><label><input type="checkbox" checked> Free WIFI</label>
-                                    </div>
-                                    <div class="checkbox"><label><input type="checkbox"> Welcome Drinks</label>
-                                    </div>
-                                    <div class="checkbox"><label><input type="checkbox"> Big Space</label></div>
-                                    <div class="checkbox"><label><input type="checkbox"> Breakfast</label></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="whbmt_map_area ">
                         <iframe id="gmap_canvas"
@@ -273,8 +135,7 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
 
 
                                         <div class="owl-stage-outer">
-                                            <div class="owl-stage"
-                                                 style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 835px;">
+                                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 835px;">
 												<?php
 												$image_meta = maybe_unserialize( get_post_meta( $post_id, 'hotel_gallery', true ) );
 												$i          = 1;
@@ -282,9 +143,9 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
 													$image          = wp_get_attachment_image( $value, 'full' );
 													$room_image_url = wp_get_attachment_image_url( $value, 'full' );
 													?>
-                                                    <div class="owl-item active"
+                                                    <div class="owl-item"
                                                          style="width: 65.909px; margin-right: 10px;"><a
-                                                                class="show onclick_btn" data-toggle="tab"
+                                                                class="show" data-toggle="tab"
                                                                 href="#thumb<?php echo $i; ?>"><?php echo $image; ?></a>
                                                     </div>
 													<?php
@@ -303,9 +164,9 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
                             </div>
                         </div>
                         <div class="whbmt_package_listing_content">
-                            <h4><?php the_title() ?></h4>
+                            <h4><?php the_title();?></h4>
                             <ul class="listing_details_location">
-                                <li>2 km from centre</li>
+                                <li><?php  ?>2 km from centre</li>
                                 <li><i class="fa fa-map-marker"></i> <?php echo get_post_meta( get_the_ID(), 'address',
 										true ); ?></li>
                                 <li><i class="fa fa-comments-o"></i> 1275 Reviews</li>
@@ -313,7 +174,7 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
                             <p><?php echo get_post_field( 'post_content', get_the_ID() ); ?></p>
                         </div>
 						<?php
-						$check_in_out         = isset( $_GET['daterange'] ) ? $_GET['daterange'] : date_i18n( $date_format );
+						$check_in_out         = isset( $_GET['daterange'] ) ? $_GET['daterange'] : 'Please Select Date';
 						$check_in_out_explode = explode( 'to', $check_in_out );
 						//$check_in_out_explode = isset( $check_in_out_explode[1] ) ? $check_in_out_explode[1] : null;
 						$check_in = date_i18n( $date_format, strtotime( $check_in_out_explode[0] ) );
@@ -334,8 +195,8 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
                                 <div class="col-md-4">
                                     <div class="single_listing_sub_content">
                                         <span>Check in-out date</span>
-                                        <input type="text" name="daterange" class="form-control whbmt_datepicker"
-                                               placeholder="Checkin - Checkout" id="single_daterange"
+                                        <input type="text" name="daterange" class="form-control whbmt_datepicker
+                                        custom_whbm" id="daterange" placeholder="<?php esc_html_e( 'Checkin & Checkout Date' ); ?>"
                                                value="<?php echo $check_in_out ?>"
                                                autocomplete="off">
                                     </div>
@@ -346,12 +207,7 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
                                         <h5>2 adults</h5>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="single_listing_sub_content">
-                                        <span class="active_color">USD 190.00</span>
-                                        <h6>2 night</h6>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-4">
                                     <button type="submit" class=" btn btn-default main_btn change_btn">Change Search
                                     </button>
@@ -587,7 +443,7 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
                                                     <input type="hidden" name="hotel_room_price[]"
                                                            value="<?php echo $price_value; ?>">
                                                     <p class="room-price" hidden><?php echo $price_value; ?></p>
-                                                    <h6>2 night</h6>
+                                                    <h6>Per night</h6>
                                                 </td>
                                                 <td class="whbmt_select_room_quantity">
 	                                                <?php
@@ -610,7 +466,7 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
 												<?php if ( $data_count_in == 1 ) { ?>
                                                     <td rowspan="<?php echo $data_count; ?>">
                                                         <input type="hidden" name="daterange" class="daterange"
-                                                               id="daterange" placeholder="Type Your Date"
+                                                               id="" placeholder="Type Your Date"
                                                                autocomplete="off" required
                                                                value="<?php echo $check_in_out; ?>">
                                                         <input type="hidden" name="final_price" id="final_price"
@@ -685,13 +541,17 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            $faq_un    = maybe_unserialize( get_post_meta( $post_id, 'hotel_faq', true ) );
+                            $row_count = 1;
+                            if (is_array($faq_un) || is_object($faq_un))
+                            {
+                            ?>
                         <div class="whbmt_faq_tab_wrapper">
                             <h4>Some of FAQ about hotel</h4>
                             <div class="panel-group whbmt_accor_padding_top" id="accordion" role="tablist"
                                  aria-multiselectable="true">
 								<?php
-								$faq_un    = maybe_unserialize( get_post_meta( $post_id, 'hotel_faq', true ) );
-								$row_count = 1;
 								foreach ( $faq_un as $key => $value ) {
 									?>
                                     <div class="panel panel-default">
@@ -719,6 +579,7 @@ $check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
 
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
