@@ -33,6 +33,13 @@ class Mage_Plugin_Public {
 		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'select2-min', plugin_dir_url( __FILE__ ) . 'css/select2.min.css' );
 		wp_enqueue_style( 'daterangepicker', plugin_dir_url( __FILE__ ) . 'css/daterangepicker.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'font-awesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome.min.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'carousel', plugin_dir_url( __FILE__ ) . 'css/owl.carousel.min.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'animate', plugin_dir_url( __FILE__ ) . 'css/animate.min.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'fancybox', plugin_dir_url( __FILE__ ) . 'css/jquery.fancybox.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'slicknav', plugin_dir_url( __FILE__ ) . 'css/slicknav.min.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'responsive', plugin_dir_url( __FILE__ ) . 'css/responsive.css', array(), $this->version , 'all');
 		wp_enqueue_style( 'whbm-public-css', plugin_dir_url( __FILE__ ) . 'css/style.css', array(), $this->version, 'all' );
 	}
 
@@ -44,20 +51,29 @@ class Mage_Plugin_Public {
 		wp_enqueue_script( 'fotorama-js', plugin_dir_url( __FILE__ ) . 'js/fotorama.js', array(
 			'jquery',
 			'whbm-public-js'
-		),
-			$this->version, true );
+		), $this->version, true );
 		wp_enqueue_script( 'select2-min',plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ) );
 		wp_enqueue_script( 'jquery-ui-js', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ),
-			$this->version, true );
+		wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array( 'jquery' ), $this->version, true );
 
 //		wp_enqueue_script( 'sticky-js', plugin_dir_url( __FILE__ ) . 'js/jquery.sticky.js', array( 'jquery' ), $this->version, true );
 		/*wp_enqueue_script( 'moment', plugin_dir_url( __FILE__ ) . 'js/moment.min.js', array( 'jquery' ),
 			$this->version, true );*/
-		wp_enqueue_script( 'daterangepicker-js', plugin_dir_url( __FILE__ ) . 'js/jquery.daterangepicker.js', array(
-			'jquery',
-			'moment'
-		), $this->version, true );
+
+		wp_enqueue_script( 'popper', plugin_dir_url( __FILE__ ) . 'js/popper.min.js', array ( 'jquery' ), 1.1, true);
+		wp_enqueue_script( 'bootstrap-js', plugin_dir_url( __FILE__ ) . 'js/bootstrap.min.js', array ( 'jquery'
+		));
+		wp_enqueue_script( 'carousel', plugin_dir_url( __FILE__ ) . 'js/owl.carousel.min.js', array ( 'jquery'
+		), 1.1, true);
+		wp_enqueue_script( 'fancybox', plugin_dir_url( __FILE__ ) . 'js/jquery.fancybox.min.js', array ( 'jquery' ), 1.1, true);
+		wp_enqueue_script( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'js/jquery-ui.min.js', array ( 'jquery' ),
+			1.1, true);
+		wp_enqueue_script( 'jquery-nav', plugin_dir_url( __FILE__ ) . 'js/jquery.nav.js', array ( 'jquery' ), 1.1, true);
+		wp_enqueue_script( 'aos-js', plugin_dir_url( __FILE__ ) . 'js/aos.js', array ( 'jquery' ), 1.1, true);
+		wp_enqueue_script( 'slicknav', plugin_dir_url( __FILE__ ) . 'js/jquery.slicknav.min.js', array ( 'jquery' ), 1.1, true);
+		wp_enqueue_script( 'custom', plugin_dir_url( __FILE__ ) . 'js/custom.js', array ( 'jquery' ), 1.1, true);
+
+		wp_enqueue_script( 'daterangepicker-js', plugin_dir_url( __FILE__ ) . 'js/jquery.daterangepicker.js', array( 'jquery', 'moment' ), $this->version, true );
 		$results_array = $this->whbm_get_location_meta();
 		//$autocomplete_array
 		wp_enqueue_script( 'whbm-public-js', plugin_dir_url( __FILE__ ) . 'js/mage-plugin-public.js', array( 'jquery' ), $this->version, true );

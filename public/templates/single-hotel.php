@@ -194,7 +194,7 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 
                                 <div class="col-md-4">
                                     <div class="single_listing_sub_content">
-                                        <span>Check in-out date</span>
+                                        <label for="daterange">Check in-out date</label>
                                         <input type="text" name="daterange" class="form-control whbmt_datepicker
                                         custom_whbm" id="daterange" placeholder="<?php esc_html_e( 'Checkin & Checkout Date' ); ?>"
                                                value="<?php echo $check_in_out ?>"
@@ -233,11 +233,11 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                 <table class="table table-bordered">
                                     <thead class="room_heading" id="">
                                     <tr>
-                                        <th>Room Type</th>
-                                        <th>Person</th>
-                                        <th>Price</th>
-                                        <th>Select Rooms</th>
-                                        <th></th>
+                                        <th width="25%">Room Type</th>
+                                        <th width="10%">Person</th>
+                                        <th width="15%">Price</th>
+                                        <th width="20%">Select Rooms</th>
+                                        <th width="30%"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -266,7 +266,7 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                             <input type="hidden" value="<?php echo the_title() ?>"
                                                                    name="room_name[]">
                                                         </div>
-                                                        <div class="col-md-7">
+                                                        <div class="col-md-9">
                                                             <div class="tab-content">
 																<?php
 																$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
@@ -464,7 +464,8 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 	                                                ?>
                                                 </td>
 												<?php if ( $data_count_in == 1 ) { ?>
-                                                    <td rowspan="<?php echo $data_count; ?>">
+                                                    <td class="whbmt-order-summary" rowspan="<?php echo $data_count;
+                                                    ?>">
                                                         <input type="hidden" name="daterange" class="daterange"
                                                                id="" placeholder="Type Your Date"
                                                                autocomplete="off" required

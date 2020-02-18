@@ -291,6 +291,15 @@ class HotelPricingMetaBox {
 						),
 
 						array(
+							'id'          => 'price_start',
+							'title'       => __( 'Price Starts From', 'whbm' ),
+							'details'     => __( 'Room Cheapest Price', 'whbm' ),
+							'type'        => 'text',
+							'default'     => '500',
+							'placeholder' => __( 'Starting Price', 'whbm' ),
+						),
+
+						array(
 							'id'          => 'global_price',
 							'title'       => __( 'Room Global Price', 'whbm' ),
 							'details'     => __( 'Room Price For All Time', 'whbm' ),
