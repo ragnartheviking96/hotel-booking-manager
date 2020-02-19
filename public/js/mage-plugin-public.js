@@ -66,7 +66,7 @@
 
 
         //fotorama Jquery Plugin for photo gallery slider
-        $('.fotorama').fotorama({
+        $('.room-image-gallery').fotorama({
             allowfullscreen: true,
             autoplay: "1000",
             loop: "true"

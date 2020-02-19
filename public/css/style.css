@@ -10,13 +10,47 @@
 }
 
 .date-picker-wrapper .month-wrapper {
-    width: 430px !important;
+    width: 450px !important;
 }
-
+.month-wrapper table tbody tr td{
+    border: 0 !important;
+}
+.month-wrapper table tbody tr td div{
+    font-size: 14px !important;
+}
 .date-picker-wrapper .month-wrapper table .day.real-today {
     background-color: unset;
 }
+.room-image-gallery{
+}
+.room-quantity-number{
+    width: 80px !important;
+    height: 40px;
+}
+.whbmt-total-guest{
+    display: inline-block;
+    height: 3em;
+    border-left: 2px solid #373737;
+    border-right: 2px solid #373737;
+    /* top: 0px; */
+    text-align: center;
+}
+.whbmt_datepicker{
+    height: 100%;
+    font-size: 17px;
+    font-weight: bold;
+    color: #A19DA0;
+    text-align: center;
+}
+.modal-dialog{
+    max-width: 800px;
+}
+.modal-content{
+    width: 800px;
+}
+.modal-footer{
 
+}
 table, th, td {
     border: unset !important;
 }
@@ -69,7 +103,6 @@ table{
 
 input[type="number"] {
     width: 50px;
-    margin: 0 auto;
     display: block;
 }
 
@@ -78,11 +111,11 @@ input[type="number"] {
 }
 
 .whbmt_room_order_add_to_cart {
-    float: right;
 }
 
 .whbmt_room_order_add_to_cart span {
-    color: unset !important;
+    color: #10a959 !important;
+    font-size: 24px !important;
 }
 .whbmt_room_order_add_to_cart h2{
     padding: 0;
@@ -155,12 +188,15 @@ button:focus {
 }
 
 label {
-    font-size: 14px;
-    color: #777;
-    position: relative;
-    margin-left: 0;
-    cursor: pointer;
-    line-height: 30px;
+    font-size: 14px !important;
+    color: #777 !important;
+    position: relative !important;
+    margin-left: 0 !important;
+    cursor: pointer !important;
+    line-height: 30px !important;
+    display: initial !important;
+    font-weight: 500 !important;
+    margin-bottom: 0.5em;
 }
 
 .pad_right {
@@ -176,9 +212,9 @@ select:focus {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
-    margin: 0 0 15px;
-    color: #222 ;
+    font-family: 'Poppins', sans-serif !important;
+    margin: 0 0 15px !important;
+    color: #222 !important;
     font-weight: 500 !important;
 }
 
@@ -1352,7 +1388,7 @@ section.whbmt_packege_wrapper_area {
     background: #0fa958;
     margin: 0;
     text-transform: uppercase;
-    padding: 20px 0 20px 30px;
+    padding: 20px 0 20px 30px !important;
     font-size: 16px;
 }
 
@@ -1405,7 +1441,7 @@ section.whbmt_packege_wrapper_area {
 .whbmt_catagory h4 {
     font-size: 16px;
     clear: unset;
-    font-weight: unset;
+    font-weight: unset !important;
     margin-top: 30px !important;
     margin: 0 0 15px;
     text-rendering: unset;
@@ -1456,7 +1492,7 @@ section.whbmt_packege_wrapper_area {
     position: absolute;
     top: 25px;
     left: 30px;
-    padding: 5px 12px;
+    padding: 5px 12px !important;
     color: #fff;
     border-radius: 5px;
     background: #0fa958;
@@ -1685,32 +1721,34 @@ span.package_date {
     background: #fff;
     margin-top: 30px;
 }
-
+#listing_sub_content h5{
+    padding: 0;
+}
 #listing_sub_content span {
-    color: #0a0a0a !important;
+color: #0a0a0a !important;
 }
 
 .single_listing_sub_content span {
-    font-size: 13px;
+font-size: 13px;
 }
 
 .single_listing_sub_content h5 {
-    font-size: 14px;
-    margin-bottom: 0px;
-    color: #10a959;
+font-size: 14px;
+margin-bottom: 0px;
+color: #10a959;
 }
 
 .main_btn.change_btn {
-    float: right;
+float: right;
 }
 
 .single_listing_sub_content span.active_color {
-    font-size: 14px;
+font-size: 14px;
 }
 
 .single_listing_sub_content h6 {
-    font-size: 13px;
-    font-weight: 400;
+font-size: 13px;
+font-weight: 400;
 }
 
 
@@ -1749,22 +1787,40 @@ thead.room_heading {
     height: 85px;
     width: 113px;
 }
-
+.whbmt_room_person{
+    text-align: center;
+}
 .whbmt_room_person li {
     display: inline-block;
     width: 14px;
 }
-
+.whbmt_select_room_quantity{
+    text-align: center;
+}
 .room_type_name_sec {
     width: 100%;
     margin-left: 15px;
 }
-
+.room_type_name_sec a{
+    color: #07c;
+    font-weight: bold;
+    border-bottom: 1px solid;
+}
+.room_type_name_sec a:hover{
+    color: #07c;
+    font-weight: bold;
+    border-bottom: 1px solid;
+}
 .room-heading {
-    color: #0b0b0b;
-    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #0b0b0b !important;
+    font-family: 'Poppins', sans-serif !important;
 }
 
+.room-capacity-modal li{
+    display: inline-block;
+    width: 14px;
+}
 
 /* Pagination-Nav */
 h2.travelling_title {
@@ -1900,14 +1956,32 @@ a.pagination_btn {
     border-color: #0fa958;
     color: #fff;
 }
+.next.page-numbers {
+    float: unset !important;
+}
+.prev.page-numbers, .next.page-numbers {
 
+}
+.prev.page-numbers, .next.page-numbers {
+    background-color: unset !important;
+    -webkit-border-radius: unset !important;
+    border-radius: unset !important;
+    display: unset !important;
+    font-size: unset !important;
+    line-height: unset !important;
+    padding: unset !important;
+}
 /*********** Start Freequently Asked Qestion  **********/
 .whbmt_faq_tab_wrapper {
     padding: 30px;
     border: 1px solid #ddd;
     margin-top: 30px;
 }
-
+@media screen and (min-width: 67em){
+.page-numbers {
+    display: unset;
+}
+}
 #accordion .panel {
     border-radius: 0;
     margin-bottom: 18px;

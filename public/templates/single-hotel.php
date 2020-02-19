@@ -78,14 +78,14 @@ function get_booked_room_count( $checkin_date, $checkout_date, $hotel_id, $room_
 	return $qty;
 }
 
-$date_format = get_option( 'date_format' );
-$check_in_out = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
+$date_format        = get_option( 'date_format' );
+$check_in_out       = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
 $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 
 ?>
 
     <section class="whbmt_packege_wrapper_area">
-	    <?php do_action( 'woocommerce_before_single_product' ); ?>
+		<?php do_action( 'woocommerce_before_single_product' ); ?>
         <div class="container">
             <div class="row">
                 <!-- Start Left-Side-Bar -->
@@ -135,7 +135,8 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 
 
                                         <div class="owl-stage-outer">
-                                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 835px;">
+                                            <div class="owl-stage"
+                                                 style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 835px;">
 												<?php
 												$image_meta = maybe_unserialize( get_post_meta( $post_id, 'hotel_gallery', true ) );
 												$i          = 1;
@@ -164,9 +165,9 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                             </div>
                         </div>
                         <div class="whbmt_package_listing_content">
-                            <h4><?php the_title();?></h4>
+                            <h4><?php the_title(); ?></h4>
                             <ul class="listing_details_location">
-                                <li><?php  ?>2 km from centre</li>
+                                <li><?php ?>2 km from centre</li>
                                 <li><i class="fa fa-map-marker"></i> <?php echo get_post_meta( get_the_ID(), 'address',
 										true ); ?></li>
                                 <li><i class="fa fa-comments-o"></i> 1275 Reviews</li>
@@ -191,24 +192,21 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 						?>
                         <form action="" method="get">
                             <div class="row" id="listing_sub_content">
-
-                                <div class="col-md-4">
-                                    <div class="single_listing_sub_content">
-                                        <label for="daterange">Check in-out date</label>
-                                        <input type="text" name="daterange" class="form-control whbmt_datepicker
-                                        custom_whbm" id="daterange" placeholder="<?php esc_html_e( 'Checkin & Checkout Date' ); ?>"
-                                               value="<?php echo $check_in_out ?>"
-                                               autocomplete="off">
-                                    </div>
+                                <div class="col-12">
+                                    <label for="daterange">Check in-out date</label>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="single_listing_sub_content">
-                                        <span>Guests</span>
-                                        <h5>2 adults</h5>
-                                    </div>
+                                <div class="col-6">
+                                    <input type="text" name="daterange" class="form-control whbmt_datepicker
+                                        custom_whbm" id="daterange"
+                                           placeholder="<?php esc_html_e( 'Checkin & Checkout Date' ); ?>"
+                                           value="<?php echo $check_in_out ?>"
+                                           autocomplete="off">
                                 </div>
-
-                                <div class="col-md-4">
+                                <div class="col-3 whbmt-total-guest">
+                                    <span>Guests</span>
+                                    <h5>2 adults</h5>
+                                </div>
+                                <div class="col-3">
                                     <button type="submit" class=" btn btn-default main_btn change_btn">Change Search
                                     </button>
                                 </div>
@@ -224,8 +222,9 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 									<?php
 									$hotel_type = get_the_terms( get_the_ID(), 'mage_hotel_type', true );
 									if ( $hotel_type ) {
-										foreach ( $hotel_type as $arr_key => $term_value ) {?>
-                                            <input type="hidden" class="hotel_q_type" id="hotel_q_type" name="hotel_q_type" value="<?php echo $term_value->name ?>">
+										foreach ( $hotel_type as $arr_key => $term_value ) { ?>
+                                            <input type="hidden" class="hotel_q_type" id="hotel_q_type"
+                                                   name="hotel_q_type" value="<?php echo $term_value->name ?>">
 										<?php }
 									}
 									?>
@@ -234,7 +233,7 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                     <thead class="room_heading" id="">
                                     <tr>
                                         <th width="25%">Room Type</th>
-                                        <th width="10%">Person</th>
+                                        <th width="15%">Person</th>
                                         <th width="15%">Price</th>
                                         <th width="20%">Select Rooms</th>
                                         <th width="30%"></th>
@@ -249,85 +248,104 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 									$hotel_room    = new WP_Query( $args );
 									$data_count    = $hotel_room->post_count;
 									$data_count_in = 1;
+									$id            = 1;
 									while ( $hotel_room->have_posts() ) {
 										$hotel_room->the_post();
 										$hotel_list = get_post_meta( get_the_ID(), 'hotel_list', true );
 										if ( $hotel_list == $post_id ) {
 											$f = get_post_meta( get_the_ID(), 'room_quantity', true ) -
-                                                 get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() );
+											     get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() );
 											?>
                                             <tr class="whbmt_single_room_preview">
                                                 <td class="whbmt_room_title">
                                                     <div class="row">
                                                         <div class="room_type_name_sec">
-                                                            <h5 class="room-heading"><?php the_title() ?></h5>
+                                                            <a href="" data-toggle="modal"
+                                                               data-target="#myModal<?php echo $id ?>"><?php
+																the_title() ?></h5></a>
                                                             <input type="hidden" value="<?php echo get_the_ID() ?>"
                                                                    name="room_id[]">
                                                             <input type="hidden" value="<?php echo the_title() ?>"
                                                                    name="room_name[]">
                                                         </div>
                                                         <div class="col-md-9">
-                                                            <div class="tab-content">
-																<?php
-																$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
-																$i          = 1;
-																foreach ( $image_meta as $key => $value ) {
-																	$value = maybe_unserialize( $value );
-																	foreach ( $value as $image_key => $attachment_id ) {
-																		$image          = wp_get_attachment_image( $attachment_id, 'full' );
-																		$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-																		?>
-                                                                        <div id="room<?php echo $i; ?>"
-                                                                             class="tab-pane fade show"><a
-                                                                                    data-fancybox="img" href="<?php echo
-																			$room_image_url ?>"><?php echo $image ?></a>
+                                                            <div class="modal fade" id="myModal<?php echo $id ?>">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body">
+                                                                            <div class="col-6">
+                                                                                <h3><?php the_title() ?></h3>
+                                                                            </div>
+                                                                            <div class="room-image-gallery">
+																				<?php
+																				$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
+																				$i          = 1;
+																				foreach ( $image_meta as $key => $value ) {
+																					$value = maybe_unserialize( $value );
+																					foreach ( $value as $image_key => $attachment_id ) {
+																						$image          =
+																							wp_get_attachment_image(
+																								$attachment_id,
+																								array( 200, 300 ) );
+																						$room_image_url =
+																							wp_get_attachment_image_url( $attachment_id, array(
+																								300,
+																								300
+																							) );
+																						echo $image; ?>
+																						<?php $i ++;
+																					}
+																				}
+																				?>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6
+                                                                                room-facilities-modal">
+                                                                                    <h4>Room Facilities</h4>
+                                                                                    <?php
+                                                                                    $features_tax_data = get_terms( array(
+	                                                                                    'taxonomy' => 'mage_hotel_cat'
+                                                                                    ) );
+                                                                                    foreach ( $features_tax_data as $key => $value ) {
+	                                                                                    $icat_desc = get_term_meta( $value->term_id, 'icon_field', true );
+	                                                                                    ?>
+                                                                                        <p><?php echo $value->name ?><i class="feature-icon <?php echo $icat_desc ?>"></i></p>
+	                                                                                    <?php
+                                                                                    }
+                                                                                    ?>
+                                                                                </div>
+                                                                                <div class="col-md-6
+                                                                                room-capacity-modal">
+                                                                                    <h4>Room Capacities</h4>
+                                                                                <?php
+                                                                                $room_capacity = get_post_meta(
+                                                                                    get_the_ID(), 'room_capacity', true
+                                                                                    ); ?>
+																					<?php for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
+                                                                                        <li>
+                                                                                            <img src="<?php echo plugin_dir_url( __FILE__ ) ?>../css/images/icon.png">
+                                                                                        </li>
+																					<?php } ?>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                        class="btn btn-danger"
+                                                                                        data-dismiss="modal">
+                                                                                    Close
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
-																		<?php
-																		$i ++;
-																	}
-																}
-																?>
-
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <!-- Thumbnail Large Image End -->
 
                                                             <!-- Thumbnail Image End -->
                                                             <div class="product-thumbnail mt-15">
-                                                                <div class="whbmt_room_thumb_menu owl-carousel nav tabs-area owl-loaded"
+                                                                <div class="whbmt_room_thumb_menu nav tabs-area"
                                                                      role="tablist">
 
-                                                                    <div class="owl-stage-outer">
-                                                                        <div class="owl-stage"
-                                                                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 177px;">
-																			<?php
-																			$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
-																			$i          = 1;
-																			foreach ( $image_meta as $key => $value ) {
-																				$value = maybe_unserialize( $value );
-																				foreach ( $value as $image_key => $attachment_id ) {
-																					$image          = wp_get_attachment_image( $attachment_id, 'full' );
-																					$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-																					?>
-                                                                                    <div class="owl-item active"
-                                                                                         style="width: 78.192px; margin-right: 10px;">
-                                                                                        <a data-toggle="tab"
-                                                                                           href="#room<?php echo
-																						   $i ?>"><?php echo
-																							$image;
-																							?></a>
-                                                                                    </div>
-																					<?php
-																					$i ++;
-																				}
-																			}
-																			?>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="owl-nav disabled">
-                                                                        <div class="owl-prev">prev</div>
-                                                                        <div class="owl-next">next</div>
-                                                                    </div>
-                                                                    <div class="owl-dots disabled"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -363,7 +381,7 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 														$thursday_has_price  = current( $thursday_price );
 														$friday_has_price    = current( $friday_price );
 														$saturday_has_price  = current( $saturday_price );
-														$by_week = array_merge( $sunday_price, $monday_price,
+														$by_week             = array_merge( $sunday_price, $monday_price,
 															$tuesday_price,
 															$wednesday_price, $thursday_price, $friday_price, $saturday_price );
 
@@ -446,26 +464,28 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                     <h6>Per night</h6>
                                                 </td>
                                                 <td class="whbmt_select_room_quantity">
-	                                                <?php
-	                                                if ( $f != 0 ) {
-		                                                ?>
+													<?php
+													if ( $f != 0 ) {
+														?>
                                                         <p>
-                                                            <input class="room-quantity-number" type="number" min="0" max="<?php echo get_post_meta( get_the_ID(), 'room_quantity', true ) - get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() ); ?>" value="" name="room_qty[]">
+                                                            <input class="room-quantity-number" type="number" min="0"
+                                                                   max="<?php echo get_post_meta( get_the_ID(), 'room_quantity', true ) - get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() ); ?>"
+                                                                   value="" name="room_qty[]">
                                                         </p>
-	                                                <?php } else { ?>
+													<?php } else { ?>
                                                         <p>
-			                                                <?php echo '<span style="color: red">' . esc_html__( 'Sorry no room is available with this date', 'whbm' ) . '</span>' ?>
+															<?php echo '<span style="color: red">' . esc_html__( 'Sorry no room is available with this date', 'whbm' ) . '</span>' ?>
                                                             <input class="room-quantity-number"
                                                                    type="number" min="0" max=""
                                                                    value="" name="room_qty[]"
                                                                    disabled="disabled">
                                                         </p>
-	                                                <?php }
-	                                                ?>
+													<?php }
+													?>
                                                 </td>
 												<?php if ( $data_count_in == 1 ) { ?>
                                                     <td class="whbmt-order-summary" rowspan="<?php echo $data_count;
-                                                    ?>">
+													?>">
                                                         <input type="hidden" name="daterange" class="daterange"
                                                                id="" placeholder="Type Your Date"
                                                                autocomplete="off" required
@@ -485,15 +505,16 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                                 <li>Free Cancelation</li>
                                                                 <li>Best Rate</li>
                                                             </ul>
-	                                                        <?php
-	                                                        do_action( 'hotel_user_registration_form', $post_id );
-	                                                        ?>
+															<?php
+															do_action( 'hotel_user_registration_form', $post_id );
+															?>
                                                         </div>
                                                     </td>
 													<?php $data_count_in ++;
 												} ?>
                                             </tr>
 										<?php }
+										$id ++;
 									}
 									?>
 
@@ -542,45 +563,44 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                 </div>
                             </div>
                         </div>
-                        <?php
-                            $faq_un    = maybe_unserialize( get_post_meta( $post_id, 'hotel_faq', true ) );
-                            $row_count = 1;
-                            if (is_array($faq_un) || is_object($faq_un))
-                            {
-                            ?>
-                        <div class="whbmt_faq_tab_wrapper">
-                            <h4>Some of FAQ about hotel</h4>
-                            <div class="panel-group whbmt_accor_padding_top" id="accordion" role="tablist"
-                                 aria-multiselectable="true">
-								<?php
-								foreach ( $faq_un as $key => $value ) {
-									?>
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="heading<?php echo $row_count; ?>">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                                   href="#collapse<?php echo $row_count; ?>" aria-expanded="false"
-                                                   aria-controls="collapse<?php echo $row_count; ?>">
-													<?php echo $value['text_field'] ?>
-                                                </a>
-                                            </h4>
-                                        </div>
+						<?php
+						$faq_un    = maybe_unserialize( get_post_meta( $post_id, 'hotel_faq', true ) );
+						$row_count = 1;
+						if ( is_array( $faq_un ) || is_object( $faq_un ) ) {
+							?>
+                            <div class="whbmt_faq_tab_wrapper">
+                                <h4>Some of FAQ about hotel</h4>
+                                <div class="panel-group whbmt_accor_padding_top" id="accordion" role="tablist"
+                                     aria-multiselectable="true">
+									<?php
+									foreach ( $faq_un as $key => $value ) {
+										?>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading<?php echo $row_count; ?>">
+                                                <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                       href="#collapse<?php echo $row_count; ?>" aria-expanded="false"
+                                                       aria-controls="collapse<?php echo $row_count; ?>">
+														<?php echo $value['text_field'] ?>
+                                                    </a>
+                                                </h4>
+                                            </div>
 
-                                        <div id="collapse<?php echo $row_count; ?>" class="panel-collapse collapse"
-                                             role="tabpanel" aria-labelledby="heading<?php echo $row_count; ?>">
-                                            <div class="panel-body">
-                                                <p>
-													<?php echo $value['number_field'] ?>
-                                                </p>
+                                            <div id="collapse<?php echo $row_count; ?>" class="panel-collapse collapse"
+                                                 role="tabpanel" aria-labelledby="heading<?php echo $row_count; ?>">
+                                                <div class="panel-body">
+                                                    <p>
+														<?php echo $value['number_field'] ?>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-									<?php $row_count ++;
-								} ?>
+										<?php $row_count ++;
+									} ?>
 
+                                </div>
                             </div>
-                        </div>
-                        <?php } ?>
+						<?php } ?>
                     </div>
                 </div>
             </div>

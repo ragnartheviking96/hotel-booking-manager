@@ -124,7 +124,6 @@ class Hotel_Shortcode_Hello {
 									$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
 									$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
 									$selected_hotel    = get_post_meta( get_the_ID(), 'hotel_list', true );
-									//write_log($global_price);
 									if ( $hotel_id == $selected_hotel ) {
 										$price_array[] = $global_price;
 									}
@@ -325,9 +324,7 @@ class Hotel_Shortcode_Hello {
 											$hotel_facilities = get_terms( 'mage_hotel_cat', true );
 											foreach ( $hotel_facilities as $facilities_value ) {
 												?>
-                                                <div class="checkbox"><label><input class="mage_hotel_cat"
-                                                                                    type="checkbox"
-                                                                                    name="hotel_facilities[]"
+                                                <div class="checkbox"><label><input class="mage_hotel_cat" type="checkbox" name="hotel_facilities[]"
                                                                                     value="<?php echo $facilities_value->slug ?>"><?php echo $facilities_value->name; ?>
                                                     </label>
                                                 </div>
@@ -432,7 +429,6 @@ class Hotel_Shortcode_Hello {
 															$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
 															$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
 															$selected_hotel    = get_post_meta( get_the_ID(), 'hotel_list', true );
-															//write_log($global_price);
 															if ( $hotel_id == $selected_hotel ) {
 																$price_array[] = $global_price;
 															}
@@ -1335,7 +1331,6 @@ class Hotel_Shortcode_Hello {
 			);
 			$loop = new WP_Query( $args );
 
-			//write_log($loop->post_count);
 			$hotel_id = array();
 			foreach ( $loop->posts as $room ) {
 				$hotel_id[] = get_post_meta( $room->ID, 'hotel_list', true );
@@ -1603,7 +1598,6 @@ class Hotel_Shortcode_Hello {
 																$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
 																$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
 																$selected_hotel    = get_post_meta( get_the_ID(), 'hotel_list', true );
-																//write_log($global_price);
 																if ( $_hotels == $selected_hotel ) {
 																	$price_array[] = $global_price;
 																}
@@ -2328,7 +2322,6 @@ class Hotel_Shortcode_Hello {
 		$atts = shortcode_atts( array(
 			'id' => ''
 		), $atts, 'whbm_single_hotel' );
-		///write_log($post);
 		ob_start();
 		$post_id = $atts['id'];
 		$loop    = new WP_Query(
