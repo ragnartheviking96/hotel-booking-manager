@@ -20,6 +20,8 @@ class Mage_Plugin_Public {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_filter( 'single_template', array( $this, 'whbm_register_custom_single_template' ) );
 		add_filter( 'template_include', array( $this, 'whbm_register_custom_tax_template' ) );
+		add_filter( 'page_template',  array( $this, 'search_page_template' ));
+		add_filter( 'page_template',  array( $this, 'hotel_page_template' ));
 	}
 
 	private function load_public_dependencies() {
@@ -80,6 +82,23 @@ class Mage_Plugin_Public {
 		//write_log($results_array);
 		wp_localize_script( 'whbm-public-js', 'whbm_autocomplete', $results_array );
 		wp_localize_script('whbm-public-js', 'whbm_ajax_object', (array) admin_url( 'admin-ajax.php' ) );
+	}
+
+
+
+	public function search_page_template($page_template){
+		if ( is_page( 'whbm-hotel-search-form' ) ) {
+			$page_template = WHBM_PLUGIN_DIR . 'public/templates/whbm-search-form.php';
+		}
+		return $page_template;
+	}
+
+	public function hotel_page_template( $page_template )
+	{
+		if ( is_page( 'whbm-hotel-list' ) ) {
+			$page_template = WHBM_PLUGIN_DIR . 'public/templates/whbm-hotel-list.php';
+		}
+		return $page_template;
 	}
 
 	/**

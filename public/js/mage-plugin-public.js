@@ -2,7 +2,9 @@
     'use strict';
 
     $('.adult-child-input').hide();
+    $( ".pagination_nav a" ).removeClass( "next page-numbers" );
     $(document).ready(function () {
+
         $('.room-image-gallery').magnificPopup({
             delegate: 'a',
             type: 'image',

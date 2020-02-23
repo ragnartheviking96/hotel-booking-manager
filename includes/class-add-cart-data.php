@@ -34,6 +34,7 @@ class WcHBMCartCalculation {
 	 */
 	public function prepare_cart_data( $cart_item_data, $product_id, $variation_id ) {
 		global $wchbm;
+		$product_id = get_post_meta( $product_id, 'link_whbm_hotel', true ) ? get_post_meta( $product_id, 'link_whbm_hotel', true ) : $product_id;
 		if ( get_post_type( $product_id ) == 'mage_hotel' ) {
 			$date_format = get_option( 'date_format' );
 
@@ -55,8 +56,8 @@ class WcHBMCartCalculation {
 			$check_in_out_explode = explode( 'to', $check_in_out );
 			//print_r($check_in_out_explode);
 			//$check_in_out_explode = isset( $check_in_out_explode[1] ) ? $check_in_out_explode[1] : null;
-			$check_in  = date_i18n( $date_format, strtotime( $check_in_out_explode[0] ) );
-			$check_out = date_i18n( $date_format, strtotime( $check_in_out_explode[1] ) );
+			$check_in       = date_i18n( $date_format, strtotime( $check_in_out_explode[0] ) );
+			$check_out      = date_i18n( $date_format, strtotime( $check_in_out_explode[1] ) );
 			$reg_form_arr   = unserialize( get_post_meta( $product_id, 'hotel_attendee_reg_form', true ) );
 			$hotel_reg_user = isset( $_POST['hotel_reg_field'] ) ? $_POST['hotel_reg_field'] : array();
 
@@ -141,7 +142,7 @@ class WcHBMCartCalculation {
 	public function show_data_in_cart_table( $item_data, $cart_item ) {
 		$hotel_id = isset( $cart_item['hotel_id'] ) ? $cart_item['hotel_id'] : array();
 		if ( get_post_type( $hotel_id ) == 'mage_hotel' ) {
-			$date_format = get_option( 'date_format' );
+			$date_format           = get_option( 'date_format' );
 			$reg_form_arr          = unserialize( get_post_meta( $hotel_id, 'hotel_attendee_reg_form', true ) );
 			$hotel_room_info       = $cart_item['hotel_room_info'];
 			$hotel_attendee_single = $cart_item['hotel_attendee_single'];

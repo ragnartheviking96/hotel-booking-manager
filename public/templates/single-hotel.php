@@ -6,6 +6,7 @@ $post_content = get_post( $post_id );
 $content      = $post_content->post_content;
 //get value of Hotel Room And Pricing from custom post
 
+
 function seasonal_date_range( $first, $last, $step = '+1 day', $output_format = 'Y/m/d' ) {
 
 	$dates   = array();
@@ -83,7 +84,6 @@ $check_in_out       = isset( $_GET['daterange'] ) ? $_GET['daterange'] : '';
 $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 
 ?>
-
     <section class="whbmt_packege_wrapper_area">
 		<?php do_action( 'woocommerce_before_single_product' ); ?>
         <div class="container">
@@ -235,7 +235,7 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                         <th width="25%">Room Type</th>
                                         <th width="15%">Person</th>
                                         <th width="15%">Price</th>
-                                        <th width="20%">Select Rooms</th>
+                                        <th width="25%">Select Rooms</th>
                                         <th width="30%"></th>
                                     </tr>
                                     </thead>
@@ -252,6 +252,87 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 									while ( $hotel_room->have_posts() ) {
 										$hotel_room->the_post();
 										$hotel_list = get_post_meta( get_the_ID(), 'hotel_list', true );
+										$global_price      = get_post_meta( get_the_ID(), 'global_price' );
+										$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
+										$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
+										$sunday_price      = get_post_meta( get_the_ID(), 'sunday' );
+										$monday_price      = get_post_meta( get_the_ID(), 'monday' );
+										$tuesday_price     = get_post_meta( get_the_ID(), 'tuesday' );
+										$wednesday_price   = get_post_meta( get_the_ID(), 'wednesday' );
+										$thursday_price    = get_post_meta( get_the_ID(), 'thursday' );
+										$friday_price      = get_post_meta( get_the_ID(), 'friday' );
+										$saturday_price    = get_post_meta( get_the_ID(), 'saturday' );
+
+										$sunday_has_price    = current( $sunday_price );
+										$monday_has_price    = current( $monday_price );
+										$tuesday_has_price   = current( $tuesday_price );
+										$wednesday_has_price = current( $wednesday_price );
+										$thursday_has_price  = current( $thursday_price );
+										$friday_has_price    = current( $friday_price );
+										$saturday_has_price  = current( $saturday_price );
+										$by_week             = array_merge( $sunday_price, $monday_price, $tuesday_price, $wednesday_price, $thursday_price, $friday_price, $saturday_price );
+
+
+										$dateWise_price_serialized = array();
+
+										foreach ( $global_price as $price_arr_key => $price_value ) {
+											$ar                 = $dateWise_price_un;
+											$cur                = current( $ar );
+											$has_seasonal_price = current( $seasonal_price_un );
+											if ( is_array( $dateWise_price_un ) && ! empty( $cur ) ) {
+												foreach ( $dateWise_price_un as $key => $dateWise_value ) {
+													$dateWise_price_serialized = maybe_unserialize( $dateWise_value );
+													if ( is_array( $dateWise_price_serialized ) ) {
+														foreach ( $dateWise_price_serialized as $single_arr_key => $single_arr_value ) {
+															$day_name = date( 'l', strtotime( $single_arr_value['date_field'] ) );
+															$today    = date( 'l' );
+															if ( isset( $single_arr_value['date_field'] ) && $day_name == $today ) {
+																$price_value = $single_arr_value['number_field'];
+															}
+														}
+
+													}
+												}
+											} elseif ( is_array( $seasonal_price_un ) && ! empty( $has_seasonal_price ) ) {
+												foreach ( $seasonal_price_un as $seasonal_price_key => $seasonal_price_value ) {
+													$seasonal_price_serialized = maybe_unserialize( $seasonal_price_value );
+													if ( is_array( $seasonal_price_serialized ) ) {
+														foreach ( $seasonal_price_serialized as $date_arr_key => $date_arr_value ) {
+															$date_range = seasonal_date_range( $date_arr_value['start_date'],
+																$date_arr_value['end_date'] );
+															$start_date = $date_arr_value['start_date'];
+															$end_date   = $date_arr_value['end_date'];
+															$today      = date( 'Y-m-d' );
+															if ( ! empty( $start_date ) && ! empty( $end_date ) &&
+															     $start_date <= $today &&
+															     $end_date >= $today ) {
+																$price_value =
+																	$date_arr_value['number_field'];
+															}
+														}
+													}
+												}
+											} elseif ( is_array( $sunday_price ) || is_array( $monday_price ) || is_array( $tuesday_price )
+											           || is_array( $wednesday_price ) || is_array( $thursday_price ) || is_array
+											           ( $friday_price ) || is_array( $saturday_price ) ) {
+												$today = date( 'l' );
+												if ( ! empty( $sunday_has_price ) && $today == "Sunday" ) {
+													$price_value = $sunday_has_price;
+												} elseif ( ! empty( $monday_has_price && $today == "Monday" ) ) {
+													$price_value = $monday_has_price;
+												} elseif ( ! empty( $tuesday_has_price && $today == "Tuesday" ) ) {
+													$price_value = $tuesday_has_price;
+												} elseif ( ! empty( $wednesday_has_price ) && $today == "Wednesday" ) {
+													$price_value = $wednesday_has_price;
+												} elseif ( ! empty( $thursday_has_price ) && $today == "Thursday" ) {
+													$price_value = $thursday_has_price;
+												} elseif ( ! empty( $friday_has_price ) && $today == "Friday" ) {
+													$price_value = $friday_has_price;
+												} elseif ( ! empty( $saturday_has_price ) && $today == "Saturday" ) {
+													$price_value = $saturday_has_price;
+												}
+											}
+										}
 										if ( $hotel_list == $post_id ) {
 											$f = get_post_meta( get_the_ID(), 'room_quantity', true ) -
 											     get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() );
@@ -273,61 +354,77 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                                 <div class="modal-dialog modal-dialog-centered">
                                                                     <div class="modal-content">
                                                                         <div class="modal-body">
-                                                                            <div class="col-6">
+                                                                            <div class="">
                                                                                 <h3><?php the_title() ?></h3>
                                                                             </div>
-                                                                            <div class="room-image-gallery">
-																				<?php
-																				$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
-																				$i          = 1;
-																				foreach ( $image_meta as $key => $value ) {
-																					$value = maybe_unserialize( $value );
-																					foreach ( $value as $image_key => $attachment_id ) {
-																						$image          =
-																							wp_get_attachment_image(
-																								$attachment_id,
-																								array( 200, 300 ) );
-																						$room_image_url =
-																							wp_get_attachment_image_url( $attachment_id, array(
-																								300,
-																								300
-																							) );
-																						echo $image; ?>
-																						<?php $i ++;
-																					}
-																				}
-																				?>
-                                                                            </div>
                                                                             <div class="row">
-                                                                                <div class="col-md-6
-                                                                                room-facilities-modal">
-                                                                                    <h4>Room Facilities</h4>
-                                                                                    <?php
-                                                                                    $features_tax_data = get_terms( array(
-	                                                                                    'taxonomy' => 'mage_hotel_cat'
-                                                                                    ) );
-                                                                                    foreach ( $features_tax_data as $key => $value ) {
-	                                                                                    $icat_desc = get_term_meta( $value->term_id, 'icon_field', true );
-	                                                                                    ?>
-                                                                                        <p><?php echo $value->name ?><i class="feature-icon <?php echo $icat_desc ?>"></i></p>
-	                                                                                    <?php
-                                                                                    }
-                                                                                    ?>
+                                                                                <div class="room-image-gallery col-md-6">
+																					<?php
+																					$image_meta = get_post_meta( get_the_ID(), 'room_gallery' );
+																					$i          = 1;
+																					foreach ( $image_meta as $key => $value ) {
+																						$value = maybe_unserialize( $value );
+																						foreach ( $value as $image_key => $attachment_id ) {
+																							$image          =
+																								wp_get_attachment_image(
+																									$attachment_id,
+																									array( 200, 300 ) );
+																							$room_image_url =
+																								wp_get_attachment_image_url( $attachment_id, array(
+																									300,
+																									300
+																								) );
+																							echo $image; ?>
+																							<?php $i ++;
+																						}
+																					}
+																					?>
                                                                                 </div>
-                                                                                <div class="col-md-6
-                                                                                room-capacity-modal">
-                                                                                    <h4>Room Capacities</h4>
-                                                                                <?php
-                                                                                $room_capacity = get_post_meta(
-                                                                                    get_the_ID(), 'room_capacity', true
-                                                                                    ); ?>
-																					<?php for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
-                                                                                        <li>
-                                                                                            <img src="<?php echo plugin_dir_url( __FILE__ ) ?>../css/images/icon.png">
-                                                                                        </li>
-																					<?php } ?>
+                                                                                <div class="col-md-6">
+                                                                                    <div class=" room-facilities-modal">
+                                                                                        <h4>Room Facilities</h4>
+																						<?php
+																						$room_facilities = get_post_meta( get_the_ID(), 'room_facilities', true );
+																						foreach ( maybe_unserialize( $room_facilities ) as $key => $value ) {
+																							?>
+                                                                                            <p><?php echo $value['feature_name'] ?></p>
+																						<?php }
+																						?>
+                                                                                    </div>
+                                                                                    <div class="room-capacity-modal">
+                                                                                        <h4>Room Capacities</h4>
+                                                                                        <ul>
+		                                                                                <?php
+		                                                                                $room_capacity = get_post_meta(
+			                                                                                get_the_ID(), 'room_capacity', true
+		                                                                                );
+                                                                                        $child = get_post_meta(get_the_ID(), 'child_accepts', true);
+		                                                                                 for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
+                                                                                            <li>
+                                                                                                <i class="fas fa-user"></i>
+                                                                                            </li>
+		                                                                                <?php } ?>
+		                                                                                 +
+		                                                                                <?php for($j = 1; $j <= $child;
+                                                                                            $j++){?>
+                                                                                            <li><i class="fas
+                                                                                            fa-child"></i></li>
+                                                                                       <?php }
+		                                                                                $curr_args = array(
+			                                                                                'ex_tax_label' => false,
+			                                                                                'currency'     => ''
+		                                                                                );
+		                                                                                 ?>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                    <div class="room-price-modal">
+                                                                                        <p>Hurry! Limited left only
+                                                                                            <?php echo wc_price
+                                                                                            ($price_value, $curr_args)?></p>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
+
                                                                             <div class="modal-footer">
                                                                                 <button type="button"
                                                                                         class="btn btn-danger"
@@ -362,90 +459,6 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                                 <img src="<?php echo plugin_dir_url( __FILE__ ) ?>../css/images/icon.png">
                                                             </li>
 														<?php }
-
-														$global_price      = get_post_meta( get_the_ID(), 'global_price' );
-														$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
-														$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
-														$sunday_price      = get_post_meta( get_the_ID(), 'sunday' );
-														$monday_price      = get_post_meta( get_the_ID(), 'monday' );
-														$tuesday_price     = get_post_meta( get_the_ID(), 'tuesday' );
-														$wednesday_price   = get_post_meta( get_the_ID(), 'wednesday' );
-														$thursday_price    = get_post_meta( get_the_ID(), 'thursday' );
-														$friday_price      = get_post_meta( get_the_ID(), 'friday' );
-														$saturday_price    = get_post_meta( get_the_ID(), 'saturday' );
-
-														$sunday_has_price    = current( $sunday_price );
-														$monday_has_price    = current( $monday_price );
-														$tuesday_has_price   = current( $tuesday_price );
-														$wednesday_has_price = current( $wednesday_price );
-														$thursday_has_price  = current( $thursday_price );
-														$friday_has_price    = current( $friday_price );
-														$saturday_has_price  = current( $saturday_price );
-														$by_week             = array_merge( $sunday_price, $monday_price,
-															$tuesday_price,
-															$wednesday_price, $thursday_price, $friday_price, $saturday_price );
-
-
-														$dateWise_price_serialized = array();
-
-														foreach ( $global_price as $price_arr_key => $price_value ) {
-															$ar                 = $dateWise_price_un;
-															$cur                = current( $ar );
-															$has_seasonal_price = current( $seasonal_price_un );
-															if ( is_array( $dateWise_price_un ) && ! empty( $cur ) ) {
-																foreach ( $dateWise_price_un as $key => $dateWise_value ) {
-																	$dateWise_price_serialized = maybe_unserialize( $dateWise_value );
-																	if ( is_array( $dateWise_price_serialized ) ) {
-																		foreach ( $dateWise_price_serialized as $single_arr_key => $single_arr_value ) {
-																			$day_name = date( 'l', strtotime( $single_arr_value['date_field'] ) );
-																			$today    = date( 'l' );
-																			if ( isset( $single_arr_value['date_field'] ) && $day_name == $today ) {
-																				$price_value = $single_arr_value['number_field'];
-																			}
-																		}
-
-																	}
-																}
-															} elseif ( is_array( $seasonal_price_un ) && ! empty( $has_seasonal_price ) ) {
-																foreach ( $seasonal_price_un as $seasonal_price_key => $seasonal_price_value ) {
-																	$seasonal_price_serialized = maybe_unserialize( $seasonal_price_value );
-																	if ( is_array( $seasonal_price_serialized ) ) {
-																		foreach ( $seasonal_price_serialized as $date_arr_key => $date_arr_value ) {
-																			$date_range = seasonal_date_range( $date_arr_value['start_date'],
-																				$date_arr_value['end_date'] );
-																			$start_date = $date_arr_value['start_date'];
-																			$end_date   = $date_arr_value['end_date'];
-																			$today      = date( 'Y-m-d' );
-																			if ( ! empty( $start_date ) && ! empty( $end_date ) &&
-																			     $start_date <= $today &&
-																			     $end_date >= $today ) {
-																				$price_value =
-																					$date_arr_value['number_field'];
-																			}
-																		}
-																	}
-																}
-															} elseif ( is_array( $sunday_price ) || is_array( $monday_price ) || is_array( $tuesday_price )
-															           || is_array( $wednesday_price ) || is_array( $thursday_price ) || is_array
-															           ( $friday_price ) || is_array( $saturday_price ) ) {
-																$today = date( 'l' );
-																if ( ! empty( $sunday_has_price ) && $today == "Sunday" ) {
-																	$price_value = $sunday_has_price;
-																} elseif ( ! empty( $monday_has_price && $today == "Monday" ) ) {
-																	$price_value = $monday_has_price;
-																} elseif ( ! empty( $tuesday_has_price && $today == "Tuesday" ) ) {
-																	$price_value = $tuesday_has_price;
-																} elseif ( ! empty( $wednesday_has_price ) && $today == "Wednesday" ) {
-																	$price_value = $wednesday_has_price;
-																} elseif ( ! empty( $thursday_has_price ) && $today == "Thursday" ) {
-																	$price_value = $thursday_has_price;
-																} elseif ( ! empty( $friday_has_price ) && $today == "Friday" ) {
-																	$price_value = $friday_has_price;
-																} elseif ( ! empty( $saturday_has_price ) && $today == "Saturday" ) {
-																	$price_value = $saturday_has_price;
-																}
-															}
-														}
 
 														?>
                                                     </ul>
@@ -499,7 +512,8 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                             <h2 class="mb-0"><span id="total_price"></span></h2>
                                                             <span>Including tax & vat</span>
                                                             <button type="submit" name="add-to-cart" class="submit-to-cart
-                                                    btn btn-default main_btn mt-2" value="<?php echo $post_id; ?>"><?php
+                                                    btn btn-default main_btn mt-2" value="<?php
+                                                            echo get_post_meta($post_id,'link_wc_product', true); ?>"><?php
 																esc_html_e( 'Book Now', 'whbm' ); ?></button>
                                                             <ul class="mt-2">
                                                                 <li>Free Cancelation</li>

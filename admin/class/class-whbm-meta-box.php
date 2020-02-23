@@ -289,6 +289,23 @@ class HotelPricingMetaBox {
 							'default'     => '23',
 							'placeholder' => __( 'Child QTY', 'whbm' ),
 						),
+						array(
+							'id'          => 'room_facilities',
+							'title'       => __( 'Room Facilities', 'whbm' ),
+							'details'     => __( 'Room Facilities', 'whbm' ),
+							'collapsible' => true,
+							'type'        => 'repeatable',
+							'title_field' => 'feature_name',
+							'fields'      => array(
+								array(
+									'type'    => 'text',
+									'default' => '',
+									'item_id' => 'feature_name',
+									'name'    => 'Feature'
+								)
+
+							),
+						),
 
 						array(
 							'id'          => 'price_start',

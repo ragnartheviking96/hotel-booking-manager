@@ -18,6 +18,7 @@ class Mage_Plugin_Functions {
 	public function __construct() {
         $this->add_hooks();
         add_filter('mage_wc_products', array($this, 'add_cpt_to_wc_product'), 10, 1);
+
 	}
 
 	private function add_hooks() {
@@ -92,6 +93,9 @@ class Mage_Plugin_Functions {
 		//write_log($qty);
 		return $qty;
 	}
+
+
+
 }
 global $magemain;
 $magemain = new Mage_Plugin_Functions();

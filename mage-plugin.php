@@ -3,7 +3,7 @@
  * Plugin Name:       WooCommerce Hotel Booking Manager
  * Plugin URI:        mage-people.com
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.5
+ * Version:           1.0.9
  * Author:            magePeople team
  * Author URI:        mage-people.com
  * License:           GPL-2.0+
@@ -47,6 +47,17 @@ function whbm_page_create() {
 			'post_name'    => 'whbm-hotel-search-form',
 			'post_title'   => 'Hotel Search',
 			'post_content' => '[whbm-hotel-search-form]',
+			'post_status'  => 'publish',
+		);
+
+		wp_insert_post( $hotel_search_page );
+	}
+	if ( ! whbm_get_page_by_slug( 'whbm-hotel-list' ) ) {
+		$hotel_search_page = array(
+			'post_type'    => 'page',
+			'post_name'    => 'whbm-hotel-list',
+			'post_title'   => 'Hotel List',
+			'post_content' => '[whbm-hotel-list]',
 			'post_status'  => 'publish',
 		);
 
@@ -114,14 +125,10 @@ class whbm_Base {
 		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 			// Deactivate the plugin
 			deactivate_plugins( __FILE__ );
-
-
 			$error_message = sprintf( 'This plugin requires <a target="_blank" href="%s">%s</a>', 'https://wordpress.org/plugins/woocommerce/', esc_html__( 'Woocommerce Hotel Booking Manager', 'whbm' )
 			);
 			die( $error_message );
 		}
-
-
 	} // end of activate
 	if( !function_exists('get_plugin_data') ){
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
