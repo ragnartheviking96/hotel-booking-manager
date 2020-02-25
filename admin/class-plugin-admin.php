@@ -27,7 +27,6 @@ class WHBM_Plugin_Admin {
 		add_action( 'save_post', array( $this, 'whbm_wc_link_product_on_save', 99, 1 ) );
 		add_action( 'parse_query', array( $this, 'whbm_product_tags_sorting_query' ) );
 	}
-
 	public function enqueue_styles() {
 		wp_enqueue_style( 'whbm-jquery-ui-style', WHBM_PLUGIN_URL . 'admin/css/jquery-ui.css', array() );
 		wp_enqueue_style( 'pickplugins-options-framework', WHBM_PLUGIN_URL . 'admin/assets/css/pickplugins-options-framework.css' );
