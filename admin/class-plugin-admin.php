@@ -14,6 +14,9 @@ class WHBM_Plugin_Admin {
 
 	private $version;
 
+	/**
+	 * WHBM_Plugin_Admin constructor.
+	 */
 	public function __construct() {
 		$this->load_admin_dependencies();
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -24,9 +27,61 @@ class WHBM_Plugin_Admin {
 		add_filter( 'manage_hotel_booking_info_posts_columns', array( $this, 'wchbmpro_add_pdf_dl_column' ) );
 		add_action( 'wp_trash_post', array( $this, 'whbm_booking_info_trash' ), 90 );
 		add_action( 'untrash_post', array( $this, 'whbm_booking_info_untrash' ), 90 );
-		add_action( 'save_post', array( $this, 'whbm_wc_link_product_on_save', 99, 1 ) );
-		add_action( 'parse_query', array( $this, 'whbm_product_tags_sorting_query' ) );
+		add_action( 'save_post', array( $this, 'whbm_wc_link_product_on_save' ), 99, 1 );
+		add_action( 'wp_insert_post', array( $this, 'whbm_on_post_publish' ), 10, 3 );
+		//add_action( 'parse_query', array( $this, 'whbm_product_tags_sorting_query' ) );
+
+		//add_action('init', array($this, 'create_default_terms_rating'));
 	}
+
+	function whbm_on_post_publish( $post_id, $post, $update ) {
+		if ( $post->post_type == 'mage_hotel' && $post->post_status == 'publish' && empty( get_post_meta( $post_id, 'check_if_run_once' ) ) ) {
+			// print_r($post);
+
+			// ADD THE FORM INPUT TO $new_post ARRAY
+			$new_post = array(
+				'post_title'    => $post->post_title,
+				'post_content'  => '',
+				'post_category' => array(),  // Usable for custom taxonomies too
+				'tags_input'    => array(),
+				'post_status'   => 'publish', // Choose: publish, preview, future, draft, etc.
+				'post_type'     => 'product'  //'post',page' or use a custom post type if you want to
+			);
+			//SAVE THE POST
+			$pid = wp_insert_post( $new_post );
+			update_post_meta( $post_id, 'link_wc_product', $pid );
+			update_post_meta( $pid, 'link_whbm_hotel', $post_id );
+			update_post_meta( $pid, '_price', 0.01 );
+			update_post_meta( $pid, '_sold_individually', 'yes' );
+			update_post_meta( $pid, '_virtual', 'yes' );
+			$terms = array( 'exclude-from-catalog', 'exclude-from-search' );
+			wp_set_object_terms( $pid, $terms, 'product_visibility' );
+			update_post_meta( $post_id, 'check_if_run_once', true );
+			//die();
+		}
+	}
+
+	function create_default_terms_rating() {
+		$default_term = array( '1 Star', '2 Star', '3 Star', '4 Star', '5 Star' );
+		foreach ( $default_term as $key => $value ) {
+			wp_insert_term(
+				$value,
+				'mage_hotel_type'
+			);
+		}
+
+		$mage_property_type_arr = array( 'Apartments', 'Hotel', 'Hostel', 'Guest House' );
+		foreach ( $mage_property_type_arr as $i => $pro ) {
+			wp_insert_term(
+				$pro,
+				'mage_property_type'
+			);
+		}
+	}
+
+	/**
+	 *
+	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( 'whbm-jquery-ui-style', WHBM_PLUGIN_URL . 'admin/css/jquery-ui.css', array() );
 		wp_enqueue_style( 'pickplugins-options-framework', WHBM_PLUGIN_URL . 'admin/assets/css/pickplugins-options-framework.css' );
@@ -354,7 +409,7 @@ class WHBM_Plugin_Admin {
 	function whbm_product_tags_sorting_query( $query ) {
 		global $pagenow;
 		$taxonomy = 'product_visibility';
-		$q_vars = &$query->query_vars;
+		$q_vars   = &$query->query_vars;
 		if ( $pagenow == 'edit.php' && isset( $q_vars['post_type'] ) && $q_vars['post_type'] == 'product' ) {
 			$tax_query = array(
 				[
@@ -368,18 +423,18 @@ class WHBM_Plugin_Admin {
 		}
 
 	}
-	function whbm_create_hidden_event_product($post_id,$title){
+
+	function whbm_create_hidden_event_product( $post_id, $title ) {
 		$new_post = array(
-			'post_title'    =>   $title,
-			'post_content'  =>   '',
-			'post_category' =>   array(),
-			'tags_input'    =>   array(),
-			'post_status'   =>   'publish',
-			'post_type'     =>   'product'
+			'post_title'    => $title,
+			'post_content'  => '',
+			'post_category' => array(),
+			'tags_input'    => array(),
+			'post_status'   => 'publish',
+			'post_type'     => 'product'
 		);
 
-
-		$pid                = wp_insert_post($new_post);
+		$pid = wp_insert_post( $new_post );
 
 		update_post_meta( $post_id, 'link_wc_product', $pid );
 		update_post_meta( $pid, 'link_whbm_hotel', $post_id );
@@ -399,30 +454,3 @@ class WHBM_Plugin_Admin {
 global $whbm_plugin_admin;
 $whbm_plugin_admin = new WHBM_Plugin_Admin();
 
-add_action( 'wp_insert_post', 'whbm_on_post_publish', 10, 3 );
-function whbm_on_post_publish( $post_id, $post, $update ) {
-	if ( $post->post_type == 'mage_hotel' && $post->post_status == 'publish' && empty( get_post_meta( $post_id, 'check_if_run_once' ) ) ) {
-		// print_r($post);
-
-		// ADD THE FORM INPUT TO $new_post ARRAY
-		$new_post = array(
-			'post_title'    => $post->post_title,
-			'post_content'  => '',
-			'post_category' => array(),  // Usable for custom taxonomies too
-			'tags_input'    => array(),
-			'post_status'   => 'publish', // Choose: publish, preview, future, draft, etc.
-			'post_type'     => 'product'  //'post',page' or use a custom post type if you want to
-		);
-		//SAVE THE POST
-		$pid = wp_insert_post( $new_post );
-		update_post_meta( $post_id, 'link_wc_product', $pid );
-		update_post_meta( $pid, 'link_whbm_hotel', $post_id );
-		update_post_meta( $pid, '_price', 0.01 );
-		update_post_meta( $pid, '_sold_individually', 'yes' );
-		update_post_meta( $pid, '_virtual', 'yes' );
-		$terms = array( 'exclude-from-catalog', 'exclude-from-search' );
-		wp_set_object_terms( $pid, $terms, 'product_visibility' );
-		update_post_meta( $post_id, 'check_if_run_once', true );
-		//die();
-	}
-}

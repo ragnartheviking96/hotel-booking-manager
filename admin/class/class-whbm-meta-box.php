@@ -160,6 +160,15 @@ class MageMetaBox {
 							'placeholder' => __( 'Textarea placeholder', 'whbm' ),
 						),
 						array(
+							'id'          => 'min_price_starts',
+							//'field_name'		    => 'some_id_text_field_1',
+							'title'       => __( 'Price Starts From', 'whbm' ),
+							'details'     => '',
+							'type'        => 'text',
+							'default'     => '',
+							'placeholder' => __( 'Price Starts From', 'whbm' ),
+						),
+						array(
 							'id'          => 'extra_features',
 							'title'       => __( 'Extra Features', 'whbm' ),
 							'details'     => __( 'Extra features like Morning breakfast + tour guide + whole day car service + security service', 'whbm' ),

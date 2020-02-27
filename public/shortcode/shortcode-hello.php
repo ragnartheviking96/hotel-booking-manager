@@ -166,7 +166,7 @@ class Hotel_Shortcode_Hello {
 	 * This method creates shortcode all functionality
 	 */
 	public function whbm_hotel_list( $atts, $content = null ) {
-		global $wchbm;
+		global $wchbm, $magemain;;
 		$atts = shortcode_atts( array(
 			'view'     => 'list',
 			'location' => '',
@@ -1268,7 +1268,7 @@ class Hotel_Shortcode_Hello {
 	 * @return string
 	 */
 	public function whbm_hotel_search_form( $atts ) {
-		global $wchbm;
+		global $wchbm, $magemain;;
 		$defaults = array();
 		$params   = shortcode_atts( $defaults, $atts );
 		ob_start();
@@ -2603,91 +2603,6 @@ class Hotel_Shortcode_Hello {
                                                                         <img src="<?php echo plugin_dir_url( __FILE__ ) ?>../css/images/icon.png">
                                                                     </li>
 																<?php }
-
-																$global_price      = get_post_meta( get_the_ID(), 'global_price' );
-																$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
-																$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
-																$sunday_price      = get_post_meta( get_the_ID(), 'sunday' );
-																$monday_price      = get_post_meta( get_the_ID(), 'monday' );
-																$tuesday_price     = get_post_meta( get_the_ID(), 'tuesday' );
-																$wednesday_price   = get_post_meta( get_the_ID(), 'wednesday' );
-																$thursday_price    = get_post_meta( get_the_ID(), 'thursday' );
-																$friday_price      = get_post_meta( get_the_ID(), 'friday' );
-																$saturday_price    = get_post_meta( get_the_ID(), 'saturday' );
-
-																$sunday_has_price    = current( $sunday_price );
-																$monday_has_price    = current( $monday_price );
-																$tuesday_has_price   = current( $tuesday_price );
-																$wednesday_has_price = current( $wednesday_price );
-																$thursday_has_price  = current( $thursday_price );
-																$friday_has_price    = current( $friday_price );
-																$saturday_has_price  = current( $saturday_price );
-																$by_week             = array_merge( $sunday_price, $monday_price,
-																	$tuesday_price,
-																	$wednesday_price, $thursday_price, $friday_price, $saturday_price );
-
-
-																$dateWise_price_serialized = array();
-
-																foreach ( $global_price as $price_arr_key => $price_value ) {
-																	$ar                 = $dateWise_price_un;
-																	$cur                = current( $ar );
-																	$has_seasonal_price = current( $seasonal_price_un );
-																	if ( is_array( $dateWise_price_un ) && ! empty( $cur ) ) {
-																		foreach ( $dateWise_price_un as $key => $dateWise_value ) {
-																			$dateWise_price_serialized = maybe_unserialize( $dateWise_value );
-																			if ( is_array( $dateWise_price_serialized ) ) {
-																				foreach ( $dateWise_price_serialized as $single_arr_key => $single_arr_value ) {
-																					$day_name = date( 'l', strtotime( $single_arr_value['date_field'] ) );
-																					$today    = date( 'l' );
-																					if ( isset( $single_arr_value['date_field'] ) && $day_name == $today ) {
-																						$price_value = $single_arr_value['number_field'];
-																					}
-																				}
-
-																			}
-																		}
-																	} elseif ( is_array( $seasonal_price_un ) && ! empty( $has_seasonal_price ) ) {
-																		foreach ( $seasonal_price_un as $seasonal_price_key => $seasonal_price_value ) {
-																			$seasonal_price_serialized = maybe_unserialize( $seasonal_price_value );
-																			if ( is_array( $seasonal_price_serialized ) ) {
-																				foreach ( $seasonal_price_serialized as $date_arr_key => $date_arr_value ) {
-																					$date_range = seasonal_date_range( $date_arr_value['start_date'],
-																						$date_arr_value['end_date'] );
-																					$start_date = $date_arr_value['start_date'];
-																					$end_date   = $date_arr_value['end_date'];
-																					$today      = date( 'Y-m-d' );
-																					if ( ! empty( $start_date ) && ! empty( $end_date ) &&
-																					     $start_date <= $today &&
-																					     $end_date >= $today ) {
-																						$price_value =
-																							$date_arr_value['number_field'];
-																					}
-																				}
-																			}
-																		}
-																	} elseif ( is_array( $sunday_price ) || is_array( $monday_price ) || is_array( $tuesday_price )
-																	           || is_array( $wednesday_price ) || is_array( $thursday_price ) || is_array
-																	           ( $friday_price ) || is_array( $saturday_price ) ) {
-																		$today = date( 'l' );
-																		if ( ! empty( $sunday_has_price ) && $today == "Sunday" ) {
-																			$price_value = $sunday_has_price;
-																		} elseif ( ! empty( $monday_has_price && $today == "Monday" ) ) {
-																			$price_value = $monday_has_price;
-																		} elseif ( ! empty( $tuesday_has_price && $today == "Tuesday" ) ) {
-																			$price_value = $tuesday_has_price;
-																		} elseif ( ! empty( $wednesday_has_price ) && $today == "Wednesday" ) {
-																			$price_value = $wednesday_has_price;
-																		} elseif ( ! empty( $thursday_has_price ) && $today == "Thursday" ) {
-																			$price_value = $thursday_has_price;
-																		} elseif ( ! empty( $friday_has_price ) && $today == "Friday" ) {
-																			$price_value = $friday_has_price;
-																		} elseif ( ! empty( $saturday_has_price ) && $today == "Saturday" ) {
-																			$price_value = $saturday_has_price;
-																		}
-																	}
-																}
-
 																?>
                                                             </ul>
                                                         </td>
@@ -2698,10 +2613,10 @@ class Hotel_Shortcode_Hello {
 																'currency'     => ''
 															);
 															?>
-                                                            <span class="active_color"><?php echo wc_price( $price_value, $curr_args );; ?></span>
+                                                            <span class="active_color"><?php echo wc_price( $magemain->get_room_price(get_the_ID()), $curr_args );; ?></span>
                                                             <input type="hidden" name="hotel_room_price[]"
-                                                                   value="<?php echo $price_value; ?>">
-                                                            <p class="room-price" hidden><?php echo $price_value; ?></p>
+                                                                   value="<?php echo $magemain->get_room_price(get_the_ID()); ?>">
+                                                            <p class="room-price" hidden><?php echo $magemain->get_room_price(get_the_ID());; ?></p>
                                                             <h6>Per night</h6>
                                                         </td>
                                                         <td class="whbmt_select_room_quantity">

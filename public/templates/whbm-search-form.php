@@ -963,8 +963,7 @@ if ( ! empty( $_GET['dest_name'] ) ) {
                 <div class="col-12">
                     <div class="whbmt_form_area">
                         <div class="whbmt_banner_title text-center whbm_search_form_heading">
-                            <h1 class="banner_heading ">Find the best deals from all the major hotel in popular
-                                city</h1>
+                            <h1 class="banner_heading ">Find the best deals from all the major hotel in popular city</h1>
                         </div>
                         <form id="whbmt_wanderlust_form1" class="search-form-shortcode" action="" method="get">
                             <div class="whbmt_form__item form__item_select">

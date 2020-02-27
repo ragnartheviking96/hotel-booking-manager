@@ -76,6 +76,7 @@ function whbm_page_create() {
 		wp_insert_post( $view_ticket_page );
 	}*/
 }
+
 // Function to get page slug
 function whbm_get_page_by_slug( $slug ) {
 	if ( $pages = get_pages() ) {
@@ -90,6 +91,7 @@ function whbm_get_page_by_slug( $slug ) {
 }
 //register_activation_hook( __FILE__, 'activate_hotel_basic' );
 register_activation_hook( __FILE__, 'whbm_page_create' );
+//register_activation_hook( __FILE__, 'create_default_terms_rating' );
 
 class whbm_Base {
 

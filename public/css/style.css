@@ -126,6 +126,15 @@ input[type="number"] {
 ul, ol {
     margin-left: 0 !important;
 }
+.checkin-out{
+    border-right: 4px solid #f4780b;
+    border-left: 4px solid #f4780b;
+    width: 240px;
+}
+.checkin-out .form__item_select{
+    margin-right: 7px;
+    margin-left: 7px;
+}
 /*
 loader css file
 */
@@ -827,8 +836,8 @@ nav {
 }
 
 .whbmt_custom_select.form_destination {
-    padding-right: 30px;
-    width: 250px;
+    padding-right: 5px;
+    /*width: 250px;*/
     padding-left: 10px;
 }
 
@@ -918,6 +927,12 @@ nav {
     color: #777;
 }
 
+#whbmt_off_left_form1 {
+    background: #f4780b;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
 #whbmt_form_1_area .ui-state-active, .ui-widget-content .ui-state-active,
 #whbmt_form_1_area .ui-widget-header .ui-state-active, a.ui-button:active,
 #whbmt_form_1_area.ui-button:active, .ui-button.ui-state-active:hover {
@@ -933,10 +948,6 @@ nav {
     color: #fff !important;
     font-weight: bold !important;
 }
-#whbmt_off_left_form1 {
-    background: #f4780b;
-    margin-bottom: 20px;
-}
 
 .whbmt_form__item_datepicker_off_left input {
     transition: unset;
@@ -945,6 +956,7 @@ nav {
     cursor: pointer !important;
     color: #777 !important;
     margin-top: 10px;
+    padding-left: 10px !important;
     font-size: 12px;
     height: 40px;
     border: none !important;
@@ -1001,7 +1013,10 @@ section.whbmt_wrapper_area {
     padding-top: 50px;
 }
 
-section.whbmt_packege_wrapper_area { background: #f5f6ff;padding: 15px;}
+section.whbmt_packege_wrapper_area {
+    padding: 100px 0;
+    background: #f5f6ff;
+}
 
 .whbmt_tour_shedule .whbmt_tour_title {
     font-size: 16px;
@@ -1389,15 +1404,11 @@ section.whbmt_packege_wrapper_area { background: #f5f6ff;padding: 15px;}
 }
 
 .whbmt_wrapper_off_left {
-    min-width: 220px;
-    width: 25%;
-    padding: 15px;
-    background: #f4780b;
-    border-radius: 5px;
+    background: #fff;
 }
-.off_right{min-width: calc(100% - 220px);width:75%;padding: 0 0 0 15px;}
 
 .whbmt_catagory {
+    padding-left: 30px;
     padding-bottom: 20px;
 }
 
@@ -1802,8 +1813,6 @@ thead.room_heading {
     padding: 0 !important;
 }
 .owl-carousel .owl-item img {
-    height: 85px;
-    width: 113px;
 }
 .whbmt_room_person{
     text-align: center;
@@ -2190,13 +2199,5 @@ a.pagination_btn {
 .select2-selection__choice {
     color: black;
 }
-.checkin-out{
-    border-right: 4px solid #f4780b;
-    border-left: 4px solid #f4780b;
-    width: 300px;
-}
-.checkin-out .form__item_select{
-    margin-right: 7px;
-    margin-left: 7px;
-}
+
 /*Footer Css*/
