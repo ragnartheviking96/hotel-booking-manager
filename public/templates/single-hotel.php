@@ -109,18 +109,23 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 									<?php
 									$image_meta = get_post_meta( $post_id, 'hotel_gallery' );
 									$thumb      = 1;
-									foreach ( $image_meta as $key => $value ) {
-										$value = maybe_unserialize( $value );
-										foreach ( $value as $image_key => $attachment_id ) {
-											$image          = wp_get_attachment_image( $attachment_id, 'full' );
-											$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
-											?>
-                                            <div id="thumb<?php echo $thumb ?>" class="tab-pane fade show">
-                                                <a data-fancybox="img" href="<?php echo $room_image_url ?>"><?php
-													echo $image ?></a>
-                                            </div>
-											<?php
-											$thumb ++;
+									if ( is_array( $image_meta ) || is_object( $image_meta ) ) {
+										foreach ( $image_meta as $key => $value ) {
+											$value = maybe_unserialize( $value );
+											if ( is_array( $value ) || is_object( $value ) ) {
+												foreach ( $value as $image_key => $attachment_id ) {
+													$image          = wp_get_attachment_image( $attachment_id, 'full' );
+													$room_image_url = wp_get_attachment_image_url( $attachment_id, 'full' );
+													?>
+                                                    <div id="thumb<?php echo $thumb ?>" class="tab-pane fade show">
+                                                        <a data-fancybox="img"
+                                                           href="<?php echo $room_image_url ?>"><?php
+															echo $image ?></a>
+                                                    </div>
+													<?php
+													$thumb ++;
+												}
+											}
 										}
 
 									}
@@ -140,17 +145,19 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 												<?php
 												$image_meta = maybe_unserialize( get_post_meta( $post_id, 'hotel_gallery', true ) );
 												$i          = 1;
-												foreach ( $image_meta as $key => $value ) {
-													$image          = wp_get_attachment_image( $value, 'full' );
-													$room_image_url = wp_get_attachment_image_url( $value, 'full' );
-													?>
-                                                    <div class="owl-item"
-                                                         style="width: 65.909px; margin-right: 10px;"><a
-                                                                class="show" data-toggle="tab"
-                                                                href="#thumb<?php echo $i; ?>"><?php echo $image; ?></a>
-                                                    </div>
-													<?php
-													$i ++;
+												if ( is_array( $image_meta ) || is_object( $image_meta ) ) {
+													foreach ( $image_meta as $key => $value ) {
+														$image          = wp_get_attachment_image( $value, 'full' );
+														$room_image_url = wp_get_attachment_image_url( $value, 'full' );
+														?>
+                                                        <div class="owl-item"
+                                                             style="width: 65.909px; margin-right: 10px;"><a
+                                                                    class="show" data-toggle="tab"
+                                                                    href="#thumb<?php echo $i; ?>"><?php echo $image; ?></a>
+                                                        </div>
+														<?php
+														$i ++;
+													}
 												}
 												?>
                                             </div>
@@ -257,93 +264,6 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 											$f = get_post_meta( get_the_ID(), 'room_quantity', true ) -
 											     get_booked_room_count( $check_in, $check_out, $post_id, get_the_ID() );
 
-											$global_price      = get_post_meta( get_the_ID(), 'global_price' );
-											$seasonal_price_un = get_post_meta( get_the_ID(), 'seasonal_price' );
-											write_log($seasonal_price_un);
-											$dateWise_price_un = get_post_meta( get_the_ID(), 'dateWise_price' );
-											$sunday_price      = get_post_meta( get_the_ID(), 'sunday' );
-											$monday_price      = get_post_meta( get_the_ID(), 'monday' );
-											$tuesday_price     = get_post_meta( get_the_ID(), 'tuesday' );
-											$wednesday_price   = get_post_meta( get_the_ID(), 'wednesday' );
-											$thursday_price    = get_post_meta( get_the_ID(), 'thursday' );
-											$friday_price      = get_post_meta( get_the_ID(), 'friday' );
-											$saturday_price    = get_post_meta( get_the_ID(), 'saturday' );
-
-											$sunday_has_price    = current( $sunday_price );
-											$monday_has_price    = current( $monday_price );
-											$tuesday_has_price   = current( $tuesday_price );
-											$wednesday_has_price = current( $wednesday_price );
-											$thursday_has_price  = current( $thursday_price );
-											$friday_has_price    = current( $friday_price );
-											$saturday_has_price  = current( $saturday_price );
-											$by_week             = array_merge( $sunday_price, $monday_price, $tuesday_price, $wednesday_price, $thursday_price, $friday_price, $saturday_price );
-
-
-											$dateWise_price_serialized = array();
-											$price_value = 0;
-											
-												$ar                 = $dateWise_price_un;
-												$cur                = current( $ar );
-												$has_seasonal_price = current( $seasonal_price_un );
-												if ( is_array( $dateWise_price_un ) && ! empty( $cur ) ) {
-													foreach ( $dateWise_price_un as $key => $dateWise_value ) {
-														$dateWise_price_serialized = maybe_unserialize( $dateWise_value );
-														if ( is_array( $dateWise_price_serialized ) ) {
-															foreach ( $dateWise_price_serialized as $single_arr_key => $single_arr_value ) {
-																$day_name = date( 'l', strtotime( $single_arr_value['date_field'] ) );
-																$today    = date( 'l' );
-																if ( isset( $single_arr_value['date_field'] ) && $day_name == $today ) {
-																	$price_value = $single_arr_value['number_field'];
-																}
-															}
-
-														}
-													}
-												} elseif ( is_array( $seasonal_price_un ) && ! empty( $has_seasonal_price )  ) {
-
-													foreach ( $seasonal_price_un as $seasonal_price_key => $seasonal_price_value ) {
-														$seasonal_price_serialized = maybe_unserialize( $seasonal_price_value );
-														if ( is_array( $seasonal_price_serialized ) ) {
-															foreach ( $seasonal_price_serialized as $date_arr_key => $date_arr_value ) {
-																$date_range = seasonal_date_range( $date_arr_value['start_date'],
-																	$date_arr_value['end_date'] );
-																$start_date = $date_arr_value['start_date'];
-																$end_date   = $date_arr_value['end_date'];
-																$today      = date( 'Y-m-d' );
-																if ( ! empty( $start_date ) && ! empty( $end_date ) &&
-																     $start_date <= $today &&
-																     $end_date >= $today ) {
-																	$price_value = $date_arr_value['number_field'];
-																}
-															}
-														}
-													}
-												} elseif ( is_array( $sunday_price ) || is_array( $monday_price ) || is_array( $tuesday_price )
-												           || is_array( $wednesday_price ) || is_array( $thursday_price ) || is_array
-												           ( $friday_price ) || is_array( $saturday_price ) ) {
-													$today = date( 'l' );
-													if ( ! empty( $sunday_has_price ) && $today == "Sunday" ) {
-														$price_value = $sunday_has_price;
-													} elseif ( ! empty( $monday_has_price && $today == "Monday" ) ) {
-														$price_value = $monday_has_price;
-													} elseif ( ! empty( $tuesday_has_price && $today == "Tuesday" ) ) {
-														$price_value = $tuesday_has_price;
-													} elseif ( ! empty( $wednesday_has_price ) && $today == "Wednesday" ) {
-														$price_value = $wednesday_has_price;
-													} elseif ( ! empty( $thursday_has_price ) && $today == "Thursday" ) {
-														$price_value = $thursday_has_price;
-													} elseif ( ! empty( $friday_has_price ) && $today == "Friday" ) {
-														$price_value = $friday_has_price;
-													} elseif ( ! empty( $saturday_has_price ) && $today == "Saturday" ) {
-														$price_value = $saturday_has_price;
-													}
-
-												}
-
-
-
-
-
 											?>
                                             <tr class="whbmt_single_room_preview">
                                                 <td class="whbmt_room_title">
@@ -393,41 +313,44 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                                                         <h4>Room Facilities</h4>
 																						<?php
 																						$room_facilities = get_post_meta( get_the_ID(), 'room_facilities', true );
+																						if ( is_array( $room_facilities ) || is_object( $room_facilities ) ) {
 																						foreach ( maybe_unserialize( $room_facilities ) as $key => $value ) {
 																							?>
                                                                                             <p><?php echo $value['feature_name'] ?></p>
-																						<?php }
+																						<?php }}
 																						?>
                                                                                     </div>
                                                                                     <div class="room-capacity-modal">
                                                                                         <h4>Room Capacities</h4>
                                                                                         <ul>
-		                                                                                <?php
-		                                                                                $room_capacity = get_post_meta(
-			                                                                                get_the_ID(), 'room_capacity', true
-		                                                                                );
-                                                                                        $child = get_post_meta(get_the_ID(), 'child_accepts', true);
-		                                                                                 for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
-                                                                                            <li>
-                                                                                                <i class="fas fa-user"></i>
-                                                                                            </li>
-		                                                                                <?php } ?>
-		                                                                                 +
-		                                                                                <?php for($j = 1; $j <= $child;
-                                                                                            $j++){?>
-                                                                                            <li><i class="fas
+																							<?php
+																							$room_capacity = get_post_meta(
+																								get_the_ID(), 'room_capacity', true
+																							);
+																							$child         = get_post_meta( get_the_ID(), 'child_accepts', true );
+																							for ( $i = 1; $i <= $room_capacity; $i ++ ) { ?>
+                                                                                                <li>
+                                                                                                    <i class="fas fa-user"></i>
+                                                                                                </li>
+																							<?php } ?>
+                                                                                            +
+																							<?php for (
+																								$j = 1; $j <= $child;
+																								$j ++
+																							) { ?>
+                                                                                                <li><i class="fas
                                                                                             fa-child"></i></li>
-                                                                                       <?php }
-		                                                                                $curr_args = array(
-			                                                                                'ex_tax_label' => false,
-			                                                                                'currency'     => ''
-		                                                                                );
-		                                                                                 ?>
+																							<?php }
+																							$curr_args = array(
+																								'ex_tax_label' => false,
+																								'currency'     => ''
+																							);
+																							?>
                                                                                         </ul>
                                                                                     </div>
                                                                                     <div class="room-price-modal">
                                                                                         <p>Hurry! Limited left only
-                                                                                            <?php echo wc_price($price_value, $curr_args)?></p>
+																							<?php echo wc_price( $magemain->get_room_price( get_the_ID() ), $curr_args ) ?></p>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -477,10 +400,11 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 														'currency'     => ''
 													);
 													?>
-                                                    <span class="active_color"><?php echo wc_price( $price_value, $curr_args );; ?></span>
+                                                    <span class="active_color"><?php echo wc_price( $magemain->get_room_price( get_the_ID() ), $curr_args );; ?></span>
                                                     <input type="hidden" name="hotel_room_price[]"
-                                                           value="<?php echo $price_value; ?>">
-                                                    <p class="room-price" hidden><?php echo $price_value; ?></p>
+                                                           value="<?php echo $magemain->get_room_price( get_the_ID() ); ?>">
+                                                    <p class="room-price"
+                                                       hidden><?php echo $magemain->get_room_price( get_the_ID() ); ?></p>
                                                     <h6>Per night</h6>
                                                 </td>
                                                 <td class="whbmt_select_room_quantity">
@@ -520,7 +444,7 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                                             <span>Including tax & vat</span>
                                                             <button type="submit" name="add-to-cart" class="submit-to-cart
                                                     btn btn-default main_btn mt-2" value="<?php
-                                                            echo get_post_meta($post_id,'link_wc_product', true); ?>"><?php
+															echo get_post_meta( $post_id, 'link_wc_product', true ); ?>"><?php
 																esc_html_e( 'Book Now', 'whbm' ); ?></button>
                                                             <ul class="mt-2">
                                                                 <li>Free Cancelation</li>
@@ -548,13 +472,17 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 						?>
 
                         <div class="whbmt_travelling_package">
-                            <h2>Le Pavillon Luxury Hotel Facilities</h2>
+                            <h2><?php echo get_the_title($post_id) ?> Facilities</h2>
                             <div class="row">
                                 <div class="col-md-6">
                                     <ul>
-                                        <li>Relish candle light dinner on beach</li>
-                                        <li>Enjoy a splendid dolphin tour</li>
-                                        <li>Cover Gitgit Waterfall Twin Lake View</li>
+                                        <?php
+                                            $hotel_facilities = get_terms('mage_hotel_cat', true );
+                                            foreach ( $hotel_facilities as $facilities_value ) {?>
+                                                <li><?php echo $facilities_value->name ?></li>
+
+                                        <?php    }
+                                        ?>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
@@ -570,9 +498,14 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                             <div class="row">
                                 <div class="col-md-6">
                                     <ul>
-                                        <li>Relish candle light dinner on beach</li>
-                                        <li>Enjoy a splendid dolphin tour</li>
-                                        <li>Cover Gitgit Waterfall Twin Lake View</li>
+                                        <?php
+                                        $extra_features = maybe_unserialize(get_post_meta($post_id, 'extra_features', true));
+                                        write_log($extra_features);
+                                        foreach ($extra_features as $single_feature){?>
+                                            <li><?php echo $single_feature['text_field']?></li>
+                                    <?php  }
+                                        ?>
+
                                     </ul>
                                 </div>
                                 <div class="col-md-6">

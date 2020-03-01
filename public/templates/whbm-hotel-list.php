@@ -271,7 +271,8 @@ $loop               = new WP_Query( $args );
 															'ex_tax_label' => false,
 															'currency'     => ''
 														);
-														echo wc_price( min( $price_array ), $curr_args );
+														$min_price_starts = get_post_meta($hotel_id, 'min_price_starts', true);
+														echo wc_price($min_price_starts, $curr_args);
 														?></h3>
 													<?php
 													?>
