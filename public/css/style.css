@@ -625,7 +625,7 @@ a.scrollToTop {
     width: 42px;
     height: 42px;
     border-radius: 30px;
-    background: #40545e url("assets/img/up-arrow.png") no-repeat center 47%;
+    background: #40545e url("images/up-arrow.png") no-repeat center 47%;
     background-size: 18px 18px;
     text-indent: -9999px;
 }

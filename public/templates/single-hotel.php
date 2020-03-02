@@ -462,7 +462,6 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
 										$id ++;
 									}
 									?>
-
                                     </tbody>
                                 </table>
                             </form>
@@ -500,7 +499,6 @@ $destination_search = isset( $_GET['dest_name'] ) ? $_GET['dest_name'] : '';
                                     <ul>
                                         <?php
                                         $extra_features = maybe_unserialize(get_post_meta($post_id, 'extra_features', true));
-                                        write_log($extra_features);
                                         foreach ($extra_features as $single_feature){?>
                                             <li><?php echo $single_feature['text_field']?></li>
                                     <?php  }
