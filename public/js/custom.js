@@ -141,7 +141,36 @@
 			}
 		});
 
-		$('.whbmt_traveller_carousel').owlCarousel({
+		$('.whbmt_property_carousel').owlCarousel({
+			loop: true,
+			margin: 30,
+			autoplay: false,
+			autoplayTimeout: 2500,
+			autoplaySpeed: 2000,
+			nav: true,
+			items: 3,
+			dots: false,
+			navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+			responsive: {
+				0: {
+					items: 1,
+					nav: false
+				},
+				768: {
+					items: 2,
+					nav: false
+				},
+				991: {
+					items: 2,
+					nav: false
+				},
+				1000: {
+					items: 3
+				}
+			}
+		});
+
+		$('.whbmt_room_list_carousel').owlCarousel({
 			loop: true,
 			margin: 30,
 			autoplay: false,

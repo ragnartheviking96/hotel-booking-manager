@@ -130,8 +130,8 @@ class Mage_Plugin_Public {
 	 * @return string
 	 */
 	public function whbm_register_custom_tax_template( $template ) {
-		if ( is_tax( 'mage_hotel_cat' ) ) {
-			$template = WHBM_PLUGIN_DIR . 'public/templates/taxonomy-category.php';
+		if ( is_tax( 'mage_property_type' ) ) {
+			$template = WHBM_PLUGIN_DIR . 'public/templates/taxonomy-property-type.php';
 		}
 
 		return $template;
