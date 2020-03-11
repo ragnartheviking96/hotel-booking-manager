@@ -99,7 +99,7 @@ class WHBM_Plugin_Admin {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
-		wp_enqueue_script( 'jquery-ui-js', WHBM_PRO_PLUGIN_URL . 'admin/js/jquery-ui.js', array( 'jquery' ), $this->version );
+		wp_enqueue_script( 'jquery-ui-js', WHBM_PLUGIN_URL . 'admin/js/jquery-ui.js', array( 'jquery' ), $this->version );
 		wp_enqueue_script( 'magepeople-options-framework', plugins_url( 'assets/js/pickplugins-options-framework.js', __FILE__ ), array( 'jquery' ) );
 		wp_localize_script( 'PickpluginsOptionsFramework', 'PickpluginsOptionsFramework_ajax', array( 'PickpluginsOptionsFramework_ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 		wp_enqueue_script( 'select2.min', plugins_url( 'assets/js/select2.min.js', __FILE__ ), array( 'jquery' ) );

@@ -66,8 +66,7 @@ if ( ! empty( $_GET['dest_name'] ) ) {
                     <div class="whbmt_wrapper_off_left">
 
                         <form id="whbmt_off_left_form1"
-                              action="<?php echo get_site_url() . '/whbm-hotel-search-form/'
-						      ?>">
+                              action="<?php echo get_site_url() . '/whbm-hotel-search-form/' ?>">
                             <h4>Search</h4>
                             <div class="whbmt_form_off_left form_item_select_off_left">
                                 <div class="whbmt_custom_select_off_left">

@@ -42,6 +42,8 @@ class Mage_Plugin_Public {
 		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version , 'all');
 		wp_enqueue_style( 'slicknav', plugin_dir_url( __FILE__ ) . 'css/slicknav.min.css', array(), $this->version , 'all');
 		wp_enqueue_style( 'responsive', plugin_dir_url( __FILE__ ) . 'css/responsive.css', array(), $this->version , 'all');
+		wp_enqueue_style( 'vendor-dashboard', plugin_dir_url( __FILE__ ) . 'css/vendor-dashboard.css', array(),
+			$this->version,	'all' );
 		wp_enqueue_style( 'whbm-public-css', plugin_dir_url( __FILE__ ) . 'css/style.css', array(), $this->version, 'all' );
 	}
 
