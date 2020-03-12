@@ -78,6 +78,7 @@ select{
     box-shadow:none;
     -moz-box-shadow:none;
     -webkit-box-shadow:none;
+    cursor: pointer;
 }
 .form-style-1 .required{
     color:red;

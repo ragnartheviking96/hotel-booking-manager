@@ -47,15 +47,19 @@ function whbm_create_hotel_content() {
                     </td>
                     <td><?php
 						$mage_property_type = get_the_terms( get_the_ID(), 'mage_property_type' );
-						foreach ( $mage_property_type as $key => $value ) {
-							echo '<span>' . $value->name . '</span>';
+						if ( is_array( $mage_property_type ) || is_object( $mage_property_type ) ) {
+							foreach ( $mage_property_type as $key => $value ) {
+								echo '<span>' . $value->name . '</span>';
+							}
 						}
 						?></td>
                     <td>
 						<?php
 						$mage_hotel_type = get_the_terms( get_the_ID(), 'mage_hotel_type' );
-						foreach ( $mage_hotel_type as $key => $value ) {
-							echo '<span>' . $value->name . '</span>';
+						if ( is_array( $mage_hotel_type ) || is_object( $mage_hotel_type ) ) {
+							foreach ( $mage_hotel_type as $key => $value ) {
+								echo '<span>' . $value->name . '</span>';
+							}
 						}
 						?>
                     </td>
@@ -86,66 +90,6 @@ function add_hotel( $atts ) {
 		if ( $loop->post_count != 0 ) {
 			while ( $loop->have_posts() ) {
 				$loop->the_post();
-				?>
-                <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor Profile</p></a></button>
-                <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
-                <div class="hotel-form-section">
-                    <form action="" method="post">
-
-                        <ul class="form-style-1">
-                            <li><label><?php esc_html_e('Property Title', 'whbm');?><span class="required">*</span></label><input type="text" name="post-title" class="post-title" id="posttitle" value="<?php the_title() ?>">
-                            </li>
-                            <li>
-                                <label><?php esc_html_e('Property Description', 'whbm');?><span
-                                            class="required">*</span></label>
-                                <textarea name="content" placeholder="Enter Hotel Details..."
-                                          value="<?php echo get_post_field('post_content', get_the_ID());
-                                          ?>w"><?php echo get_post_field('post_content', get_the_ID());
-                                          ?></textarea>
-                            </li>
-                            <li><label><?php esc_html_e('Street', 'whbm');?></label><input type="text" name="address" class="address" id="address" value="<?php
-                                $address = get_post_meta(get_the_ID(), 'address', true);
-                                echo $address;
-                                ?>">
-                            </li>
-                            <li><label><?php esc_html_e('Street', 'whbm');?></label><input type="text" name="address" class="address" id="address" value="<?php
-		                        $address = get_post_meta(get_the_ID(), 'address', true);
-		                        echo $address;
-		                        ?>">
-                            </li>
-                            <li><label><?php esc_html_e('City', 'whbm');?></label><input type="text" name="city"
-                                                                                      class="city" id="city" value="<?php
-		                        $city = get_post_meta(get_the_ID(), 'city', true);
-		                        echo $city;
-		                        ?>">
-                            </li>
-                            <li><label><?php esc_html_e('State', 'whbm');?></label><input type="text" name="state"
-                                                                                      class="state" id="state" value="<?php
-		                        $state = get_post_meta(get_the_ID(), 'state', true);
-		                        echo $state;
-		                        ?>">
-                            </li>
-
-                            <li><label><?php esc_html_e('Country', 'whbm');?></label><input type="text" name="country"
-                                                                                          class="country" id="country" value="<?php
-		                        $country= get_post_meta(get_the_ID(), 'country', true);
-		                        echo $country;
-		                        ?>">
-                            </li>
-
-                            <li>
-                                <input type="submit" name="hotel-vendor"
-                                       value="<?php esc_html_e( 'Update', 'whbm' ); ?>"
-                                       class="hotel-vendor">
-                                <input type="hidden" name="action" value="new_post"/>
-								<?php wp_nonce_field( 'new-post' ); ?>
-                            </li>
-                        </ul>
-                    </form>
-
-                </div>
-
-				<?php
 				if ( 'POST' == $_SERVER['REQUEST_METHOD'] && ! empty( $_POST['action'] ) && $_POST['action'] == "new_post" && (
 						isset( $_GET['post_id'] ) && ! empty( $_GET['post_id'] ) ) ) {
 // Do some minor form validation to make sure there is content
@@ -154,8 +98,6 @@ function add_hotel( $atts ) {
 					// Add the content of the form to $post_to_edit array
 					$post_to_edit->post_title   = $_POST['post-title'];
 					$post_to_edit->post_content = $_POST['content'];
-
-
 					//save the edited post and return its ID
 					$pid = wp_update_post( $post_to_edit );
 
@@ -164,8 +106,98 @@ function add_hotel( $atts ) {
 					} else {
 						echo '<div id="message" class="updated notice notice-success is-dismissible"><p>' . esc_html_e( 'Post Updated Successfully. ', 'whbm' ) . '<a href="">View post</a></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
 					}
-
 				}
+				?>
+                <div class="create-product-vendor-section">
+                    <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor
+                                Profile</p></a></button>
+                    <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
+                    <button><a href="<?php the_permalink(); ?>" target=_blank><p><?php esc_html_e('View Hotel', 'whbm');
+                    ?></p></a></button>
+                    <div class="hotel-form-section">
+                        <form action="" method="post">
+
+                            <ul class="form-style-1">
+                                <li><label><?php esc_html_e( 'Property Title', 'whbm' ); ?><span
+                                                class="required">*</span></label><input type="text" name="post-title"
+                                                                                        class="post-title"
+                                                                                        id="posttitle"
+                                                                                        value="<?php the_title() ?>">
+                                </li>
+                                <li>
+                                    <label><?php esc_html_e( 'Property Description', 'whbm' ); ?><span
+                                                class="required">*</span></label>
+                                    <textarea name="content" placeholder="Enter Hotel Details..."
+                                              value="<?php echo get_post_field( 'post_content', get_the_ID() );
+									          ?>w"><?php echo get_post_field( 'post_content', get_the_ID() );
+										?></textarea>
+                                </li>
+                                <li><label><?php esc_html_e( 'Street', 'whbm' ); ?></label><input type="text"
+                                                                                                  name="address"
+                                                                                                  class="address"
+                                                                                                  id="address"
+                                                                                                  value="<?php
+								                                                                  $address = get_post_meta( get_the_ID(), 'address', true );
+								                                                                  echo $address;
+								                                                                  ?>">
+                                </li>
+                                <li><label><?php esc_html_e( 'City', 'whbm' ); ?></label><input type="text" name="city"
+                                                                                                class="city" id="city"
+                                                                                                value="<?php
+								                                                                $city = get_post_meta( get_the_ID(), 'city', true );
+								                                                                echo $city;
+								                                                                ?>">
+                                </li>
+                                <li><label><?php esc_html_e( 'State', 'whbm' ); ?></label><input type="text"
+                                                                                                 name="state"
+                                                                                                 class="state"
+                                                                                                 id="state"
+                                                                                                 value="<?php
+								                                                                 $state = get_post_meta( get_the_ID(), 'state', true );
+								                                                                 echo $state;
+								                                                                 ?>">
+                                </li>
+
+                                <li><label><?php esc_html_e( 'Country', 'whbm' ); ?></label><input type="text"
+                                                                                                   name="country"
+                                                                                                   class="country"
+                                                                                                   id="country"
+                                                                                                   value="<?php
+								                                                                   $country = get_post_meta( get_the_ID(), 'country', true );
+								                                                                   echo $country;
+								                                                                   ?>">
+                                </li>
+
+                                <li>
+                                    <label for="hotel_rules"><?php esc_html_e( 'Rules and don\'t or do,s', 'whbm' ); ?><span
+                                                class="required">*</span></label>
+                                    <textarea name="hotel_rules" placeholder="Enter Hotel Rules..."
+                                              class="hotel_rules" id="hotel_rules"
+                                              value="<?php echo get_post_meta( get_the_ID() , 'hotel_rules', true); ?>"><?php echo get_post_meta(get_the_ID() , 'hotel_rules',  true); ?></textarea>
+                                </li>
+
+                                <li>
+                                    <label for="price_starts_from"><?php esc_html_e( 'Minimum Price Starts from', 'whbm'
+                                        ); ?><span
+                                                class="required">*</span></label>
+                                    <input type="number" name="min_price_starts" class="price_starts_from" id="price_starts_from"
+                                           placeholder="Write down your Price"
+                                              value="<?php echo get_post_meta( get_the_ID() , 'min_price_starts', true); ?>"/>
+                                </li>
+
+                                <li>
+                                    <input type="submit" name="hotel-vendor"
+                                           value="<?php esc_html_e( 'Update', 'whbm' ); ?>"
+                                           class="hotel-vendor">
+                                    <input type="hidden" name="action" value="new_post"/>
+									<?php wp_nonce_field( 'new-post' ); ?>
+                                </li>
+                            </ul>
+                        </form>
+
+                    </div>
+                </div>
+				<?php
 
 			}
 		} else {
@@ -174,38 +206,59 @@ function add_hotel( $atts ) {
 
 	} else {
 		?>
-        <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor Profile</p></a></button>
-        <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
-        <div class="hotel-form-section">
-            <form action="" method="post">
+        <div class="create-product-vendor-section">
+            <div class="vendor-button-section">
+                <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor Profile</p></a></button>
+                <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
+            </div>
+            <div class="hotel-form-section">
+                <form action="" method="post">
 
-                <ul class="form-style-1">
-                    <li><label><?php esc_html_e('Property Title', 'whbm'); ?><span class="required">*</span></label><input type="text"
-                                                                                           name="post-title" class="post-title" id="posttitle" value="">
-                    </li>
-                    <li>
-                        <label><?php esc_html_e('Property Description', 'whbm'); ?><span
-                                    class="required">*</span></label>
-                        <textarea name="content" placeholder="Enter Hotel Details..." value=""></textarea>
-                    </li>
-                    <li><label><?php esc_html_e('Street', 'whbm');?></label><input type="text" name="address" class="address" id="address" value="">
-                    </li>
-                    <li><label><?php esc_html_e('City', 'whbm');?></label><input type="text" name="city" class="city" id="city" value="">
-                    </li>
-                    <li><label><?php esc_html_e('State', 'whbm');?></label><input type="text" name="state" class="state" id="state" value="">
-                    </li>
-                    <li><label><?php esc_html_e('Country', 'whbm');?></label><input type="text" name="country" class="country" id="country" value="">
-                    </li>
-                    <li>
-                        <input type="submit" name="hotel-vendor"
-                               value="<?php esc_html_e( 'Create New Property', 'whbm' ); ?>"
-                               class="hotel-vendor">
-                        <input type="hidden" name="action" value="new_post"/>
-						<?php wp_nonce_field( 'new-post' ); ?>
-                    </li>
-                </ul>
-            </form>
+                    <ul class="form-style-1">
+                        <li><label><?php esc_html_e( 'Property Title', 'whbm' ); ?><span
+                                        class="required">*</span></label><input type="text"
+                                                                                name="post-title" class="post-title"
+                                                                                id="posttitle" value="">
+                        </li>
+                        <li>
+                            <label><?php esc_html_e( 'Property Description', 'whbm' ); ?><span
+                                        class="required">*</span></label>
+                            <textarea name="content" placeholder="Enter Hotel Details..." value=""></textarea>
+                        </li>
+                        <li><label><?php esc_html_e( 'Street', 'whbm' ); ?></label><input type="text" name="address"
+                                                                                          class="address" id="address"
+                                                                                          value="">
+                        </li>
+                        <li><label><?php esc_html_e( 'City', 'whbm' ); ?></label><input type="text" name="city"
+                                                                                        class="city"
+                                                                                        id="city" value="">
+                        </li>
+                        <li><label><?php esc_html_e( 'State', 'whbm' ); ?></label><input type="text" name="state"
+                                                                                         class="state" id="state"
+                                                                                         value="">
+                        </li>
+                        <li><label><?php esc_html_e( 'Country', 'whbm' ); ?></label><input type="text" name="country"
+                                                                                           class="country" id="country"
+                                                                                           value="">
+                        </li>
 
+                        <li>
+                            <label><?php esc_html_e( 'Rules and don\'t or do,s', 'whbm' ); ?><span
+                                        class="required">*</span></label>
+                            <textarea name="hotel_rules" placeholder="Enter Hotel Rules" value=""></textarea>
+                        </li>
+
+                        <li>
+                            <input type="submit" name="hotel-vendor"
+                                   value="<?php esc_html_e( 'Create New Property', 'whbm' ); ?>"
+                                   class="hotel-vendor">
+                            <input type="hidden" name="action" value="new_post"/>
+							<?php wp_nonce_field( 'new-post' ); ?>
+                        </li>
+                    </ul>
+                </form>
+
+            </div>
         </div>
 	<?php }
 	if ( 'POST' == $_SERVER['REQUEST_METHOD'] && ! empty( $_POST['action'] ) && $_POST['action'] == "new_post" &&
@@ -222,6 +275,10 @@ function add_hotel( $atts ) {
 		} else {
 			echo 'Please enter the content';
 		}
+		$address = isset( $_POST['address'] ) ? $_POST['address'] : '';
+		$city    = isset( $_POST['city'] ) ? $_POST['city'] : '';
+		$state   = isset( $_POST['state'] ) ? $_POST['state'] : '';
+		$country = isset( $_POST['country'] ) ? $_POST['country'] : '';
 		// Add the content of the form to $post as an array
 		$new_post = array(
 			'post_title'   => $title,
@@ -231,10 +288,14 @@ function add_hotel( $atts ) {
 		);
 		//save the new post
 		$pid = wp_insert_post( $new_post );
+		add_post_meta( $pid, 'address', $address, true );
+		add_post_meta( $pid, 'city', $city, true );
+		add_post_meta( $pid, 'state', $state, true );
+		add_post_meta( $pid, 'country', $country, true );
 		if ( is_wp_error( $pid ) ) {
 			echo $pid->get_error_message();
 		} else {
-			echo '<div id="message" class="updated notice notice-success is-dismissible"><p>Post published. <a href="">View post</a></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+			echo '<div id="message" class="updated notice notice-success is-dismissible"><p>Post published. <a href="' . $pid . '">View post</a></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
 		}
 	}
 
