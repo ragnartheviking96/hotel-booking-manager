@@ -112,8 +112,9 @@ function add_hotel( $atts ) {
                     <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor
                                 Profile</p></a></button>
                     <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
-                    <button><a href="<?php the_permalink(); ?>" target=_blank><p><?php esc_html_e('View Hotel', 'whbm');
-                    ?></p></a></button>
+                    <button><a href="<?php the_permalink(); ?>" target=_blank>
+                            <p><?php esc_html_e( 'View Hotel', 'whbm' );
+								?></p></a></button>
                     <div class="hotel-form-section">
                         <form action="" method="post">
 
@@ -169,20 +170,64 @@ function add_hotel( $atts ) {
                                 </li>
 
                                 <li>
-                                    <label for="hotel_rules"><?php esc_html_e( 'Rules and don\'t or do,s', 'whbm' ); ?><span
+                                    <label for="hotel_rules"><?php esc_html_e( 'Rules and don\'t or do,s', 'whbm' ); ?>
+                                        <span
                                                 class="required">*</span></label>
                                     <textarea name="hotel_rules" placeholder="Enter Hotel Rules..."
                                               class="hotel_rules" id="hotel_rules"
-                                              value="<?php echo get_post_meta( get_the_ID() , 'hotel_rules', true); ?>"><?php echo get_post_meta(get_the_ID() , 'hotel_rules',  true); ?></textarea>
+                                              value="<?php echo get_post_meta( get_the_ID(), 'hotel_rules', true ); ?>"><?php echo get_post_meta( get_the_ID(), 'hotel_rules', true ); ?></textarea>
                                 </li>
 
                                 <li>
                                     <label for="price_starts_from"><?php esc_html_e( 'Minimum Price Starts from', 'whbm'
-                                        ); ?><span
+										); ?><span
                                                 class="required">*</span></label>
-                                    <input type="number" name="min_price_starts" class="price_starts_from" id="price_starts_from"
+                                    <input type="number" name="min_price_starts" class="price_starts_from"
+                                           id="price_starts_from"
                                            placeholder="Write down your Price"
-                                              value="<?php echo get_post_meta( get_the_ID() , 'min_price_starts', true); ?>"/>
+                                           value="<?php echo get_post_meta( get_the_ID(), 'min_price_starts', true ); ?>"/>
+                                </li>
+
+                                <li>
+                                    <div class="ex_feat">
+                                        <label for=""><?php esc_html_e( 'Add Extra Features', 'whbm' ); ?></label><span
+                                                class="time_input">
+                                            <span class="extra_feat_fields">
+                                            <?php
+
+                                            $ex_features = maybe_unserialize( get_post_meta( get_the_ID(), 'extra_features',
+	                                            true ) );
+
+                                            $last_count = isset( $ex_features['ex_feature_last_count'] ) ? $ex_features['ex_feature_last_count'] : 0;
+
+                                            if ( ! is_array( $ex_features ) ) {
+	                                            $ex_features = array();
+                                            }
+
+
+                                            foreach ( $ex_features as $key => $time ) {
+	                                            if ( "ex_feature_last_count" != $key ) {
+		                                            ?>
+                                                    <p>
+                        <input type="text" name="extra_features[<?php echo $key; ?>][text_field]"
+                               value="<?php echo $time['text_field']; ?>"
+                               class=" time_field"> -
+
+                        <input type="text" name="extra_features[<?php echo $key; ?>][number_field]"
+                               value="<?php echo $time['number_field']; ?>"
+                               class=" time_field">
+
+                        <a href="" class="button ex_feat_remove">
+                            <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>Remove</a>
+                    </p>
+                                                <?php }
+                                            } ?>
+                                                <a href="#" class="button ex_feat_add"><span class="dashicons dashicons-plus-alt" style="margin-top:3px;color: #00bb00;"></span>Add</a>
+                </span>
+
+                                    </div>
+                                    <input type="hidden" name="extra_features[ex_feature_last_count]"
+                                           class="ex_feature_last_count" value="<?php echo $last_count; ?>">
                                 </li>
 
                                 <li>
@@ -192,6 +237,7 @@ function add_hotel( $atts ) {
                                     <input type="hidden" name="action" value="new_post"/>
 									<?php wp_nonce_field( 'new-post' ); ?>
                                 </li>
+
                             </ul>
                         </form>
 
@@ -208,7 +254,8 @@ function add_hotel( $atts ) {
 		?>
         <div class="create-product-vendor-section">
             <div class="vendor-button-section">
-                <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor Profile</p></a></button>
+                <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor
+                            Profile</p></a></button>
                 <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
             </div>
             <div class="hotel-form-section">

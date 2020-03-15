@@ -81,6 +81,7 @@ class Mage_Plugin_Public {
 		$results_array = $this->whbm_get_location_meta();
 		//$autocomplete_array
 		wp_enqueue_script( 'whbm-public-js', plugin_dir_url( __FILE__ ) . 'js/mage-plugin-public.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'dashboard', plugin_dir_url( __FILE__ ) . 'js/dashboard.js', array( 'jquery' ), $this->version, true );
 		//write_log($results_array);
 		wp_localize_script( 'whbm-public-js', 'whbm_autocomplete', $results_array );
 		wp_localize_script('whbm-public-js', 'whbm_ajax_object', (array) admin_url( 'admin-ajax.php' ) );

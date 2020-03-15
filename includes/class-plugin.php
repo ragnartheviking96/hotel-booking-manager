@@ -34,7 +34,8 @@ class WHBM_Plugin {
 		require_once WHBM_PLUGIN_DIR . 'admin/class-plugin-admin.php';
 		require_once WHBM_PLUGIN_DIR . 'public/class-plugin-public.php';
 		require_once WHBM_PLUGIN_DIR . 'includes/wc_template.php';
-		require_once WHBM_PLUGIN_DIR . 'includes/dashboard/dashboard-menu.php';
+		require_once WHBM_PLUGIN_DIR . '/includes/dashboard/dashboard-menu.php';
+		//write_log(WHBM_PLUGIN_DIR . 'includes/dashboard/dashboard-menu.php');
 		$this->loader = new WHBM_Plugin_Loader();
 	}
 

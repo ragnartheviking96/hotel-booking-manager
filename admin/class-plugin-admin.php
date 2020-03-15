@@ -29,7 +29,7 @@ class WHBM_Plugin_Admin {
 		add_action( 'untrash_post', array( $this, 'whbm_booking_info_untrash' ), 90 );
 		add_action( 'save_post', array( $this, 'whbm_wc_link_product_on_save' ), 99, 1 );
 		add_action( 'wp_insert_post', array( $this, 'whbm_on_post_publish' ), 10, 3 );
-		//add_action( 'parse_query', array( $this, 'whbm_product_tags_sorting_query' ) );
+		add_action( 'parse_query', array( $this, 'whbm_product_tags_sorting_query' ) );
 
 		//add_action('init', array($this, 'create_default_terms_rating'));
 	}

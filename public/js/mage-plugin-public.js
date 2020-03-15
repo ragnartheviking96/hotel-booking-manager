@@ -81,13 +81,13 @@
         var yyyy = today.getFullYear();
         today = yyyy + '/' + mm + '/' + dd;
 
-        $(".custom_whbm, #daterange").dateRangePicker({
+        /*$("#daterange").dateRangePicker({
             language: 'en',
             monthSelect: true,
             yearSelect: true,
             startDate: today,
             minDays: 1,
-        });
+        });*/
 
         $('#qty-section').click(function () {
             $('.adult-child-input').toggle();
