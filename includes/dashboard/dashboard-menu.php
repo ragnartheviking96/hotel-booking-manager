@@ -98,8 +98,12 @@ function add_hotel( $atts ) {
 					// Add the content of the form to $post_to_edit array
 					$post_to_edit->post_title   = $_POST['post-title'];
 					$post_to_edit->post_content = $_POST['content'];
+					$hotel_quality_terms = isset( $_POST['mage_hotel_type'] ) ? $_POST['mage_hotel_type'] : '';
 					//save the edited post and return its ID
+
 					$pid = wp_update_post( $post_to_edit );
+					//$ex_array = array('1 Star', '3 Star');
+					wp_set_object_terms($pid, $hotel_quality_terms, 'mage_hotel_type');
 
 					if ( is_wp_error( $pid ) ) {
 						echo $pid->get_error_message();
@@ -109,12 +113,14 @@ function add_hotel( $atts ) {
 				}
 				?>
                 <div class="create-product-vendor-section">
-                    <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor
-                                Profile</p></a></button>
-                    <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a></button>
-                    <button><a href="<?php the_permalink(); ?>" target=_blank>
-                            <p><?php esc_html_e( 'View Hotel', 'whbm' );
-								?></p></a></button>
+                    <div class="vendor-button-section">
+                        <button><a href="<?php echo get_site_url() ?>/my-account/hotel-vendor/"><p>Back To Your Vendor
+                                    Profile</p></a></button>
+                        <button><a href="<?php echo get_site_url() ?>/create-hotel/"><p>Create New Hotel</p></a>
+                        </button>
+                        <button><a href="<?php the_permalink(); ?>" target=_blank>
+                                <p><?php esc_html_e( 'View Hotel', 'whbm' ); ?></p></a></button>
+                    </div>
                     <div class="hotel-form-section">
                         <form action="" method="post">
 
@@ -209,26 +215,102 @@ function add_hotel( $atts ) {
 	                                            if ( "ex_feature_last_count" != $key ) {
 		                                            ?>
                                                     <p>
-                        <input type="text" name="extra_features[<?php echo $key; ?>][text_field]"
+                                                        <label for="extra_features_text">Feature Name</label>
+                        <input type="text" id="extra_features_text" name="extra_features[<?php echo $key;
+                        ?>][text_field]"
                                value="<?php echo $time['text_field']; ?>"
                                class=" time_field"> -
 
-                        <input type="text" name="extra_features[<?php echo $key; ?>][number_field]"
-                               value="<?php echo $time['number_field']; ?>"
-                               class=" time_field">
+                        <label for="extra_features_number">Price</label>
+                        <input type="number" id="extra_features_number" name="extra_features[<?php echo $key;
+                        ?>][number_field]" value="<?php
+                        echo $time['number_field']; ?>" class=" time_field">
+
 
                         <a href="" class="button ex_feat_remove">
-                            <span class="dashicons dashicons-trash" style="margin-top: 3px;color: red;"></span>Remove</a>
+                            <span class="dashicons dashicons-trash"
+                                  style="margin-top: 3px;color: red;"></span>Remove</a>
                     </p>
-                                                <?php }
+	                                            <?php }
                                             } ?>
-                                                <a href="#" class="button ex_feat_add"><span class="dashicons dashicons-plus-alt" style="margin-top:3px;color: #00bb00;"></span>Add</a>
+                                                <a href="#" class="button ex_feat_add"><span
+                                                            class="dashicons dashicons-plus-alt"
+                                                            style="margin-top:3px;color: #00bb00;"></span>Add</a>
                 </span>
 
                                     </div>
                                     <input type="hidden" name="extra_features[ex_feature_last_count]"
                                            class="ex_feature_last_count" value="<?php echo $last_count; ?>">
                                 </li>
+
+                                <li>
+                                    <div class="hotel_faq">
+                                        <label for=""><?php esc_html_e( 'Add FAQ', 'whbm' ); ?></label>
+                                        <span class="hotel_faq_input">
+                                    <span class="faq_fields">
+                                        <?php
+                                        $ex_features = maybe_unserialize( get_post_meta( get_the_ID(), 'hotel_faq',
+	                                        true ) );
+
+                                        $last_count = isset( $ex_features['faq_last_count'] ) ? $ex_features['faq_last_count'] : 0;
+
+                                        if ( ! is_array( $ex_features ) ) {
+	                                        $ex_features = array();
+                                        }
+
+
+                                        foreach ( $ex_features as $key => $time ) {
+	                                        if ( "faq_last_count" != $key ) {
+		                                        ?>
+                                                <p>
+                                                        <label for="hotel_faq_text">FAQ Title</label>
+                        <input type="text" id="hotel_faq_text"
+                               name="hotel_faq[<?php echo $key; ?>][text_field]"
+                               value="<?php echo $time['text_field']; ?>"
+                               class="faq_text_field">
+                        <label for="hotel_faq_number">Possible Answer</label>
+                                                        <input type="text" id="hotel_faq_number"
+                                                               name="hotel_faq[<?php echo $key; ?>][number_field]"
+                                                               value="<?php echo $time['number_field']; ?>"
+                                                               class="faq_number_field">
+
+                        <a href="" class="button faq_remove">
+                            <span class="dashicons dashicons-trash"
+                                  style="margin-top: 3px;color: red;"></span>Remove</a>
+                    </p>
+	                                        <?php }
+                                        } ?>
+                                        <a href="#" class="button faq_add"><span class="dashicons dashicons-plus-alt"
+                                                                                 style="margin-top:3px;color: #00bb00;"></span>Add</a>
+                </span>
+
+                                    </div>
+                                    <input type="hidden" name="hotel_faq[faq_last_count]"
+                                           class="faq_last_count" value="<?php echo $last_count; ?>">
+                                </li>
+
+                                <li>
+                            <h4>Hotel Quality Rating</h4>
+                            <?php
+                            $mage_hotel_type = get_terms([
+                                    'taxonomy' => 'mage_hotel_type',
+                                    'hide_empty' => false
+                                    ]);
+                            $saved_terms = get_the_terms( get_the_ID(), 'mage_hotel_type', false );
+
+                                if ( is_array( $mage_hotel_type ) || is_object( $mage_hotel_type ) ) {
+                                    $i = 1;
+                                foreach ($mage_hotel_type as $key=>$value){?>
+                                    <label for="hotel_terms_<?php echo $i?>"><input type="checkbox" name="mage_hotel_type[]"
+                                    id="hotel_terms_<?php echo $i?>" value="<?php echo $value->name?>"><?php echo
+                                    $value->name?></label>
+                            <?php
+                                $i++;
+                                }
+                                }
+                            ?>
+
+                        </li>
 
                                 <li>
                                     <input type="submit" name="hotel-vendor"
@@ -296,12 +378,84 @@ function add_hotel( $atts ) {
                         </li>
 
                         <li>
+                            <div class="ex_feat">
+                                <label for=""><?php esc_html_e( 'Add Extra Features', 'whbm' ); ?></label><span
+                                        class="time_input">
+                                            <span class="extra_feat_fields">
+                                            <?php
+
+                                            $ex_features = maybe_unserialize( get_post_meta( get_the_ID(), 'extra_features',
+	                                            true ) );
+                                            $last_count = isset( $ex_features['ex_feature_last_count'] ) ?
+                                                $ex_features['ex_feature_last_count'] : 0;
+
+                                            if ( ! is_array( $ex_features ) ) {
+	                                            $ex_features = array();
+                                            }
+                                            ?>
+                                                <a href="#" class="button ex_feat_add"><span
+                                                            class="dashicons dashicons-plus-alt"
+                                                            style="margin-top:3px;color: #00bb00;"></span>Add</a>
+                </span>
+
+                            </div>
+                            <input type="hidden" name="extra_features[ex_feature_last_count]"
+                                   class="ex_feature_last_count" value="<?php echo $last_count; ?>">
+                        </li>
+
+                        <li>
+                            <div class="hotel_faq">
+                                <label for=""><?php esc_html_e( 'Add FAQ', 'whbm' ); ?></label>
+                                <span class="hotel_faq_input">
+                                    <span class="faq_fields">
+                                        <?php
+                                        $ex_features = maybe_unserialize( get_post_meta( get_the_ID(), 'hotel_faq',
+	                                        true ) );
+
+                                        $last_count = isset( $ex_features['faq_last_count'] ) ? $ex_features['faq_last_count'] : 0;
+
+                                        if ( ! is_array( $ex_features ) ) {
+	                                        $ex_features = array();
+                                        }
+                                        ?>
+                                        <a href="#" class="button faq_add"><span class="dashicons dashicons-plus-alt"
+                                                                                 style="margin-top:3px;color: #00bb00;"></span>Add</a>
+                </span>
+
+                            </div>
+                            <input type="hidden" name="hotel_faq[faq_last_count]"
+                                   class="faq_last_count" value="<?php echo $last_count; ?>">
+                        </li>
+
+                        <li>
+                            <h4>Hotel Quality Rating</h4>
+                            <?php
+                            $mage_hotel_type = get_terms([
+                                    'taxonomy' => 'mage_hotel_type',
+                                    'hide_empty' => false
+                                    ]);
+                                if ( is_array( $mage_hotel_type ) || is_object( $mage_hotel_type ) ) {
+                                    $i = 1;
+                                foreach ($mage_hotel_type as $key=>$value){?>
+                                    <label for="hotel_terms_<?php echo $i?>"><input type="checkbox" name="tax_input[mage_hotel_type][]"
+                                    id="hotel_terms_<?php echo $i?>" value="<?php echo $value->term_id?>"><?php echo
+                                    $value->name?></label>
+                            <?php
+                                $i++;
+                                }
+                                }
+                            ?>
+
+                        </li>
+
+                        <li>
                             <input type="submit" name="hotel-vendor"
                                    value="<?php esc_html_e( 'Create New Property', 'whbm' ); ?>"
                                    class="hotel-vendor">
                             <input type="hidden" name="action" value="new_post"/>
 							<?php wp_nonce_field( 'new-post' ); ?>
                         </li>
+
                     </ul>
                 </form>
 
@@ -326,6 +480,10 @@ function add_hotel( $atts ) {
 		$city    = isset( $_POST['city'] ) ? $_POST['city'] : '';
 		$state   = isset( $_POST['state'] ) ? $_POST['state'] : '';
 		$country = isset( $_POST['country'] ) ? $_POST['country'] : '';
+		$extra_features = isset( $_POST['extra_features'] ) ? $_POST['extra_features'] : '';
+		$hotel_faq = isset( $_POST['hotel_faq'] ) ? $_POST['hotel_faq'] : '';
+		$hotel_faq = isset( $_POST['hotel_faq'] ) ? $_POST['hotel_faq'] : '';
+		$hotel_quality_terms = isset( $_POST['tax_input'] ) ? $_POST['tax_input'] : '';
 		// Add the content of the form to $post as an array
 		$new_post = array(
 			'post_title'   => $title,
@@ -333,24 +491,23 @@ function add_hotel( $atts ) {
 			'post_status'  => 'pending',           // Choose: publish, preview, future, draft, etc.
 			'post_type'    => 'mage_hotel'  //'post',page' or use a custom post type if you want to
 		);
+       /* echo '<pre>';
+		print_r($hotel_quality_terms);
+		die();*/
 		//save the new post
 		$pid = wp_insert_post( $new_post );
 		add_post_meta( $pid, 'address', $address, true );
 		add_post_meta( $pid, 'city', $city, true );
 		add_post_meta( $pid, 'state', $state, true );
 		add_post_meta( $pid, 'country', $country, true );
+		add_post_meta( $pid, 'extra_features', $extra_features );
+		add_post_meta( $pid, 'hotel_faq', $hotel_faq );
+		wp_set_post_terms($pid, $hotel_quality_terms, 'mage_hotel_type');
 		if ( is_wp_error( $pid ) ) {
 			echo $pid->get_error_message();
 		} else {
 			echo '<div id="message" class="updated notice notice-success is-dismissible"><p>Post published. <a href="' . $pid . '">View post</a></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
 		}
 	}
-
-	/*if ( 'POST' == $_SERVER['REQUEST_METHOD'] && ! empty( $_POST['action'] ) && $_POST['action'] == "new_post" && (
-			isset( $_GET['post_id'] ) && ! empty( $_GET['post_id'] ) ) ) {
-
-
-	}*/
-
 	return ob_get_clean();
 }

@@ -1,0 +1,12 @@
+.create-product-vendor-section{
+    width: 1000px;
+    padding: 0px 100px;
+    margin: 40px 100px;
+    background: darkseagreen;
+}
+.form-style-1 li label{
+    color:#FEFEFE !important;
+}
+.vendor-button-section{
+    margin-left: 18px;
+}
